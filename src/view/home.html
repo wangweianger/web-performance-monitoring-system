@@ -1,0 +1,15 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/home.css">
+<div class="container home" >
+	<% datas.datas.forEach(function (item) {%> 
+		<ul>
+			<li>姓名：<%= item.name %>  ------ 年龄：<%= item.age %></li>
+		</ul>
+
+	<% })%>  
+    0000 0000
+</div>
+<script src="/js/view-home.js"></script>
+<%- include("./footer.html") %>

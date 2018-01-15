@@ -1,13 +1,47 @@
 <%- include("./header.html") %>
 <!-- 样式 -->
-<link rel="stylesheet" href="/css/front-home.css">
-<div class="main" id="home" >
-	<% datas.datas.forEach(function (item) {%> 
-		<ul>
-			<li>姓名：<%= item.name %>  ------ 年龄：<%= item.age %></li>
-		</ul>
-
-	<% })%>   
+<link rel="stylesheet" href="/css/index.css">
+<div class="container index" >
+	<div class="title">
+        <h1>应用列表</h1>
+        <div class="search">
+            <button class="cursor">+添加应用</button>
+            <span class="reload cursor iconfont">&#xe6ea;</span>
+            <div class="select">
+                <span class="times"><span class="iconfont">&#xe675;</span>最近30分钟<span class="iconfont">&#xe698;</span></span>
+                <div class="select-time">
+                    <li>30分钟</li>
+                    <li>1小时</li>
+                    <li>6小时</li>
+                    <li>12小时</li>
+                    <li>1天</li>
+                    <li>7天</li>
+                    <li>30天</li>
+                    <li>自定义</li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="list">
+        <table class="table">
+            <tr class="head">
+                <th>应用名称</th>
+                <th>应用链接</th>
+                <th>页面访问量</th>
+                <th>Ajax调用量</th>
+                <th>JS错误</th>
+                <th>设置</th>
+            </tr>
+            <tr class="body">
+                <td><a href=""><span class="yingyong iconfont">&#xe675;</span>DMS分销系统</a></td>
+                <td>http://www.seosiwei.com/</td>
+                <td>120</td>
+                <td>500</td>
+                <td>3</td>
+                <td><span class="active iconfont">&#xe6b8;</span></td>
+            </tr>
+        </table>
+        <div class="mt30 tc">暂无应用，去添加一个吧</div>
+    </div>
 </div>
-<script src="/js/front-home.js"></script>
 <%- include("./footer.html") %>

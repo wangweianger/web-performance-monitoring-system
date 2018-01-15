@@ -12,7 +12,7 @@ fieldset, img { border: 0; }
 li { list-style: none; }
 input, textarea, select { font-family: inherit; font-size: inherit; font-weight: inherit; outline: none; -webkit-appearence: none; -ms-appearence: none; }
 button, html input[type="button"], input[type="reset"], input[type="submit"] { border: none; background: none; -webkit-appearance: none; outline: none; }
-a { -webkit-touch-callout: none; text-decoration: none; outline: 0; color:#333;text-decoration:none;}
+a { -webkit-touch-callout: none; text-decoration: none; outline: 0; color:#447ED9;text-decoration:none;}
 em, i { font-style: normal; }
 iframe { display: none; } 
 ::-webkit-input-placeholder {color: #999;}
@@ -20,6 +20,34 @@ iframe { display: none; }
   vertical-align: middle;
   text-align: center; 
 }
+
+table.table{
+    background: #fff;
+    border:solid 1px #eee;
+    width:100%;
+    .head{
+        background:#eee;
+    }
+    tr{
+        border:solid 1px #eee;
+        th{
+            font-size:13px;
+            font-weight:bold;
+            padding:8px 0;
+        }
+        th:nth-child(odd){
+            background:#f5f5f5;
+        }
+        th:nth-child(even){
+            background:#eee;
+        }
+        td{
+            font-size:13px;
+            padding:6px 5px;
+        }
+    }
+};
+
 //禁止选中样式
 .user_select{
   -moz-user-select: none;
@@ -29,7 +57,7 @@ iframe { display: none; }
   -ms-user-select:none;
   user-select:none;
 }
-
+ 
 //等待加载样式
 #loading{display:none;background: url(/images/common/loading-2.gif) rgba(0,0,0,.5) no-repeat center center;position: fixed;width: 100%;height: 100%;top:0;left:0;z-index:1000000;}
 //--------等待加载样式结束---------
@@ -37,8 +65,8 @@ iframe { display: none; }
 .clearfix{clear:both;}
 //字体相关样式
 html,body {
-  color: #333 !important;
-  background:#f4f4f4;
+    color: #333;
+    background:#fff;
 }
 a:hover{text-decoration:none;}
 .tl{text-align:left;}
@@ -76,11 +104,11 @@ a:hover{text-decoration:none;}
 //阿里icon样式
 @font-face {
   font-family: 'iconfont';  /* project id 541911 */
-  src: url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.eot');
-  src: url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_541911_25mkj5i1gojemi.eot');
+  src: url('//at.alicdn.com/t/font_541911_25mkj5i1gojemi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_541911_25mkj5i1gojemi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_541911_25mkj5i1gojemi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_541911_25mkj5i1gojemi.svg#iconfont') format('svg');
 }
                     
 @mixin icon-font ($sizing) {

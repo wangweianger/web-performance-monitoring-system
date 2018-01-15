@@ -10,24 +10,19 @@ const minifyCss = require('gulp-clean-css')
 const concat = require('gulp-concat')
 const htmlmin = require('gulp-htmlmin')
 const clean = require('gulp-clean')
+const browserSync = require("browser-sync").create();
 
 let buildUrl = './dist/build'
 
 /*---------------------------------------------dev------------------------------------------------------------------*/
-var jsScript = 'node'
-if (process.env.npm_config_argv !== undefined && process.env.npm_config_argv.indexOf('debug') > 0) {
-    jsScript = 'node debug'
-}
 gulp.task('nodemon', function() {
     return nodemon({
         script: 'build/server.js',
         restartable:'rs',
-        execMap: {
-            js: jsScript
-        },
+        execMap: { js: 'node' },
         verbose: true,
         ignore: ['build/*.js', 'dist/*.js', 
-            'src/assets/css/**',
+            'src/assets/**',
             'nodemon.json', '.git', 'node_modules/**/node_modules', 
             'gulpfile.js'
         ],
@@ -38,11 +33,28 @@ gulp.task('nodemon', function() {
     })
 })
 
+// 自动刷新页面太慢
+// gulp.task('server', ["nodemon"], function() {
+//     var files = [
+//         'src/**/*.html',
+//     ];
+//     browserSync.init(files, {
+//         proxy: 'http://localhost:18080',
+//         browser: 'chrome',
+//         notify: true,
+//         port: 8080
+//     });
+
+//     gulp.watch(files).on("change", browserSync.reload); 
+// });
+
+
 gulp.task('sass', function() {
     return gulp.src(['./src/assets/sass/*.scss'])
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./src/assets/css'));
 });
+
 gulp.task('watch', function() {
     return gulp.watch('./src/assets/sass/*.scss', ['sass']);
 });
