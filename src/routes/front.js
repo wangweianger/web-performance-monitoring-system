@@ -32,7 +32,7 @@ router.get(['/'], async(ctx, next) => {
 		}],
 	}
 
-	await ctx.render('front/index',{
+	await ctx.render('index',{
 		datas:datas
 	}); 
 });

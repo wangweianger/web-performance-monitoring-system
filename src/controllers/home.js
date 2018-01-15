@@ -1,12 +1,12 @@
 import moment from 'moment'
 import {
     SYSTEM
-} from '../../config'
+} from '../config'
 import {
     util,
     mysql,
     getsql,
-} from '../../tool'
+} from '../tool'
 
 class detail {
 

@@ -52,3 +52,5 @@ export let NODEMAILER = {
 	// 邮箱密码
 	PASSWORD: '132456',
 }
+
+
