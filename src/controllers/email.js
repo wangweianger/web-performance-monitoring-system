@@ -15,7 +15,6 @@ class Nodermailer {
 
     };
 
-
     // send Email           
     async sendEmail(ctx, next) {
         try {
@@ -109,6 +108,5 @@ class Nodermailer {
     }
 
 };
-
 
 module.exports = new Nodermailer();

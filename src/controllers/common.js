@@ -1,7 +1,5 @@
 import {
     util,
-    mysql,
-    getsql,
     qiniu,
 } from '../tool'
 import {
@@ -11,7 +9,6 @@ import {
 class common {
 
     constructor() {
-
     }
 
     // 验证github来源信息
@@ -146,3 +143,4 @@ class common {
 }
 
 module.exports = new common();
+

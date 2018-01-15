@@ -72,4 +72,24 @@ a:hover{text-decoration:none;}
 .bold{font-weight:bold;}
 .red{color:red;}
 
-@import "common.scss"
+
+//阿里icon样式
+@font-face {
+  font-family: 'iconfont';  /* project id 541911 */
+  src: url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.eot');
+  src: url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.woff') format('woff'),
+  url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_541911_806obekcqgnqxgvi.svg#iconfont') format('svg');
+}
+                    
+@mixin icon-font ($sizing) {
+    font-family:"iconfont";
+  font-size:$sizing;
+  font-style:normal;
+  vertical-align: middle;
+}
+.iconfont{@include icon-font(16px)}
+//------阿里icon样式结束--------
+
+@import 'common.scss';
