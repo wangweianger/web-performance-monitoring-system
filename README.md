@@ -14,11 +14,11 @@
 
 ### 项目说明
 ```html
-	项目使用babel编译
-	项目通过gulp-nodemon 实时编译刷新node服务
-	提供了mysql的封装函数 和案例 （我自己开发使用时做的）
-	提供了邮件发送 nodemailer 配置
-	提供了七牛云上传JDK
+项目使用babel编译
+项目通过gulp-nodemon 实时编译刷新node服务
+提供了mysql的封装函数 和案例 （我自己开发使用时做的）
+提供了邮件发送 nodemailer 配置
+提供了七牛云上传JDK
 
 ```
 
@@ -26,13 +26,13 @@
 
 ##运行方式
 ```js
-	开发环境：npm run dev
+开发环境：npm run dev
 
-	打包：npm run build
+打包：npm run build
 
-	启动项目：npm run server
+启动项目：npm run server
 
-	pm2启动方式：npm run pm2
+pm2启动方式：npm run pm2
 
 ```
 
