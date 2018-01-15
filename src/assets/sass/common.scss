@@ -1,0 +1,15 @@
+/*回到顶部CSS*/
+#hddb {
+   width:40px;
+   height:40px;
+   background:url(/images/common/totop.png) no-repeat left top;
+   background-size:100% 100%;
+   position: fixed;
+   right:10px;
+   bottom:50px;
+   display:none;
+   cursor: pointer;
+   z-index:100;
+}
+
+

@@ -1,0 +1,32 @@
+#home .search {
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px 30px;
+  overflow: hidden;
+  position: relative; }
+  #home .search .common {
+    float: left; }
+    #home .search .common h1 {
+      font-size: 18px;
+      font-weight: bold; }
+    #home .search .common ul {
+      overflow: hidden;
+      margin-top: 15px; }
+    #home .search .common li {
+      display: inline-block;
+      padding: 3px 5px;
+      margin-right: 10px;
+      font-size: 14px;
+      cursor: pointer; }
+      #home .search .common li.active {
+        background: red;
+        color: #fff; }
+        #home .search .common li.active a {
+          color: #fff; }
+  #home .search .left {
+    width: 45%; }
+  #home .search .right {
+    width: 55%;
+    border-left: solid 1px #ddd;
+    padding-left: 20px; }

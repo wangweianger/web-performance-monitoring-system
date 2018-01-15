@@ -1,0 +1,7 @@
+.copot{width:1000px;overflow:hidden;margin:20px auto;}
+#copot-page{color:#333;font-size:16px;}
+#copot-page a{color:#333;display:inline-block;padding:8px 15px;border:solid 1px #ddd;margin-right:5px;
+	text-decoration:none;font-size:12px; transition: all .3s ease;}
+#copot-page a:hover{background:#44a5de;color:#fff;}
+#copot-page a.nowPage{background:#44a5de;border:solid 1px #44a5de;color: #fff;} 
+#copot-page .page-msg {margin-left: 15px;}

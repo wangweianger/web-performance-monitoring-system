@@ -1,0 +1,33 @@
+*{padding:0;margin:0;font-family:"微软雅黑";}
+.floatRight{float:right;}
+.PopLayer-alert{width:500px;height:300px;margin:-150px 0 0 -250px;border:solid 3px #eee;position:fixed;left:50%;top:50%;z-index:1000001;background:#fff;filter:alpha(opacity=0);opacity:0;
+	box-shadow:0 0 10px #888;color:#000;
+}
+.PopLayer-mask{width:100%;height:100%;position:fixed;left:0;top:0;z-index:1000;background:#000;filter:alpha(opacity=20);opacity:0.2;cursor:pointer;}
+.PopLayer-h1{width:100%;height:35px;line-height:35px;text-indent:10px;background:#fff;border-bottom:solid 1px #ddd;position:relative;font-size:14px;font-weight:bold;}
+.PopLayer-h1 span{font-weight:100;font-size:10px;display:block;width:20px;height:20px;position:absolute;right:15px;top:8px;overflow:hidden;
+	background:url(/images/common/PopLayer-close.png) no-repeat center center;cursor:pointer;
+}
+.PopLayer-body{overflow:hidden;padding:20px 0;}
+.PopLayer-body span{width:40px;height:40px;display:inline-block;background:url(/images/common/icon.png) no-repeat 0px -85px;float:left;margin:0px 5px 0 12%;}
+.PopLayer-body-success span{background:url(/images/common/icon.png) no-repeat 0px -85px;}
+.PopLayer-body-error span{background:url(/images/common/icon.png) no-repeat -45px -85px;}
+.PopLayer-body-msg span{background:url(/images/common/icon.png) no-repeat -145px -85px;}
+.PopLayer-body-confirm span{background:url(/images/common/icon.png) no-repeat -126px 0;}
+.PopLayer-body-miss{padding-top:25px;}
+.PopLayer-body-miss span{background:url(/images/common/icon.png) no-repeat 0px -85px;}
+.PopLayer-body-loading {padding:35px 0 0 40px;}
+.PopLayer-body-loading img {float:left;margin-right:10px;}
+
+.PopLayer-body  b {width:auto;font-weight:100;margin-top:7px;float:left;font-size:15px;}
+.PopLayer-bottom{width:100%;height:45px;position:absolute;left:0;bottom:0;border-top:solid 1px #ddd;}
+.PopLayer-bottom div{cursor:pointer;text-align:center;line-height:45px;}
+.PopLayer-bottom-left{width:50%;height:100%;border-right:solid 1px #ddd;float:left;}
+.PopLayer-bottom-right{width:48%;float:right;}
+.PopLayer-pageHtml{display:none;}
+.PopLayer-HTML{margin-top:10px;font-size:14px;padding:0 15px;overflow:auto;}
+
+
+
+
+

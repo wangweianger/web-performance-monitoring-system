@@ -1,0 +1,56 @@
+.back-main .topd {
+  font-size: 18px;
+  cursor: pointer;
+  overflow: hidden; }
+  .back-main .topd span {
+    float: left; }
+  .back-main .topd .icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-left: 5px;
+    margin-top: 3px;
+    background: url("/images/back/add.png") no-repeat center center;
+    background-size: 100% 100%; }
+
+.avator-wapper {
+  overflow: hidden;
+  padding: 20px 30px; }
+  .avator-wapper .block .left {
+    display: inline-block;
+    width: 80px;
+    text-align: right;
+    padding-right: 10px; }
+  .avator-wapper .block input {
+    width: 250px;
+    height: 35px;
+    padding-left: 10px;
+    border: solid 1px #ddd; }
+  .avator-wapper .submit {
+    margin-top: 30px; }
+    .avator-wapper .submit button {
+      border: solid 1px #ddd;
+      font-size: 14px;
+      margin-right: 15px;
+      padding: 8px 15px;
+      cursor: pointer; }
+      .avator-wapper .submit button.moco-btn-blue {
+        background: #3497DB;
+        border: solid 2px #3497DB;
+        color: #fff;
+        padding: 8px 20px; }
+
+#explain h1 {
+  font-size: 18px; }
+
+#explain #editor {
+  background: #fff;
+  width: 1000px;
+  margin: 20px 0; }
+
+#explain button {
+  padding: 15px 30px;
+  background: #3497DB;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer; }

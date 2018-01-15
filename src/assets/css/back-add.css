@@ -1,0 +1,53 @@
+.back-main .h1 {
+  font-size: 18px;
+  padding-bottom: 10px; }
+
+.back-main .content .block {
+  margin-top: 20px;
+  overflow: hidden;
+  line-height: 35px; }
+  .back-main .content .block .left {
+    float: left;
+    display: block;
+    width: 150px;
+    text-align: right;
+    padding-right: 20px;
+    line-height: 35px; }
+  .back-main .content .block .right {
+    float: left;
+    width: 80%;
+    background: #fff;
+    position: relative; }
+    .back-main .content .block .right .img-val {
+      width: 350px;
+      height: 300px;
+      cursor: pointer; }
+    .back-main .content .block .right .click-update {
+      position: absolute;
+      left: 0;
+      bottom: 13px;
+      display: block;
+      width: 350px;
+      height: 35px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 13px;
+      text-align: center;
+      line-height: 35px; }
+  .back-main .content .block .from-col {
+    border: solid 1px #ddd;
+    min-height: 35px;
+    padding: 10px; }
+
+.back-main .content .tijiao {
+  margin-left: 150px; }
+  .back-main .content .tijiao button {
+    border: solid 1px #ddd;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer; }
+    .back-main .content .tijiao button.submit {
+      background: #3497DB;
+      color: #fff;
+      padding: 10px 20px;
+      margin-right: 10px; }
