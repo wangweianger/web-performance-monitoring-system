@@ -37,6 +37,16 @@ router.get(['/'], async(ctx, next) => {
 	}); 
 });
 
+/*登录*/
+router.get(['/login'], async(ctx, next) => {
+	let datas = {
+		title:'用户登录',
+	}
+
+	await ctx.render('login',{
+		datas:datas
+	}); 
+});
 
 
 module.exports = router
