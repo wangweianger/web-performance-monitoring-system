@@ -2,7 +2,13 @@ new Vue({
     el: '#addSystem',
     data: function(){
         return{
-            
+            systemDomain:'',
+            systemName:'',
+            script:'',
+            slowPageTime:'',
+            slowJsTime:'',
+            slowCssTime:'',
+            slowImgTime:'',
         }
     },
     mounted(){

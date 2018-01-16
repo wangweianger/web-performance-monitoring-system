@@ -20,10 +20,13 @@
             color:#666;
             .item{
                 margin-top:15px;
+                overflow:hidden;
                 .left{
                     display:inline-block;
                     margin-right:8px;
                     line-height:50px;
+                    width:120px;
+                    text-align:right;
                 }
                 input{
                     background:#f9f9f9;
@@ -32,6 +35,7 @@
                     height:35px;
                     width:300px;
                     border-radius:3px;
+                    font-size:12px;
                 }
             }
             p{
@@ -50,13 +54,17 @@
             }
             button{
                 font-size:12px;
-                background:#273547;
+                background:#447ED9;
                 color:#fff;
-                padding: 10px 50px;
+                padding: 10px 30px;
                 border-radius:3px;
                 cursor:pointer;
                 display:block;
                 margin-bottom:20px;
+            }
+            .left-botton{
+                margin-left:130px;
+                margin-top:20px;
             }
             textarea{
                 width:800px;
@@ -72,7 +80,7 @@
             margin-top:30px;
             button{
                 padding:10px 20px;
-                background:#447ED9;
+                background:#273547;
                 color:#fff;
                 cursor:pointer;
             }

@@ -17,18 +17,22 @@
       font-size: 14px;
       color: #666; }
       .addSystem .main .block .item {
-        margin-top: 15px; }
+        margin-top: 15px;
+        overflow: hidden; }
         .addSystem .main .block .item .left {
           display: inline-block;
           margin-right: 8px;
-          line-height: 50px; }
+          line-height: 50px;
+          width: 120px;
+          text-align: right; }
         .addSystem .main .block .item input {
           background: #f9f9f9;
           border: solid 1px #ddd;
           padding-left: 10px;
           height: 35px;
           width: 300px;
-          border-radius: 3px; }
+          border-radius: 3px;
+          font-size: 12px; }
       .addSystem .main .block p {
         line-height: 35px; }
         .addSystem .main .block p code {
@@ -42,13 +46,16 @@
         color: #f32d95; }
       .addSystem .main .block button {
         font-size: 12px;
-        background: #273547;
+        background: #447ED9;
         color: #fff;
-        padding: 10px 50px;
+        padding: 10px 30px;
         border-radius: 3px;
         cursor: pointer;
         display: block;
         margin-bottom: 20px; }
+      .addSystem .main .block .left-botton {
+        margin-left: 130px;
+        margin-top: 20px; }
       .addSystem .main .block textarea {
         width: 800px;
         background: #000;
@@ -61,6 +68,6 @@
       margin-top: 30px; }
       .addSystem .main .goback button {
         padding: 10px 20px;
-        background: #447ED9;
+        background: #273547;
         color: #fff;
         cursor: pointer; }
