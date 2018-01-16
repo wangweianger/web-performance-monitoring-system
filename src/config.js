@@ -38,10 +38,10 @@ export let DB = {
 	PASSWORD: '123456',
 
 	// 数据库名称    
-	DATABASE: 'video_zane_nodejs',
+	DATABASE: 'web-performance',
 
 	// 默认"api_"
-	PREFIX: 'video_'
+	PREFIX: 'web_'
 }
 
 export let NODEMAILER = {

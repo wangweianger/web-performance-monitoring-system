@@ -11,7 +11,10 @@ import koa2Common from 'koa2-common'
 import {
     SYSTEM
 } from './config'
-import { front } from './routes'
+import { 
+    front,
+    back
+} from './routes'
 
 const app = new Koa()
 const env = process.env.NODE_ENV || 'development'
@@ -50,6 +53,8 @@ app
     }))
     .use(front.routes())
     .use(front.allowedMethods())
+    .use(back.routes())
+    .use(back.allowedMethods())
     .use((ctx, next) => {
         const start = new Date()
         return next().then(() => {

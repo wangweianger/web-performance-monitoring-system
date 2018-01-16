@@ -1,0 +1,34 @@
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/login.css">
+<div class="login" id="login">
+	<div class="main">
+        <div class="top">
+            <img class="img1" src="/images/common/logo_1.png">
+        </div>
+        <div class="center center-ewm">
+            <div>
+                <div class="block">
+                    <span class="iconfont">&#xe7dc;</span>
+                    <input type="text" v-model.trim="username" placeholder="请输入账号">
+                </div>
+                <div class="block">
+                    <span class="iconfont">&#xe62a;</span>
+                    <input type="password" v-model.trim="password" placeholder="请输入密码">
+                </div>
+                <div class="block" v-show="type===2">
+                    <span class="iconfont">&#xe62a;</span>
+                    <input type="password" v-model.trim="typassword" placeholder="确认密码">
+                </div>
+                <div class="block">
+                    <a href="JavaScript:" @click="type=2" v-show="type===1">立即注册</a>
+                    <a href="JavaScript:" @click="type=1" v-show="type===2">去登陆</a>
+                </div>
+                <div class="submit">
+                    <button class="button" v-show="type===1" @click="login">立即登录</button>
+                    <button class="button" v-show="type===2" @click="register">立即注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/view-login.js"></script>

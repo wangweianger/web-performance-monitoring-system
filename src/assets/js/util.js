@@ -171,7 +171,7 @@ class utilfn {
 				This.hideLoading();
 				// 请求超时
 				noError = false;
-				Layer.alert({
+				popup.alert({
 					type: 'msg',
 					title: '您的网络太慢了哦,请刷新重试!'
 				});
@@ -222,7 +222,7 @@ class utilfn {
 					begin = checked;
 				}
 				if (!begin) {
-					Layer.alert({
+					popup.alert({
 						title: '请上传正确的文件类型！'
 					});
 					return false;
@@ -279,7 +279,7 @@ class utilfn {
 				sessionStorage.setItem("weixin-url", window.location.href); //记录没有登陆前的访问页面
 				location.href = config.loginUrl + '?redirecturl=' + encodeURIComponent(location.href);
 			} else {
-				Layer.alert({
+				popup.alert({
 					type: 'msg',
 					title: '用户未登陆,请登录!'
 				});
@@ -295,7 +295,7 @@ class utilfn {
 						json.error && json.error(data);
 					} else {
 						//直接弹出错误信息
-						Layer.alert({
+						popup.alert({
 							type: 'msg',
 							title: data.desc
 						});
@@ -316,33 +316,33 @@ class utilfn {
 						sessionStorage.setItem("weixin-url", window.location.href); //记录没有登陆前的访问页面
 						window.location.href = config.loginUrl;
 					} else {
-						Layer.alert({
+						popup.alert({
 							type: 'msg',
 							title: "你需要登录哦"
 						});
 					};
 					break;
 				case 400:
-					Layer.alert({
+					popup.alert({
 						type: 'msg',
 						title: "您的请求不合法呢"
 					});
 					break;
 				case 404:
-					Layer.alert({
+					popup.alert({
 						type: 'msg',
 						title: "访问的地址可能不存在哦"
 					});
 					break;
 				case 500:
 				case 502:
-					Layer.alert({
+					popup.alert({
 						type: 'msg',
 						title: "服务器内部错误"
 					});
 					break;
 					// default:
-					// 	Layer.alert({type:'msg',title:"未知错误。程序员欧巴正在赶来修改哦"});
+					// 	popup.alert({type:'msg',title:"未知错误。程序员欧巴正在赶来修改哦"});
 			}
 		}
 	}

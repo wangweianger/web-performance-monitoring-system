@@ -47,8 +47,8 @@ class common {
     async checkIsLogin(ctx, next){
         let verSource = util.verSource(ctx)
         let checkSigin = util.checkSiginHttp(ctx);
-        let username = ctx.cookies.get('npm-username');
-        let secretKey = ctx.cookies.get('npm-secretKey');
+        let username = ctx.cookies.get('userName');
+        let secretKey = ctx.cookies.get('token');
 
         if(!username || !secretKey){
             ctx.body = util.result({
@@ -57,14 +57,6 @@ class common {
             });
         }
         
-        if(username != SYSTEM.USERMSG.USERNAME){
-            ctx.body = util.result({
-                code: 1004,
-                desc: "用户登录异常，请重新登录！"
-            });
-            return;
-        }
-
         if(!secretKey){
             ctx.body = util.result({
                 code: 1004,
