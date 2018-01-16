@@ -1,0 +1,66 @@
+.addSystem {
+  margin-top: 60px; }
+  .addSystem .title {
+    padding: 10px 20px;
+    font-size: 15px;
+    border-bottom: solid 1px #eee; }
+  .addSystem .main {
+    overflow: hidden;
+    margin: 30px 40px; }
+    .addSystem .main .h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      padding-bottom: 5px;
+      border-bottom: solid 1px #eee; }
+    .addSystem .main .block {
+      margin: 20px;
+      font-size: 14px;
+      color: #666; }
+      .addSystem .main .block .item {
+        margin-top: 15px; }
+        .addSystem .main .block .item .left {
+          display: inline-block;
+          margin-right: 8px;
+          line-height: 50px; }
+        .addSystem .main .block .item input {
+          background: #f9f9f9;
+          border: solid 1px #ddd;
+          padding-left: 10px;
+          height: 35px;
+          width: 300px;
+          border-radius: 3px; }
+      .addSystem .main .block p {
+        line-height: 35px; }
+        .addSystem .main .block p code {
+          padding: 6px 10px;
+          background: #000;
+          color: #fff;
+          font-size: 12px;
+          border-radius: 5px;
+          margin: 0 3px; }
+      .addSystem .main .block .notice {
+        color: #f32d95; }
+      .addSystem .main .block button {
+        font-size: 12px;
+        background: #273547;
+        color: #fff;
+        padding: 10px 50px;
+        border-radius: 3px;
+        cursor: pointer;
+        display: block;
+        margin-bottom: 20px; }
+      .addSystem .main .block textarea {
+        width: 800px;
+        background: #000;
+        color: #fff;
+        font-size: 14px;
+        border: none;
+        height: 80px;
+        padding: 10px; }
+    .addSystem .main .goback {
+      margin-top: 30px; }
+      .addSystem .main .goback button {
+        padding: 10px 20px;
+        background: #447ED9;
+        color: #fff;
+        cursor: pointer; }

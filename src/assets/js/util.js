@@ -572,6 +572,11 @@ class utilfn {
 			time: signwx.time
 		}
 	}
+
+	goBack(){
+		window.history.go(-1);
+	}
+
 }
 
 //初始化util对象

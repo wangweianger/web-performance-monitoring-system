@@ -1,0 +1,81 @@
+.addSystem{
+    margin-top:60px;
+    .title{
+        padding:10px 20px;
+        font-size:15px;
+        border-bottom:solid 1px #eee;
+    }
+    .main{
+        overflow:hidden;
+        margin:30px 40px;
+        .h1{
+            font-size:20px;
+            margin-bottom:10px;
+            padding-bottom:5px;
+            border-bottom:solid 1px #eee;
+        }
+        .block{
+            margin:20px;
+            font-size:14px;
+            color:#666;
+            .item{
+                margin-top:15px;
+                .left{
+                    display:inline-block;
+                    margin-right:8px;
+                    line-height:50px;
+                }
+                input{
+                    background:#f9f9f9;
+                    border:solid 1px #ddd;
+                    padding-left:10px;
+                    height:35px;
+                    width:300px;
+                    border-radius:3px;
+                }
+            }
+            p{
+                line-height:35px;
+                code{
+                    padding:6px 10px;
+                    background:#000;
+                    color:#fff;
+                    font-size:12px;
+                    border-radius:5px;
+                    margin:0 3px;
+                }
+            }
+            .notice{
+                color:#f32d95;
+            }
+            button{
+                font-size:12px;
+                background:#273547;
+                color:#fff;
+                padding: 10px 50px;
+                border-radius:3px;
+                cursor:pointer;
+                display:block;
+                margin-bottom:20px;
+            }
+            textarea{
+                width:800px;
+                background:#000;
+                color:#fff;
+                font-size:14px;
+                border:none;
+                height:80px;
+                padding:10px;
+            }
+        }
+        .goback{
+            margin-top:30px;
+            button{
+                padding:10px 20px;
+                background:#447ED9;
+                color:#fff;
+                cursor:pointer;
+            }
+        }
+    }
+}

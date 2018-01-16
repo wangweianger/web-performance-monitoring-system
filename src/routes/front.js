@@ -48,6 +48,19 @@ router.get(['/login'], async(ctx, next) => {
 	}); 
 });
 
+//新增应用
+router.get(['/addSystem'], async(ctx, next) => {
+	let datas = {
+		title:'新增应用',
+	}
+
+	await ctx.render('addSystem',{
+		datas:datas
+	}); 
+});
+
+
+
 
 module.exports = router
 
