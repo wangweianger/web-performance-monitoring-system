@@ -10,9 +10,12 @@ new Vue({
             slowCssTime:'',
             slowImgTime:'',
             appId:'',
+            userId:'',
         }
     },
     beforeMount() {
+        let userMsg = util.getStorage('local','userMsg')?JSON.parse(util.getStorage('local','userMsg')):{}
+        this.userId = userMsg.id
         this.appId = util.getQueryString('appId')
         if(this.appId){
             this.getDetail()
@@ -53,14 +56,15 @@ new Vue({
                     slowJsTime:this.slowJsTime,
                     slowCssTime:this.slowCssTime,
                     slowImgTime:this.slowImgTime,
+                    userId:this.userId
                 },
                 success(data){
                     _this.scriptstr = data.data.script
                     let token = data.data.token
                     popup.miss({title:"操作成功！"});
-                    setTimeout(()=>{
-                        location.href="/addSystem?appId=" + token
-                    },500)
+                    // setTimeout(()=>{
+                    //     location.href="/addSystem?appId=" + token
+                    // },500)
                 }
             })
         },

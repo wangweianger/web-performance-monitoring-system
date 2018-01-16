@@ -6,7 +6,6 @@ import {
 import {
     util,
     mysql,
-    getsql,
 } from '../tool'
 
 class user {
@@ -58,7 +57,9 @@ class user {
             let slowJsTime      = ctx.request.body.slowJsTime
             let slowCssTime     = ctx.request.body.slowCssTime
             let slowImgTime     = ctx.request.body.slowImgTime
+            let userId          = ctx.request.body.userId
             let script          = `${SYSTEM.BASEDOMAIN}js/web_get_datas.js`
+            let createTime      = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
             
             if(!systemName || !systemDomain){
                 ctx.body = util.result({
@@ -110,7 +111,9 @@ class user {
                 systemName:systemName,
                 systemDomain:systemDomain,
                 script:script,
-                appId:token
+                appId:token,
+                userId:userId,
+                createTime:createTime
             }
             if(slowPageTime) data.slowPageTime = slowPageTime;
             if(slowJsTime) data.slowJsTime = slowJsTime;
