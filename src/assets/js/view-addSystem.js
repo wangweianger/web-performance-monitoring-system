@@ -4,42 +4,68 @@ new Vue({
         return{
             systemDomain:'',
             systemName:'',
-            script:'',
+            scriptstr:'',
             slowPageTime:'',
             slowJsTime:'',
             slowCssTime:'',
             slowImgTime:'',
+            appId:'',
+        }
+    },
+    beforeMount() {
+        this.appId = util.getQueryString('appId')
+        if(this.appId){
+            this.getDetail()
         }
     },
     mounted(){
         
     },
     methods:{
-        login(){
-            
-        },
-        register(){
-            if(!this.username){
-               popup.alert({ type: 'msg', title: '用户名有误!' });  return false;
-            }
-            if(!this.password){
-               popup.alert({ type: 'msg', title: '用户密码有误!' }); return false;
-            }
-            if(this.password!==this.typassword){
-               popup.alert({ type: 'msg', title: '两次密码输入不一致!' }); return false;
-            }
-
+        getDetail(){
+            let _this=this;
             util.ajax({
-                url:config.baseApi + 'api/user/userRegister',
+                url:config.baseApi+'api/system/getItemSystem',
                 data:{
-                    userName:this.username,
-                    passWord:this.password
+                    appId:this.appId
                 },
-                success(){
-                    popup.miss({title:"注册成功！"});
-                    location.href="/login"
+                success(data){
+                    _this.systemDomain = data.data.systemDomain
+                    _this.systemName = data.data.systemName
+                    _this.scriptstr = data.data.script
+                    _this.slowPageTime = data.data.slowPageTime
+                    _this.slowJsTime = data.data.slowJsTime
+                    _this.slowCssTime = data.data.slowCssTime
+                    _this.slowImgTime = data.data.slowImgTime
                 }
             })
+        },
+        addSystem(){
+            let _this=this;
+            if(!this.systemName){ popup.alert({title: '请正确填写应用名称!'});  return false; }
+            if(!this.systemDomain){ popup.alert({title: '请正确填写应用域名!'}); return false; }
+            util.ajax({
+                url:config.baseApi + 'api/system/addSystem',
+                data:{
+                    systemName:this.systemName,
+                    systemDomain:this.systemDomain,
+                    slowPageTime:this.slowPageTime,
+                    slowJsTime:this.slowJsTime,
+                    slowCssTime:this.slowCssTime,
+                    slowImgTime:this.slowImgTime,
+                },
+                success(data){
+                    _this.scriptstr = data.data.script
+                    let token = data.data.token
+                    popup.miss({title:"操作成功！"});
+                    setTimeout(()=>{
+                        location.href="/addSystem?appId=" + token
+                    },500)
+                }
+            })
+        },
+        register(){
+            
         }
     }
 })

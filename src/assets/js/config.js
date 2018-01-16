@@ -1,7 +1,7 @@
 window.config={
 
 	//登陆页面 
-	loginUrl:"/back/login", 
+	loginUrl:"/login", 
 
 	//登陆成功后需要跳转到的页面                                                       
 	homeUrl: "/",    

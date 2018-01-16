@@ -10,33 +10,29 @@
         <div class="block">
             <div class="item">
                 <span class="left">应用名称：</span>
-                <input type="text" placeholder="我的博客">
+                <input type="text" v-model.trim="systemName" placeholder="我的博客">
             </div>
             <div class="item">
                 <span class="left">应用域名：</span>
-                <input type="text" placeholder="http://seosiwei.com/">
+                <input type="text" v-model.trim="systemDomain" placeholder="http://seosiwei.com/">
             </div>
-            <button class="button left-botton">保存</button>
-        </div>
-        <h1 class="h1">资源阀值配置</h1>
-        <div class="block">
             <div class="item">
                 <span class="left">页面慢加载阀值：</span>
-                <input type="text" placeholder="默认8s">
+                <input type="text" v-model.trim="slowPageTime" placeholder="默认8s">
             </div>
             <div class="item">
                 <span class="left">JS慢加载阀值：</span>
-                <input type="text" placeholder="默认2s">
+                <input type="text" v-model.trim="slowJsTime" placeholder="默认2s">
             </div>
             <div class="item">
                 <span class="left">CSS慢加载阀值：</span>
-                <input type="text" placeholder="默认1s">
+                <input type="text" v-model.trim="slowCssTime" placeholder="默认1s">
             </div>
             <div class="item">
                 <span class="left">IMG慢加载阀值：</span>
-                <input type="text" placeholder="默认2s">
+                <input type="text" v-model.trim="slowImgTime" placeholder="默认2s">
             </div>
-            <button class="button left-botton">保存</button>
+            <button class="button left-botton" @click="addSystem">保存</button>
         </div>
         <h1 class="h1">部署说明</h1>
         <div class="block">
@@ -46,8 +42,7 @@
         <h1 class="h1">获取代码</h1>
         <div class="block">
             <button class="button">获取代码</button>
-            <textarea> INSERT INTO user (name,email) VALUES ('zane','752636052@qq.com')  node-transform-mysql.js:293 UPDATE user SET name='zane',email='752636052@qq.com'
-            </textarea>
+            <div class="script-text">{{scriptstr}}</div>
         </div>
         <div class="goback">
             <button onclick="util.goBack()" class="button">返回应用列表</button>

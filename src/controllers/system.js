@@ -14,47 +14,29 @@ class user {
     constructor() {
 
     };
-    // 获得首页banner
-    async userLogin(ctx){
+
+    //查询某个应用
+    async getItemSystem(ctx){
         try {
-            let userName    = ctx.request.body.userName
-            let passWord    = ctx.request.body.passWord
-            let isUse       = 0
-            
-            if(!userName || !passWord){
+            let appId    = ctx.request.body.appId
+
+            if(!appId){
                 ctx.body = util.result({
                     code: 1001,
-                    desc: '用户名或密码有误!'
+                    desc: 'appId有误!'
                 });
                 return
             }
 
-            // 判断用户名是否存在
             let sqlstr = sql
-                .table('web_user')
-                .where({userName:userName})
+                .table('web_system')
+                .where({appId:appId})
                 .select()
-            let userMsg = await mysql(sqlstr);    
-            if(!userMsg || !userMsg.length){
-                ctx.body = util.result({
-                    code: 1001,
-                    desc: '用户名不存在!'
-                });
-                return
-            }   
-            if(userMsg[0].passWord!==passWord){
-                ctx.body = util.result({
-                    code: 1001,
-                    desc: '密码错误!'
-                });
-                return
-            } 
-            
-            ctx.cookies.set('userName',userName)
-            ctx.cookies.set('token',userMsg[0].token)
+
+            let result = await mysql(sqlstr);
 
             ctx.body = util.result({
-                data:userMsg[0]
+                data: result&&result.length?result[0]:{}
             });
 
         } catch (err) {
@@ -67,48 +49,85 @@ class user {
         }
     }
 
-    // 用户注册
-    async userRegister(ctx){
+    // 新增应用
+    async addSystem(ctx){
         try {
-            let userName    = ctx.request.body.userName
-            let passWord    = ctx.request.body.passWord
-            let createTime  = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
-
-            if(!userName || !passWord){
+            let systemName      = ctx.request.body.systemName
+            let systemDomain    = ctx.request.body.systemDomain
+            let slowPageTime    = ctx.request.body.slowPageTime
+            let slowJsTime      = ctx.request.body.slowJsTime
+            let slowCssTime     = ctx.request.body.slowCssTime
+            let slowImgTime     = ctx.request.body.slowImgTime
+            let script          = `${SYSTEM.BASEDOMAIN}js/web_get_datas.js`
+            
+            if(!systemName || !systemDomain){
                 ctx.body = util.result({
                     code: 1001,
-                    desc: '用户名或密码有误!'
+                    desc: '参数错误!'
                 });
                 return
             }
 
-            // 检测用户是否存在
-            let length = await new user().isUserHave(userName)
-            if(length){
+            // 判断应用是否存在
+            let sqlstr1 = sql
+                .table('web_system')
+                .where({systemName:systemName})
+                .select()
+            let systemNameMsg = await mysql(sqlstr1);
+            if(systemNameMsg.length){
                 ctx.body = util.result({
                     code: 1001,
-                    desc: '用户名已存在!'
+                    desc: '应用名称已存在!'
+                });
+                return
+            }
+
+            // 判断域名是否存在
+            let sqlstr2 = sql
+                .table('web_system')
+                .where({systemDomain:systemDomain})
+                .select()
+            let systemDomainMsg = await mysql(sqlstr2);
+            if(systemDomainMsg.length){
+                ctx.body = util.result({
+                    code: 1001,
+                    desc: '此域名已存在!'
                 });
                 return
             }
 
             let timestamp = new Date().getTime();
             let token = util.signwx({
-                username:userName,
-                password:passWord,
+                systemName:systemName,
+                systemDomain:systemDomain,
                 timestamp:timestamp,
                 random:util.randomString()
             }).paySign;
+            script = script+'?appId='+token;
 
-            let sqlstr = sql
-                .table('web_user')
-                .data({userName:userName,passWord:passWord,createTime:createTime,token:token})
+            // 插入数据
+            let data={
+                systemName:systemName,
+                systemDomain:systemDomain,
+                script:script,
+                appId:token
+            }
+            if(slowPageTime) data.slowPageTime = slowPageTime;
+            if(slowJsTime) data.slowJsTime = slowJsTime;
+            if(slowCssTime) data.slowCssTime = slowCssTime;
+            if(slowImgTime) data.slowImgTime = slowImgTime;
+            
+            let sqlstr3 = sql
+                .table('web_system')
+                .data(data)
                 .insert()
-
-            let result = await mysql(sqlstr);
+            let datas = await mysql(sqlstr3);
 
             ctx.body = util.result({
-                data: result
+                data:{
+                    script:script,
+                    token:token
+                }
             });
 
         } catch (err) {
@@ -120,27 +139,6 @@ class user {
             return '';
         }
     }
-
-    // 查询用户是否存在
-    async isUserHave(userName){
-        let sqlstr = sql
-            .table('web_user')
-            .where({userName:userName})
-            .select()
-        let result = await mysql(sqlstr);
-        return result.length
-    }
-
-    // 退出登录
-    async loginOut(ctx){
-        ctx.cookies.set('userName',null)
-        ctx.cookies.set('token',null)
-
-        ctx.body = util.result({
-            data:'成功'
-        });
-    }
-
 }
 
 module.exports = new user();

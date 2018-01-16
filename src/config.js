@@ -20,7 +20,10 @@ export let SYSTEM = {
 	USERMSG:{
 		USERNAME:'admin',
 		PASSWORD:'123456789'
-	}
+	},
+
+	// 统计脚本跟域名
+	BASEDOMAIN:'http://127.0.0.1:18080/'
 
 }
 

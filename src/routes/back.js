@@ -8,7 +8,8 @@ import {
 const router = new KoaRouter()
 
 // 请求接口校验中间件
-const checkfn = controllers.common.checkRequestUrl;
+const checkfn       = controllers.common.checkRequestUrl;
+const loginCheckfn  = controllers.common.checkIsLogin;
 
 // 注册用户信息
 router.post('/api/user/userRegister',checkfn, controllers.login.userRegister)
@@ -16,6 +17,12 @@ router.post('/api/user/userRegister',checkfn, controllers.login.userRegister)
 router.post('/api/user/userLogin',checkfn, controllers.login.userLogin)
 // 退出登录
 router.post('/api/user/loginOut',checkfn, controllers.login.loginOut)
+
+// 新增应用
+router.post('/api/system/addSystem',loginCheckfn, controllers.system.addSystem)
+// 请求某个应用详情
+router.post('/api/system/getItemSystem',loginCheckfn, controllers.system.getItemSystem)
+
 
 
 module.exports = router
