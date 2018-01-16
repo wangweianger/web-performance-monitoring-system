@@ -14,6 +14,9 @@ const checkfn = controllers.common.checkRequestUrl;
 router.post('/api/user/userRegister',checkfn, controllers.login.userRegister)
 // 用户登录
 router.post('/api/user/userLogin',checkfn, controllers.login.userLogin)
+// 退出登录
+router.post('/api/user/loginOut',checkfn, controllers.login.loginOut)
+
 
 module.exports = router
 

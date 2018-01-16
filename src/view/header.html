@@ -4,10 +4,27 @@
     </div>
     <div class="right fr">
         <ul>
-            <li>wangwei</li>
+            <li id="userName">前端小白</li>
             <li>我的应用</li>
-            <li>退出登录</li>
+            <li onclick="loginout()">退出登录</li>
         </ul>
     </div>
 </div>
+<script type="text/javascript">
+    var userMsg = util.getStorage('local','userMsg')?JSON.parse(util.getStorage('local','userMsg')):{}
+    if(userMsg.userName){
+        $('#userName').text(userMsg.userName)
+    }
 
+    // 退出登录
+    function loginout(){
+        popup.confirm({title:'确定退出登录吗?',yes:function(){
+            util.ajax({
+                url:config.baseApi+'api/user/loginOut',
+                success:function(data){
+                    location.href="/login"
+                }
+            })
+        }})
+    }
+</script>

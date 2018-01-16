@@ -131,6 +131,16 @@ class user {
         return result.length
     }
 
+    // 退出登录
+    async loginOut(ctx){
+        ctx.cookies.set('userName',null)
+        ctx.cookies.set('token',null)
+
+        ctx.body = util.result({
+            data:'成功'
+        });
+    }
+
 }
 
 module.exports = new user();
