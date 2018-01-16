@@ -49,9 +49,9 @@
   .index .list .table .body {
     text-align: center; }
     .index .list .table .body .active {
-      color: #447ED9;
-      font-weight: bold;
-      cursor: pointer; }
+      color: #999;
+      cursor: pointer;
+      font-size: 12px; }
     .index .list .table .body .yingyong {
       font-size: 14px;
       margin-right: 2px; }
