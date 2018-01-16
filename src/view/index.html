@@ -1,7 +1,7 @@
 <%- include("./header.html") %>
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/index.css">
-<div class="container index" >
+<div class="container index" id="index">
 	<div class="title">
         <h1>应用列表</h1>
         <div class="search">
@@ -23,28 +23,33 @@
         </div>
     </div>
     <div class="list">
-        <table class="table">
+        <table class="table" v-if="datalist.length">
             <tr class="head">
                 <th>应用名称</th>
                 <th>应用链接</th>
-                <th>页面访问量</th>
-                <th>Ajax调用量</th>
-                <th>JS错误</th>
+                <th class='w-350'>appId</th>
+                <th>页面加载阀值</th>
+                <th>JS资源阀值</th>
+                <th>CSS资源阀值</th>
+                <th>IMG资源阀值</th>
                 <th>操作</th>
             </tr>
-            <tr class="body">
-                <td><a href=""><span class="yingyong iconfont">&#xe675;</span>DMS分销系统</a></td>
-                <td>http://www.seosiwei.com/</td>
-                <td>120</td>
-                <td>500</td>
-                <td>3</td>
+            <tr class="body" v-for="item in datalist">
+                <td><a href="">{{item.systemName}}</a></td>
+                <td>{{item.systemDomain}}</td>
+                <td>{{item.appId}}</td>
+                <td>{{item.slowPageTime+'s'}}</td>
+                <td>{{item.slowJsTime+'s'}}</td>
+                <td>{{item.slowCssTime+'s'}}</td>
+                <td>{{item.slowImgTime+'s'}}</td>
                 <td>
                     <span class="active">设置</span>
                     <span class="active">删除</span>
                 </td>
             </tr>
         </table>
-        <div class="mt30 tc">暂无应用，去添加一个吧</div>
+        <div class="mt30 tc" v-if="!datalist.length">暂无应用，去添加一个吧</div>
     </div>
 </div>
 <%- include("./footer.html") %>
+<script src="/js/view-index.js"></script>

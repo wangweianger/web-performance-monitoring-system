@@ -74,6 +74,8 @@ table.table {
   width: 100%; }
   table.table .head {
     background: #eee; }
+  table.table .body:hover {
+    background: #f4f4f4; }
   table.table tr {
     border: solid 1px #eee; }
     table.table tr th {
@@ -160,6 +162,12 @@ a:hover {
 .w-300 {
   width: 300px; }
 
+.w-350 {
+  width: 350px; }
+
+.w-500 {
+  width: 500px; }
+
 .overflow {
   overflow: hidden; }
 
@@ -241,7 +249,8 @@ a:hover {
   z-index: 100; }
   .header .left img {
     height: 50px;
-    cursor: pointer; }
+    cursor: pointer;
+    margin-top: 5px; }
   .header .right li {
     display: inline-block;
     height: 15px;

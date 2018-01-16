@@ -23,6 +23,8 @@ router.post('/api/system/addSystem',loginCheckfn, controllers.system.addSystem)
 // 请求某个应用详情
 router.post('/api/system/getItemSystem',loginCheckfn, controllers.system.getItemSystem)
 
+//获得系统列表
+router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSystemList)
 
 
 module.exports = router

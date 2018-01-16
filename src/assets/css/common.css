@@ -26,7 +26,8 @@
   z-index: 100; }
   .header .left img {
     height: 50px;
-    cursor: pointer; }
+    cursor: pointer;
+    margin-top: 5px; }
   .header .right li {
     display: inline-block;
     height: 15px;
