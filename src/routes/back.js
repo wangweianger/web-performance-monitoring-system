@@ -11,6 +11,8 @@ const router = new KoaRouter()
 const checkfn       = controllers.common.checkRequestUrl;
 const loginCheckfn  = controllers.common.checkIsLogin;
 
+router.post('/api/test',checkfn, controllers.login.test)
+
 // 注册用户信息
 router.post('/api/user/userRegister',checkfn, controllers.login.userRegister)
 // 用户登录

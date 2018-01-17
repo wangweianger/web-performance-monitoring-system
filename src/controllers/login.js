@@ -7,6 +7,7 @@ import {
     util,
     mysql,
     getsql,
+    transaction,
 } from '../tool'
 
 class user {
@@ -141,6 +142,32 @@ class user {
         });
     }
 
+    async test(ctx){
+        let arr = [];
+        let sqlstr = sql
+            .table('test1')
+            .data({name:'wing'})
+            .insert();
+        let sqlstr2 = sql
+            .table('test2')
+            .data({age:18})
+            .insert();
+        arr.push(sqlstr);
+        arr.push(sqlstr2);
+
+        console.log(arr)
+        try{
+            await transaction(arr)
+            ctx.body = util.result({
+                data:'成功'
+            });
+        }catch(err){
+            ctx.body = util.result({
+                code:44444,
+                desc:'失败'
+            });
+        }
+    }
 }
 
 module.exports = new user();
