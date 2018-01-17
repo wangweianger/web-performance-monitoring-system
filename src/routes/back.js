@@ -1,7 +1,6 @@
 //前端路由
 import KoaRouter from 'koa-router'
 import controllers from '../controllers'
-import moment from 'moment'
 import {
     SYSTEM
 } from '../config'
@@ -26,6 +25,12 @@ router.post('/api/system/getItemSystem',loginCheckfn, controllers.system.getItem
 //获得系统列表
 router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSystemList)
 
+
+
+
+
+// page页面统计上报接口
+router.get('/report',controllers.dataReport.getPagePerformDatas);
 
 module.exports = router
 
