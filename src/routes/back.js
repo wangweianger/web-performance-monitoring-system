@@ -25,6 +25,9 @@ router.post('/api/system/getItemSystem',loginCheckfn, controllers.system.getItem
 //获得系统列表
 router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSystemList)
 
+//获得ajax页面列表
+router.post('/api/ajax/getajaxlist',loginCheckfn, controllers.ajax.getajaxlist)
+
 
 
 
