@@ -1,6 +1,7 @@
 import moment from 'moment'
 import sql from 'node-transform-mysql'
 import UAParser from 'ua-parser-js'
+import axios from 'axios'
 import {
     SYSTEM
 } from '../config'
@@ -58,6 +59,19 @@ class data {
     }
     // 用户系统信息上报
     async getSystemPerformDatas(ctx){
+        const publicIp = require('public-ip');
+        publicIp.v4().then(ip => {
+            axios.get(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`).then(function (response) {
+                console.log(response.data);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        });
+
+        ctx.body='base64'   
+
+        return
+
         let userAgent = ctx.request.header['user-agent']
         ctx.body='base64'   
         // ctx.body='base64'
@@ -90,10 +104,10 @@ class data {
         let environment={
             systemId:systemItem.id,
             IP:ctx.query.IP||'',
-            // province:ctx.query.province||'',
-            // city:ctx.query.city||'',
-            // county:ctx.query.county||'',
-            // operator:ctx.query.operator||'',
+            isp:ctx.query.province||'',
+            county:ctx.query.city||'',
+            province:ctx.query.county||'',
+            city:ctx.query.operator||'',
             browser:result.browser.name||'',
             borwserVersion:result.browser.version||'',
             system:result.os.name||'',

@@ -9,6 +9,12 @@ window.addEventListener("load",function(){
     // }).catch(function(e) {
     //   console.log("Oops, error");
     // });
+    
+    // fetch('https://ipv4.icanhazip.com/').then(function(response) { return response.text(); }).then(function(data) {
+    //   console.log(data);
+    // }).catch(function(e) {
+    //   console.log(e);
+    // });
 
     // return
 
