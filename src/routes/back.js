@@ -33,7 +33,9 @@ router.post('/api/ajax/getajaxlist',loginCheckfn, controllers.ajax.getajaxlist)
 
 
 // page页面统计上报接口
-router.get('/report',controllers.dataReport.getPagePerformDatas);
+router.get('/reportPage',controllers.dataReport.getPagePerformDatas);
+// 用户系统上报
+router.get('/reportSystem',controllers.dataReport.getSystemPerformDatas);
 
 module.exports = router
 

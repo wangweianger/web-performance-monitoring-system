@@ -67,6 +67,7 @@
     "require-directory": "^2.1.1",
     "tar.gz": "^1.0.5",
     "trek-captcha": "^0.3.0",
+    "ua-parser-js": "^0.7.17",
     "underscore": "^1.8.3"
   },
   "engines": {
@@ -74,7 +75,10 @@
     "npm": ">= 4.2.0"
   },
   "dependencies": {
+    "address": "^1.0.3",
     "externalip": "^1.0.2",
+    "install": "^0.10.2",
+    "npm": "^5.6.0",
     "request-ip": "^2.0.2"
   }
 }

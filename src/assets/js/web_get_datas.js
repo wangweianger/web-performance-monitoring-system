@@ -2,21 +2,30 @@
 window.addEventListener("load",function(){
     if (!window.performance && !window.performance.getEntries) return false;
 
+    //user-agent 上报
 
-    fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
-      console.log(data);
-    }).catch(function(e) {
-      console.log("Oops, error");
-    });
+    // fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
+    //   console.log(data);
+    // }).catch(function(e) {
+    //   console.log("Oops, error");
+    // });
 
-    return
+    // return
 
     var domain      = 'http://127.0.0.1:18080/'
     var webscript   = document.getElementById('web_performance_script');
     var appId       = webscript.getAttribute('data-appId')
 
     if(!appId) return;
-    /*---------------------------------统计页面性能---------------------------------*/
+    /*---------------------------------统计用户系统信息---------------------------------*/
+    var imgBjc2  = document.createElement('img')
+    var src2     = domain+'reportSystem?appId='+appId
+    imgBjc2.setAttribute('src',src2);
+    imgBjc2.setAttribute("style","display:none;");
+    document.body.appendChild(imgBjc2);
+
+    return
+    /*---------------------------------统计页面性能-----------------------------------*/
     var timer1      = null;
     var timer2      = null;
 
@@ -46,22 +55,8 @@ window.addEventListener("load",function(){
             //页面解析dom耗时
             var analysisDomTime = timing.domComplete - timing.domInteractive || 0
 
-            console.log(`
-                DNS解析时间:${dnsTime},
-                TCP建立时间:${tcpTime},
-                白屏时间:${whiteTime},
-                dom渲染完成时间：${domTime}
-                页面onload时间:${loadTime},
-                页面准备时间:${readyTime},
-                页面重定向时间:${redirectTime},
-                unload时间:${unloadTime}
-                request请求耗时:${requestTime},
-                页面解析dom耗时:${analysisDomTime},
-                页面链接:${encodeURIComponent(location.href)}
-                `) 
-
             var imgBjc  = document.createElement('img')
-            var src     = domain+'report?dnsTime='+dnsTime
+            var src     = domain+'reportPage?dnsTime='+dnsTime
                             +'&tcpTime='+tcpTime
                             +'&whiteTime='+whiteTime
                             +'&domTime='+domTime
@@ -82,7 +77,6 @@ window.addEventListener("load",function(){
             document.body.appendChild(imgBjc);
         }
     },500);
-
     timer2 = setTimeout(function(){
         clearInterval(timer1);
         clearTimeout(timer2)
@@ -93,9 +87,6 @@ window.addEventListener("load",function(){
     recoseList.forEach((item)=>{
         console.log(item.duration)
     })
-
-
-
 
 },true);
 
