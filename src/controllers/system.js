@@ -91,7 +91,6 @@ class user {
             let slowCssTime     = ctx.request.body.slowCssTime
             let slowImgTime     = ctx.request.body.slowImgTime
             let userId          = ctx.request.body.userId
-            let script          = `${SYSTEM.BASEDOMAIN}js/web_get_datas.js`
             let createTime      = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
             
             if(!systemName || !systemDomain){
@@ -137,7 +136,7 @@ class user {
                 timestamp:timestamp,
                 random:util.randomString()
             }).paySign;
-            script = script+'?appId='+token;
+            let script = `<script id="web_performance_script" data-appId="${token}" src="${SYSTEM.BASEDOMAIN}js/web_get_datas.js"><\/script>`;
 
             // 插入数据
             let data={
@@ -153,6 +152,8 @@ class user {
             if(slowCssTime) data.slowCssTime = slowCssTime;
             if(slowImgTime) data.slowImgTime = slowImgTime;
             
+            console.log(data)
+
             let sqlstr3 = sql
                 .table('web_system')
                 .data(data)

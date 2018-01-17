@@ -1,7 +1,6 @@
 //前端路由
 import KoaRouter from 'koa-router'
 import controllers from '../controllers'
-import moment from 'moment'
 import {
     SYSTEM
 } from '../config'
@@ -29,6 +28,12 @@ router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSyst
 //获得ajax页面列表
 router.post('/api/ajax/getajaxlist',loginCheckfn, controllers.ajax.getajaxlist)
 
+
+
+
+
+// page页面统计上报接口
+router.get('/report',controllers.dataReport.getPagePerformDatas);
 
 module.exports = router
 
