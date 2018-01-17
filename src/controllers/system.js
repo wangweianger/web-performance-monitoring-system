@@ -136,11 +136,7 @@ class user {
                 timestamp:timestamp,
                 random:util.randomString()
             }).paySign;
-            let script = `<script 
-                            id="web_performance_script" 
-                            data-appId="${token}" 
-                            src="${SYSTEM.BASEDOMAIN}js/web_get_datas.js">
-                            </script>`;
+            let script = `<script id="web_performance_script" data-appId="${token}" src="${SYSTEM.BASEDOMAIN}js/web_get_datas.js"><\/script>`;
 
             // 插入数据
             let data={
@@ -156,6 +152,8 @@ class user {
             if(slowCssTime) data.slowCssTime = slowCssTime;
             if(slowImgTime) data.slowImgTime = slowImgTime;
             
+            console.log(data)
+
             let sqlstr3 = sql
                 .table('web_system')
                 .data(data)
