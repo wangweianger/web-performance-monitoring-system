@@ -1,0 +1,59 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/ajax.css">
+<div class="container ajax" id="ajax">
+   <div class="common-title">
+        <h1>AJAX</h1>
+        <div class="search">
+            <a href="/addSystem"><button class="cursor">+添加应用</button></a>
+            <span class="reload cursor iconfont">&#xe6ea;</span>
+            <div class="select">
+                <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
+                <div class="select-time">
+                    <li class="select_time_active">30分钟</li>
+                    <li>1小时</li>
+                    <li>6小时</li>
+                    <li>12小时</li>
+                    <li>1天</li>
+                    <li>7天</li>
+                    <li>30天</li>
+                    <li>自定义</li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ajax-topsel">
+        请求方式：
+        <select>
+            <option>get</option>
+            <option>post</option>
+        </select>
+    </div>
+    <div class="table-box">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>请求方式</th>
+                    <th>调用量</th>
+                    <th>相应时间</th>
+                    <th>web应用耗时</th>
+                    <th>回调函数执行时间</th>
+                    <th>返回数据大小</th>
+                    <th>正确率</th>
+                </tr>
+            </thead>
+            <tr v-for="(item,index) in listdata" :key="index">
+                <td>{{item.url}}</td>
+                <td>{{item.method}}</td>
+                <td>{{item.callNumber}}</td>
+                <td>{{item.responseTime}}</td>
+                <td>{{item.createTime}}</td>
+                <td>{{item.responseSize}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<%- include("./footer.html") %>
+<script src="/js/view-ajax.js"></script>

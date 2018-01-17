@@ -7,7 +7,6 @@
         <link rel="icon" href="/images/common/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="/css/base.css">
         <link rel="stylesheet" href="/css/PopLayer.css">
-        <script src="http://127.0.0.1:18080/js/web_get_datas.js?appId=200CF11E6E10A6869068E2544D5E6A54"></script>
         <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
         <script src="//cdn.bootcss.com/vue/2.4.2/vue.min.js"></script>
@@ -17,6 +16,13 @@
         <script src="/js/util.js"></script>
         <script src="/js/md5.js"></script>
         <!--endreplace-->
+        <script type="text/javascript">
+            function IPCallBack(data){
+                console.log(data)
+            }
+            let script='<script type="text/javascript" src="http://httpbin.org/ip"><\/script>'
+            $('head').append(script);
+        </script>
     </head>
     <body id="body">
         <%- body %>

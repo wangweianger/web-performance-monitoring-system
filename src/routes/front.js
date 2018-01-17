@@ -59,6 +59,17 @@ router.get(['/addSystem'], async(ctx, next) => {
 	}); 
 });
 
+//新增应用
+router.get(['/ajax'], async(ctx, next) => {
+	let datas = {
+		title:'Ajax',
+	}
+
+	await ctx.render('ajax',{
+		datas:datas
+	}); 
+});
+
 
 
 

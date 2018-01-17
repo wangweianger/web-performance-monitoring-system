@@ -576,6 +576,22 @@ class utilfn {
 	goBack(){
 		window.history.go(-1);
 	}
+	showtime(){
+		$('.times').on('click',() => {
+			$('.select-time').show();
+		});
+		$('body').on('click','.times',function(e){
+            $(document).one("click", function(){
+                $('.select-time').hide();
+            });
+            e.stopPropagation();
+
+        }); 
+        $('.select-time li').on('click',function(){
+        	$('.select-time').hide();
+        	$('.times_text').text(this.innerHTML);
+        })
+	}
 
 }
 
