@@ -105,8 +105,85 @@
 
 .container{
     margin:60px 0 0 220px;
-    padding:20px 0 0 10px;
+    padding:0 0 0 10px;
 }
-
-
+.common-title{
+    height:50px;
+    line-height:50px;
+    border-bottom:solid 1px #eee;
+    margin-bottom:20px;
+    h1{
+        font-size:18px;
+        float:left;
+        padding-left:30px;
+    }
+    .search{
+        float:right;
+        width:280px;
+        button{
+            float:left;
+            background:#447ED9;
+            color:#fff;
+            padding:6px 10px;
+            font-size:12px;
+            margin:10px 10px 0 0;
+        }
+        .reload{
+            float:left;
+            display:inline-block;
+            font-size:18px;
+            margin-right:8px;
+        }
+        .select{
+            float:left;
+            position:relative;
+            .times{
+                height:30px;
+                line-height:30px;
+                margin-top:10px;
+                display:inline-block;
+                background:#f5f5f5;
+                border:solid 1px #ddd;
+                span{
+                    color:#999;
+                    margin:0 5px;
+                }
+            }
+            .select-time{
+                width: 620px;
+                display: none;
+                position: absolute;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+                border: 1px solid #dedede;
+                right: 0;
+                top: 50px;
+                background: #fff;
+                padding:15px;
+                li {
+                    display: block;
+                    background:#f2f2f2;
+                    padding:0 15px;
+                    line-height: 46px;
+                    font-size: 12px;
+                    color: #757575; 
+                    display: inline-block;
+                    margin-right: 10px;
+                    cursor:pointer;
+                    border-radius: 5px;
+                    &:hover {
+                        background:#d1e9ff;
+                    }
+                }
+                .select_time_active {
+                    background: #458ef9;
+                    color: #fff;
+                    &:hover {
+                        background: #458ef9;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
 
