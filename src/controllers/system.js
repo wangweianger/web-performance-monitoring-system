@@ -152,8 +152,6 @@ class user {
             if(slowCssTime) data.slowCssTime = slowCssTime;
             if(slowImgTime) data.slowImgTime = slowImgTime;
             
-            console.log(data)
-
             let sqlstr3 = sql
                 .table('web_system')
                 .data(data)

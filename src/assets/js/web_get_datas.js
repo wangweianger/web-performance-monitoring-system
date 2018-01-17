@@ -1,5 +1,16 @@
 // 绑定onload事件
 window.addEventListener("load",function(){
+    if (!window.performance && !window.performance.getEntries) return false;
+
+
+    fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
+      console.log(data);
+    }).catch(function(e) {
+      console.log("Oops, error");
+    });
+
+    return
+
     var domain      = 'http://127.0.0.1:18080/'
     var webscript   = document.getElementById('web_performance_script');
     var appId       = webscript.getAttribute('data-appId')
@@ -45,7 +56,8 @@ window.addEventListener("load",function(){
                 页面重定向时间:${redirectTime},
                 unload时间:${unloadTime}
                 request请求耗时:${requestTime},
-                页面解析dom耗时:${analysisDomTime}
+                页面解析dom耗时:${analysisDomTime},
+                页面链接:${encodeURIComponent(location.href)}
                 `) 
 
             var imgBjc  = document.createElement('img')
@@ -60,9 +72,14 @@ window.addEventListener("load",function(){
                             +'&requestTime='+requestTime
                             +'&analysisDomTime='+analysisDomTime
                             +'&appId='+appId
+                            +'&url='+encodeURIComponent(location.href)
 
-                imgBjc.setAttribute('src',src); 
-                document.body.appendChild(imgBjc);
+            if(document.referrer && document.referrer!=location.href){
+                src+='&preUrl='+encodeURIComponent(document.referrer)
+            }
+            imgBjc.setAttribute('src',src);
+            imgBjc.setAttribute("style","display:none;");
+            document.body.appendChild(imgBjc);
         }
     },500);
 
@@ -72,6 +89,13 @@ window.addEventListener("load",function(){
     },20000)
 
     /*---------------------------------统计页面资源性能---------------------------------*/
-    console.log(performance.getEntries())
+    let recoseList = performance.getEntriesByType('resource')
+    recoseList.forEach((item)=>{
+        console.log(item.duration)
+    })
+
+
+
+
 },true);
 
