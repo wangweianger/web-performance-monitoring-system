@@ -29,7 +29,7 @@ export let SYSTEM = {
 
 export let DB = {
 	// 服务器地址
-	HOST: 'localhost',
+	HOST: '172.16.50.158',
 
 	// 数据库端口号     
 	PROT: 3306,
