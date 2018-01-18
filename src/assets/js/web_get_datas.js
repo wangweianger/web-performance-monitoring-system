@@ -1,8 +1,127 @@
+!function (ob) {
+    ob.hookAjax = function (funs) {
+        window._ahrealxhr = window._ahrealxhr || XMLHttpRequest
+        XMLHttpRequest = function () {
+            this.xhr = new window._ahrealxhr;
+            for (var attr in this.xhr) {
+                var type = "";
+                try {
+                    type = typeof this.xhr[attr]
+                } catch (e) {}
+                if (type === "function") {
+                    this[attr] = hookfun(attr);
+                } else {
+                    Object.defineProperty(this, attr, {
+                        get: getFactory(attr),
+                        set: setFactory(attr)
+                    })
+                }
+            }
+        }
+
+        function getFactory(attr) {
+            return function () {
+                return this.hasOwnProperty(attr + "_")?this[attr + "_"]:this.xhr[attr];
+            }
+        }
+
+        function setFactory(attr) {
+            return function (f) {
+                var xhr = this.xhr;
+                var that = this;
+                if (attr.indexOf("on") != 0) {
+                    this[attr + "_"] = f;
+                    return;
+                }
+                if (funs[attr]) {
+                    xhr[attr] = function () {
+                        funs[attr](that) || f.apply(xhr, arguments);
+                    }
+                } else {
+                    xhr[attr] = f;
+                }
+            }
+        }
+
+        function hookfun(fun) {
+            return function () {
+                var args = [].slice.call(arguments)
+                if (funs[fun] && funs[fun].call(this, args, this.xhr)) {
+                    return;
+                }
+                return this.xhr[fun].apply(this.xhr, args);
+            }
+        }
+        return window._ahrealxhr;
+    }
+    ob.unHookAjax = function () {
+        if (window._ahrealxhr)  XMLHttpRequest = window._ahrealxhr;
+        window._ahrealxhr = undefined;
+    }
+}(window)
+
+// 资源列表信息
+let resource = null;
+// 延迟请求resourceTime资源时间
+let resourceTime = 2000;
+// onreadystatechange请求的XML信息
+let urlXMLArr   = [];
+// onload的xml请求信息
+let urlOnload   = [];
+// 页面ajax数量
+let ajaxLength = 0
+// 页面是否有ajax请求
+let haveAjax  = false;
+
+let timer10,timer11,timer12,timer13;
+
+// 拦截ajax
+hookAjax({
+    onreadystatechange:function(xhr){
+        if(xhr.readyState === 4){
+            urlXMLArr.push(0);
+            if(urlXMLArr.length+1 === ajaxLength){
+                setTimeout(()=>{
+                    if(!urlOnload.length){
+                        setTimeout(()=>{
+                            console.log('---------------')
+                            resource = performance.getEntriesByType('resource')
+                            ReportData();
+                        },resourceTime)
+                    }
+                },500)
+            }
+        }
+    },
+    onload:function(xhr){
+        urlOnload.push(0);
+        if(urlOnload.length+1 === ajaxLength){
+            setTimeout(()=>{
+                console.log('+++++++++++++')
+                resource = performance.getEntriesByType('resource')
+                ReportData();
+            },resourceTime)
+        }
+    },
+    open:function(arg,xhr){
+        haveAjax  = true;
+        ajaxLength = ajaxLength+1;
+    }
+})
+
 // 绑定onload事件
 window.addEventListener("load",function(){
-    if (!window.performance && !window.performance.getEntries) return false;
+    if(!haveAjax){
+        setTimeout(()=>{
+            console.log('------+++++++++-----')
+            resource = performance.getEntriesByType('resource')
+            ReportData()
+        },resourceTime)
+    }
+},true);
 
-
+// 数据上报
+function ReportData(){
     // fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
     //   console.log(data);
     // }).catch(function(e) {
@@ -14,8 +133,6 @@ window.addEventListener("load",function(){
     // }).catch(function(e) {
     //   console.log(e);
     // });
-
-    // return
 
 
     var domain      = 'http://127.0.0.1:18080/'
@@ -32,9 +149,8 @@ window.addEventListener("load",function(){
         url:encodeURIComponent(location.href)
     })
 
-    // return
-
     /*---------------------------------统计页面性能-----------------------------------*/
+    if (!window.performance && !window.performance.getEntries) return false;
     var timer1      = null;
     var timer2      = null;
 
@@ -107,10 +223,25 @@ window.addEventListener("load",function(){
     },20000)
 
     /*---------------------------------统计页面资源性能---------------------------------*/
-    let recoseList = performance.getEntriesByType('resource')
-    recoseList.forEach((item)=>{
-        console.log(item.duration)
-    })
+    
+    console.log(resource)
+
+    // let recoseList = performance.getEntriesByType('resource')
+    // console.log(recoseList.length)
+    // console.log(recoseList)
+
+    // let pushArr = []
+    // recoseList.forEach((item)=>{
+    //     pushArr.push({
+    //         name:item.name,
+    //         type:item.initiatorType,
+    //         duration:item.duration||0,
+    //         decodedBodySize:item.decodedBodySize||0,
+    //         nextHopProtocol:item.nextHopProtocol,
+    //     })
+    // })
+
+    // console.log(pushArr)
 
     // 公共函数新增dom节点
     function createElement(domain,apiName,appId,option={}){
@@ -127,6 +258,5 @@ window.addEventListener("load",function(){
         imgBjc.setAttribute("style","display:none;");
         document.body.appendChild(imgBjc);
     }
-
-},true);
+}
 
