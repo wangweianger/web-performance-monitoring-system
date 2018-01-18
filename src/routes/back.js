@@ -33,7 +33,8 @@ router.post('/api/ajax/getajaxlist',loginCheckfn, controllers.ajax.getajaxlist)
 
 
 
-
+// 统计页面cookie打点标识
+router.get('/reportMark',controllers.dataReport.setMarkCookies);
 // page页面统计上报接口
 router.get('/reportPage',controllers.dataReport.getPagePerformDatas);
 // 用户系统上报

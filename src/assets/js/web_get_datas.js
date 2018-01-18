@@ -2,7 +2,6 @@
 window.addEventListener("load",function(){
     if (!window.performance && !window.performance.getEntries) return false;
 
-    //user-agent 上报
 
     // fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
     //   console.log(data);
@@ -18,19 +17,23 @@ window.addEventListener("load",function(){
 
     // return
 
+
     var domain      = 'http://127.0.0.1:18080/'
     var webscript   = document.getElementById('web_performance_script');
     var appId       = webscript.getAttribute('data-appId')
-
     if(!appId) return;
+
+    /*----------------------------------打cookie标识----------------------------------*/
+    createElement(domain,'reportMark',appId)
+
     /*---------------------------------统计用户系统信息---------------------------------*/
-    var imgBjc2  = document.createElement('img')
-    var src2     = domain+'reportSystem?appId='+appId
-    imgBjc2.setAttribute('src',src2);
-    imgBjc2.setAttribute("style","display:none;");
-    document.body.appendChild(imgBjc2);
+    createElement(domain,'reportSystem',appId,{
+        appId:appId,
+        url:encodeURIComponent(location.href)
+    })
 
     return
+
     /*---------------------------------统计页面性能-----------------------------------*/
     var timer1      = null;
     var timer2      = null;
@@ -61,26 +64,41 @@ window.addEventListener("load",function(){
             //页面解析dom耗时
             var analysisDomTime = timing.domComplete - timing.domInteractive || 0
 
-            var imgBjc  = document.createElement('img')
-            var src     = domain+'reportPage?dnsTime='+dnsTime
-                            +'&tcpTime='+tcpTime
-                            +'&whiteTime='+whiteTime
-                            +'&domTime='+domTime
-                            +'&loadTime='+loadTime
-                            +'&readyTime='+readyTime
-                            +'&redirectTime='+redirectTime
-                            +'&unloadTime='+unloadTime
-                            +'&requestTime='+requestTime
-                            +'&analysisDomTime='+analysisDomTime
-                            +'&appId='+appId
-                            +'&url='+encodeURIComponent(location.href)
+            createElement(domain,'reportPage',appId,{
+                dnsTime:dnsTime,
+                tcpTime:tcpTime,
+                whiteTime:whiteTime,
+                domTime:domTime,
+                loadTime:loadTime,
+                readyTime:readyTime,
+                redirectTime:redirectTime,
+                unloadTime:unloadTime,
+                requestTime:requestTime,
+                analysisDomTime:analysisDomTime,
+                appId:appId,
+                url:encodeURIComponent(location.href)
+            })
 
-            if(document.referrer && document.referrer!=location.href){
-                src+='&preUrl='+encodeURIComponent(document.referrer)
-            }
-            imgBjc.setAttribute('src',src);
-            imgBjc.setAttribute("style","display:none;");
-            document.body.appendChild(imgBjc);
+            // var imgBjc  = document.createElement('img')
+            // var src     = domain+'reportPage?dnsTime='+dnsTime
+            //                 +'&tcpTime='+tcpTime
+            //                 +'&whiteTime='+whiteTime
+            //                 +'&domTime='+domTime
+            //                 +'&loadTime='+loadTime
+            //                 +'&readyTime='+readyTime
+            //                 +'&redirectTime='+redirectTime
+            //                 +'&unloadTime='+unloadTime
+            //                 +'&requestTime='+requestTime
+            //                 +'&analysisDomTime='+analysisDomTime
+            //                 +'&appId='+appId
+            //                 +'&url='+encodeURIComponent(location.href)
+
+            // if(document.referrer && document.referrer!=location.href){
+            //     src+='&preUrl='+encodeURIComponent(document.referrer)
+            // }
+            // imgBjc.setAttribute('src',src);
+            // imgBjc.setAttribute("style","display:none;");
+            // document.body.appendChild(imgBjc);
         }
     },500);
     timer2 = setTimeout(function(){
@@ -93,6 +111,22 @@ window.addEventListener("load",function(){
     recoseList.forEach((item)=>{
         console.log(item.duration)
     })
+
+    // 新增dom节点
+    function createElement(domain,apiName,appId,option={}){
+        var imgBjc  = document.createElement('img')
+        var src     = domain+apiName
+        for(let key in option){
+            if(src.indexOf('?')!==-1){
+                src = `${src}&${key}=${option[key]}`
+            }else{
+                src = `${src}?${key}=${option[key]}`
+            }
+        }
+        imgBjc.setAttribute('src',src);
+        imgBjc.setAttribute("style","display:none;");
+        document.body.appendChild(imgBjc);
+    }
 
 },true);
 
