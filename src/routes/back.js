@@ -39,6 +39,8 @@ router.get('/reportMark',controllers.dataReport.setMarkCookies);
 router.get('/reportPage',controllers.dataReport.getPagePerformDatas);
 // 用户系统上报
 router.get('/reportSystem',controllers.dataReport.getSystemPerformDatas);
+// 页面资源数据上报
+router.post('/reportResource',controllers.dataReport.getPageResources);
 
 module.exports = router
 

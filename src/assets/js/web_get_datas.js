@@ -223,25 +223,27 @@ function ReportData(){
     },20000)
 
     /*---------------------------------统计页面资源性能---------------------------------*/
-    
-    console.log(resource)
+    let resource = performance.getEntriesByType('resource')
+    let pushArr = []
+    resource.forEach((item)=>{
+        pushArr.push({
+            name:item.name,
+            type:item.initiatorType,
+            duration:item.duration.toFixed(2)||0,
+            decodedBodySize:item.decodedBodySize||0,
+            nextHopProtocol:item.nextHopProtocol,
+        })
+    })
 
-    // let recoseList = performance.getEntriesByType('resource')
-    // console.log(recoseList.length)
-    // console.log(recoseList)
-
-    // let pushArr = []
-    // recoseList.forEach((item)=>{
-    //     pushArr.push({
-    //         name:item.name,
-    //         type:item.initiatorType,
-    //         duration:item.duration||0,
-    //         decodedBodySize:item.decodedBodySize||0,
-    //         nextHopProtocol:item.nextHopProtocol,
-    //     })
-    // })
-
-    // console.log(pushArr)
+    fetch(`${domain}reportResource`,{
+        method: 'POST',
+        body:JSON.stringify({list:pushArr})
+    }).then(function(response) { return response.json(); }).then(function(data) {
+        console.log(data);
+    }).catch(function(e) {
+        console.log(e)
+        console.log("Oops, error");
+    });
 
     // 公共函数新增dom节点
     function createElement(domain,apiName,appId,option={}){
