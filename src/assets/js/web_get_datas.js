@@ -32,7 +32,7 @@ window.addEventListener("load",function(){
         url:encodeURIComponent(location.href)
     })
 
-    return
+    // return
 
     /*---------------------------------统计页面性能-----------------------------------*/
     var timer1      = null;
@@ -112,7 +112,7 @@ window.addEventListener("load",function(){
         console.log(item.duration)
     })
 
-    // 新增dom节点
+    // 公共函数新增dom节点
     function createElement(domain,apiName,appId,option={}){
         var imgBjc  = document.createElement('img')
         var src     = domain+apiName

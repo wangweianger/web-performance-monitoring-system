@@ -49,7 +49,7 @@ class data {
         if(!appId) return;
         let sqlstr = sql
             .table('web_system')
-            .field('isUse,systemDomain,id')
+            .field('isUse,systemDomain,id,slowPageTime')
             .where({appId:appId})
             .select()
         let systemMsg = await mysql(sqlstr); 
@@ -85,7 +85,7 @@ class data {
 
         let table = 'web_pages';
         // 判断是否存入慢表
-        if(loadTime >= systemItem.slowPageTime*1000) table = 'web_slowpages';
+        if(ctx.query.loadTime >= systemItem.slowPageTime*1000) table = 'web_slowpages';
 
         let sqlstr1 = sql
             .table(table)
