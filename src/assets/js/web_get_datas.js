@@ -237,7 +237,7 @@ function ReportData(){
 
     fetch(`${domain}reportResource`,{
         method: 'POST',
-        body:JSON.stringify({list:pushArr})
+        body:JSON.stringify(pushArr)
     }).then(function(response) { return response.json(); }).then(function(data) {
         console.log(data);
     }).catch(function(e) {
