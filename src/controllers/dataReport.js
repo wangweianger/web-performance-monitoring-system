@@ -10,43 +10,97 @@ import {
     mysql,
     getsql,
 } from '../tool'
-const imgsrc = 'base64'
+const imgsrc = 'console.log(0)'
 
 class data {
     //初始化对象
     constructor() {
-        this.markUser = ''
-        this.markPage = ''
+        
     };
     // 页面打cookie
     async setMarkCookies(ctx){
         try{
             const cookies = ctx.cookie;
-            if(cookies && cookies.markUser){
-            }else{
-                let markUser = util.signwx({
+            let timestamp = new Date().getTime();
+            let markUser,markPage,IP;
+            let maxAge = 864000000;  //cookie超时时间
+
+            if(cookies && cookies.markUser){}else{
+                // 第一次访问
+                markUser = util.signwx({
                     mark:'markUser',
-                    espires:'session',
-                    timestamp:new Date().getTime(),
+                    timestamp:timestamp,
                     random:util.randomString()
                 }).paySign;
-                module.exports.markUser = markUser
                 ctx.cookies.set('markUser',markUser)
             }
-            
-            let markPage = util.signwx({
+
+            // 每次页面标识
+            markPage = util.signwx({
                 mark:'markPage',
-                espires:'session',
-                timestamp:new Date().getTime(),
+                timestamp:timestamp,
                 random:util.randomString()
             }).paySign;
-            module.exports.markPage = markPage
+            ctx.cookies.set('markPage',markPage)
 
-            ctx.body=imgsrc
+            // 用户IP标识
+            let userSystemInfo = {}
+            if(cookies && cookies.IP){}else{
+                const publicIp = require('public-ip');
+                function getUserIpMsg(){
+                    return new Promise(function(resolve, reject) {
+                        publicIp.v4().then(ip => {
+                            userSystemInfo.ip = ip;
+                            axios.get(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`).then(function (response) {
+                                resolve(response.data)
+                            }).catch(function (error) {
+                                console.log(error)
+                                resolve(null)
+                            });
+                        });
+                    })
+                }
+                let datas = await getUserIpMsg();
+                if(datas.code == 0) userSystemInfo = datas.data;
+                IP = userSystemInfo.ip
+                // 设置页面cookie
+                ctx.cookies.set('IP',userSystemInfo.ip,{maxAge:maxAge})
+                ctx.cookies.set('isp',encodeURIComponent(userSystemInfo.isp),{maxAge:maxAge})
+                ctx.cookies.set('country',encodeURIComponent(userSystemInfo.country),{maxAge:maxAge})
+                ctx.cookies.set('region',encodeURIComponent(userSystemInfo.region),{maxAge:maxAge})
+                ctx.cookies.set('city',encodeURIComponent(userSystemInfo.city),{maxAge:maxAge})
+            }
+            
+            // 获得markUser值
+            if(!markUser&&cookies&&cookies.markUser){
+                markUser = cookies.markUser
+            }
+            // 获得用户IP等信息
+            if(!IP&&cookies&&cookies.IP){
+                userSystemInfo.ip = decodeURIComponent(cookies.IP)
+                userSystemInfo.isp = decodeURIComponent(cookies.isp)
+                userSystemInfo.country = decodeURIComponent(cookies.country)
+                userSystemInfo.region = decodeURIComponent(cookies.region)
+                userSystemInfo.city = decodeURIComponent(cookies.city)
+            }
+
+            let script = `if(window.getCookies){
+                getCookies({
+                    markPage:'${markPage}',
+                    markUser:'${markUser}',
+                    IP:'${userSystemInfo.ip}',
+                    isp:'${userSystemInfo.isp}',
+                    county:'${userSystemInfo.country}',
+                    province:'${userSystemInfo.region}',
+                    city:'${userSystemInfo.city}',
+                });}`
+
+            ctx.body=script
+
         }catch(err){
+            console.log(err)
             ctx.body=imgsrc
         }
-        
     }
     // page页面参数上报
     async getPagePerformDatas(ctx){
@@ -73,13 +127,6 @@ class data {
                 return; 
             };
 
-            // 获取cookie信息
-            const cookies   = ctx.cookie;
-            // 统一某一时间段用户标识
-            let markUser    = cookies&&cookies.markUser||module.exports.markUser
-            // 统一某页面所有资源标识
-            let markPage    = module.exports.markPage||''
-
             let datas={
                 loadTime:ctx.query.loadTime,
                 dnsTime:ctx.query.dnsTime,
@@ -92,8 +139,8 @@ class data {
                 analysisDomTime:ctx.query.analysisDomTime,
                 readyTime:ctx.query.readyTime,
                 url:ctx.query.url,
-                markUser:markUser,
-                markPage:markPage,
+                markUser:ctx.query.markUser,
+                markPage:ctx.query.markPage,
                 createTime:moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss'),
                 systemId:systemItem.id,
                 preUrl:ctx.query.preUrl||''
@@ -139,39 +186,8 @@ class data {
                 return; 
             };
 
-            // 获取cookie信息
-            const cookies   = ctx.cookie;
-            // 统一某一时间段用户标识
-            let markUser    = cookies&&cookies.markUser||module.exports.markUser
-            // 统一某页面所有资源标识
-            let markPage    = module.exports.markPage||''
             // 获取userAgent
             let userAgent   = ctx.request.header['user-agent']
-
-            // 用户第一次访问网站时请求
-            let userSystemInfo = {}
-            if(!cookies||!cookies.markUser){
-                const publicIp = require('public-ip');
-                function getUserIpMsg(){
-                    return new Promise(function(resolve, reject) {
-                        publicIp.v4().then(ip => {
-                            userSystemInfo.ip = ip;
-                            axios.get(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`).then(function (response) {
-                                resolve(response.data)
-                            }).catch(function (error) {
-                                resolve(null)
-                            });
-                        });
-                    })
-                }
-                let datas = await getUserIpMsg();
-                if(datas.code == 0) userSystemInfo = datas.data;
-                console.log(userSystemInfo)
-            }
-
-
-            // ctx.body=imgsrc   
-            // return
 
             // var address = require('address');
             // console.log(address.ip());   // '192.168.0.2'
@@ -187,11 +203,11 @@ class data {
             // environment表数据
             let environment={
                 systemId:systemItem.id,
-                IP:userSystemInfo.ip||'',
-                isp:userSystemInfo.isp||'',
-                county:userSystemInfo.country||'',
-                province:userSystemInfo.region||'',
-                city:userSystemInfo.city||'',
+                IP:ctx.query.ip||'',
+                isp:ctx.query.isp||'',
+                county:ctx.query.country||'',
+                province:ctx.query.region||'',
+                city:ctx.query.city||'',
                 browser:result.browser.name||'',
                 borwserVersion:result.browser.version||'',
                 system:result.os.name||'',
@@ -217,9 +233,8 @@ class data {
     async getPageResources(ctx){
         ctx.set('Access-Control-Allow-Origin','*');
         try{
-            let resourceList = ctx.request.body?JSON.parse(ctx.request.body):[]
-            console.log(resourceList)
-
+            let resourceDatas = ctx.request.body?JSON.parse(ctx.request.body):{}
+            console.log(resourceDatas)
             
             ctx.body=imgsrc
         }catch(err){

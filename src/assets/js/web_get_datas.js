@@ -3,8 +3,8 @@
         window._ahrealxhr = window._ahrealxhr || XMLHttpRequest
         XMLHttpRequest = function () {
             this.xhr = new window._ahrealxhr;
-            for (var attr in this.xhr) {
-                var type = "";
+            for (let attr in this.xhr) {
+                let type = "";
                 try {
                     type = typeof this.xhr[attr]
                 } catch (e) {}
@@ -27,8 +27,8 @@
 
         function setFactory(attr) {
             return function (f) {
-                var xhr = this.xhr;
-                var that = this;
+                let xhr = this.xhr;
+                let that = this;
                 if (attr.indexOf("on") != 0) {
                     this[attr + "_"] = f;
                     return;
@@ -45,7 +45,7 @@
 
         function hookfun(fun) {
             return function () {
-                var args = [].slice.call(arguments)
+                let args = [].slice.call(arguments)
                 if (funs[fun] && funs[fun].call(this, args, this.xhr)) {
                     return;
                 }
@@ -84,7 +84,7 @@ hookAjax({
                 setTimeout(()=>{
                     if(!urlOnload.length){
                         setTimeout(()=>{
-                            console.log('---------------')
+                            console.log('走了AJAX onreadystatechange 方法')
                             resource = performance.getEntriesByType('resource')
                             ReportData();
                         },resourceTime)
@@ -97,7 +97,7 @@ hookAjax({
         urlOnload.push(0);
         if(urlOnload.length+1 === ajaxLength){
             setTimeout(()=>{
-                console.log('+++++++++++++')
+                console.log('走了AJAX onload 方法')
                 resource = performance.getEntriesByType('resource')
                 ReportData();
             },resourceTime)
@@ -113,7 +113,7 @@ hookAjax({
 window.addEventListener("load",function(){
     if(!haveAjax){
         setTimeout(()=>{
-            console.log('------+++++++++-----')
+            console.log('走了WINDOW onload 方法')
             resource = performance.getEntriesByType('resource')
             ReportData()
         },resourceTime)
@@ -134,121 +134,114 @@ function ReportData(){
     //   console.log(e);
     // });
 
-
-    var domain      = 'http://127.0.0.1:18080/'
-    var webscript   = document.getElementById('web_performance_script');
-    var appId       = webscript.getAttribute('data-appId')
+    let domain      = 'http://127.0.0.1:18080/'
+    let webscript   = document.getElementById('web_performance_script');
+    let appId       = webscript.getAttribute('data-appId')
     if(!appId) return;
 
     /*----------------------------------打cookie标识----------------------------------*/
-    createElement(domain,'reportMark',appId)
+    let user_system_msgs = {};
+    window.getCookies=function(data){
+        console.log(data)
+        user_system_msgs = data
+        reportMain()
+    }
+    createElement(domain,'reportMark',appId,'script',{id:'web_script_reportMark'})
 
-    /*---------------------------------统计用户系统信息---------------------------------*/
-    createElement(domain,'reportSystem',appId,{
-        appId:appId,
-        url:encodeURIComponent(location.href)
-    })
+    // 正式开始上报
+    function reportMain(){
+        /*---------------------------------统计用户系统信息---------------------------------*/
+        createElement(domain,'reportSystem',appId,'img',{
+            appId:appId,
+            url:encodeURIComponent(location.href)
+        })
 
-    /*---------------------------------统计页面性能-----------------------------------*/
-    if (!window.performance && !window.performance.getEntries) return false;
-    var timer1      = null;
-    var timer2      = null;
+        /*---------------------------------统计页面性能-----------------------------------*/
+        if (!window.performance && !window.performance.getEntries) return false;
+        let timer1      = null;
+        let timer2      = null;
 
-    timer1 = setInterval(function(){
-        var timing = performance.timing
-        if(timing.loadEventEnd){
+        timer1 = setInterval(function(){
+            let timing = performance.timing
+            if(timing.loadEventEnd){
+                clearInterval(timer1);
+                clearTimeout(timer2)
+                // DNS解析时间
+                let dnsTime = timing.domainLookupEnd-timing.domainLookupStart || 0
+                //TCP建立时间
+                let tcpTime = timing.connectEnd-timing.connectStart || 0
+                // 白屏时间
+                let whiteTime = timing.responseStart-timing.navigationStart || 0
+                //dom渲染完成时间
+                let domTime = timing.domContentLoadedEventEnd-timing.navigationStart || 0
+                //页面onload时间
+                let loadTime = timing.loadEventEnd - timing.navigationStart || 0
+                // 页面准备时间
+                let readyTime = timing.fetchStart-timing.navigationStart || 0
+                // 页面重定向时间
+                let redirectTime = timing.redirectEnd - timing.redirectStart || 0
+                // unload时间
+                let unloadTime = timing.unloadEventEnd - timing.unloadEventStart || 0
+                //request请求耗时
+                let requestTime = timing.responseEnd - timing.requestStart || 0
+                //页面解析dom耗时
+                let analysisDomTime = timing.domComplete - timing.domInteractive || 0
+
+                createElement(domain,'reportPage',appId,'img',{
+                    dnsTime:dnsTime,
+                    tcpTime:tcpTime,
+                    whiteTime:whiteTime,
+                    domTime:domTime,
+                    loadTime:loadTime,
+                    readyTime:readyTime,
+                    redirectTime:redirectTime,
+                    unloadTime:unloadTime,
+                    requestTime:requestTime,
+                    analysisDomTime:analysisDomTime,
+                    appId:appId,
+                    url:encodeURIComponent(location.href),
+                    markPage:user_system_msgs.markPage,
+                    markUser:user_system_msgs.markUser
+                })
+            }
+        },500);
+        timer2 = setTimeout(function(){
             clearInterval(timer1);
             clearTimeout(timer2)
-            // DNS解析时间
-            var dnsTime = timing.domainLookupEnd-timing.domainLookupStart || 0
-            //TCP建立时间
-            var tcpTime = timing.connectEnd-timing.connectStart || 0
-            // 白屏时间
-            var whiteTime = timing.responseStart-timing.navigationStart || 0
-            //dom渲染完成时间
-            var domTime = timing.domContentLoadedEventEnd-timing.navigationStart || 0
-            //页面onload时间
-            var loadTime = timing.loadEventEnd - timing.navigationStart || 0
-            // 页面准备时间
-            var readyTime = timing.fetchStart-timing.navigationStart || 0
-            // 页面重定向时间
-            var redirectTime = timing.redirectEnd - timing.redirectStart || 0
-            // unload时间
-            var unloadTime = timing.unloadEventEnd - timing.unloadEventStart || 0
-            //request请求耗时
-            var requestTime = timing.responseEnd - timing.requestStart || 0
-            //页面解析dom耗时
-            var analysisDomTime = timing.domComplete - timing.domInteractive || 0
+        },20000)
 
-            createElement(domain,'reportPage',appId,{
-                dnsTime:dnsTime,
-                tcpTime:tcpTime,
-                whiteTime:whiteTime,
-                domTime:domTime,
-                loadTime:loadTime,
-                readyTime:readyTime,
-                redirectTime:redirectTime,
-                unloadTime:unloadTime,
-                requestTime:requestTime,
-                analysisDomTime:analysisDomTime,
-                appId:appId,
-                url:encodeURIComponent(location.href)
+        /*---------------------------------统计页面资源性能---------------------------------*/
+        let resource = performance.getEntriesByType('resource')
+        let pushArr = []
+        resource.forEach((item)=>{
+            pushArr.push({
+                name:item.name,
+                type:item.initiatorType,
+                duration:item.duration.toFixed(2)||0,
+                decodedBodySize:item.decodedBodySize||0,
+                nextHopProtocol:item.nextHopProtocol,
             })
-
-            // var imgBjc  = document.createElement('img')
-            // var src     = domain+'reportPage?dnsTime='+dnsTime
-            //                 +'&tcpTime='+tcpTime
-            //                 +'&whiteTime='+whiteTime
-            //                 +'&domTime='+domTime
-            //                 +'&loadTime='+loadTime
-            //                 +'&readyTime='+readyTime
-            //                 +'&redirectTime='+redirectTime
-            //                 +'&unloadTime='+unloadTime
-            //                 +'&requestTime='+requestTime
-            //                 +'&analysisDomTime='+analysisDomTime
-            //                 +'&appId='+appId
-            //                 +'&url='+encodeURIComponent(location.href)
-
-            // if(document.referrer && document.referrer!=location.href){
-            //     src+='&preUrl='+encodeURIComponent(document.referrer)
-            // }
-            // imgBjc.setAttribute('src',src);
-            // imgBjc.setAttribute("style","display:none;");
-            // document.body.appendChild(imgBjc);
-        }
-    },500);
-    timer2 = setTimeout(function(){
-        clearInterval(timer1);
-        clearTimeout(timer2)
-    },20000)
-
-    /*---------------------------------统计页面资源性能---------------------------------*/
-    let resource = performance.getEntriesByType('resource')
-    let pushArr = []
-    resource.forEach((item)=>{
-        pushArr.push({
-            name:item.name,
-            type:item.initiatorType,
-            duration:item.duration.toFixed(2)||0,
-            decodedBodySize:item.decodedBodySize||0,
-            nextHopProtocol:item.nextHopProtocol,
         })
-    })
-
-    fetch(`${domain}reportResource`,{
-        method: 'POST',
-        body:JSON.stringify(pushArr)
-    }).then(function(response) { return response.json(); }).then(function(data) {
-        console.log(data);
-    }).catch(function(e) {
-        console.log(e)
-        console.log("Oops, error");
-    });
+        // ajax上报
+        fetch(`${domain}reportResource`,{
+            method: 'POST',
+            body:JSON.stringify({
+                markPage:user_system_msgs.markPage,
+                markUser:user_system_msgs.markUser,
+                list:pushArr
+            })
+        }).then(function(response) { return response.json(); }).then(function(data) {
+            console.log(data);
+        }).catch(function(e) {
+            console.log(e)
+            console.log("Oops, error");
+        });
+    }
 
     // 公共函数新增dom节点
-    function createElement(domain,apiName,appId,option={}){
-        var imgBjc  = document.createElement('img')
-        var src     = domain+apiName
+    function createElement(domain,apiName,appId,type='img',option={}){
+        let imgBjc  = document.createElement(type)
+        let src     = domain+apiName
         for(let key in option){
             if(src.indexOf('?')!==-1){
                 src = `${src}&${key}=${option[key]}`
