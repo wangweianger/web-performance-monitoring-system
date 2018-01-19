@@ -85,11 +85,12 @@ hookAjax({
                     if(!urlOnload.length){
                         setTimeout(()=>{
                             console.log('走了AJAX onreadystatechange 方法')
+                            ajaxLength = 0
                             resource = performance.getEntriesByType('resource')
                             ReportData();
                         },resourceTime)
                     }
-                },500)
+                },800)
             }
         }
     },
@@ -98,6 +99,7 @@ hookAjax({
         if(urlOnload.length+1 === ajaxLength){
             setTimeout(()=>{
                 console.log('走了AJAX onload 方法')
+                ajaxLength = 0
                 resource = performance.getEntriesByType('resource')
                 ReportData();
             },resourceTime)
@@ -105,6 +107,7 @@ hookAjax({
     },
     open:function(arg,xhr){
         haveAjax  = true;
+        if(ajaxLength===0)performance.clearResourceTimings();
         ajaxLength = ajaxLength+1;
     }
 })
@@ -114,6 +117,7 @@ window.addEventListener("load",function(){
     if(!haveAjax){
         setTimeout(()=>{
             console.log('走了WINDOW onload 方法')
+            performance.clearResourceTimings()
             resource = performance.getEntriesByType('resource')
             ReportData()
         },resourceTime)
@@ -219,6 +223,7 @@ function ReportData(){
 
         /*---------------------------------统计页面资源性能---------------------------------*/
         let resource = performance.getEntriesByType('resource')
+
         let pushArr = []
         resource.forEach((item)=>{
             pushArr.push({
@@ -239,12 +244,7 @@ function ReportData(){
                 url:encodeURIComponent(location.href),
                 list:pushArr
             })
-        }).then(function(response) { return response.json(); }).then(function(data) {
-            console.log(data);
-        }).catch(function(e) {
-            console.log(e)
-            console.log("Oops, error");
-        });
+        }).then(function(response) { return response.json(); })
     }
 
     // 公共函数新增dom节点
