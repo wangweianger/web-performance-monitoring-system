@@ -113,7 +113,7 @@ class data {
             };  
             let sqlstr = sql
                 .table('web_system')
-                .field('isUse,id,slowPageTime')
+                .field('isUse,id,slowPageTime,isStatisiPages')
                 .where({appId:appId})
                 .select()
             let systemMsg = await mysql(sqlstr); 
@@ -122,7 +122,7 @@ class data {
                 return; 
             };
             let systemItem = systemMsg[0]
-            if(systemItem.isUse !== 0){
+            if(systemItem.isUse !== 0 || systemItem.isStatisiPages !== 0){
                 ctx.body=imgsrc;
                 return; 
             };
@@ -172,7 +172,7 @@ class data {
             }; 
             let sqlstr = sql
                 .table('web_system')
-                .field('isUse,id')
+                .field('isUse,id,isStatisiSystem')
                 .where({appId:appId})
                 .select()
             let systemMsg = await mysql(sqlstr); 
@@ -181,7 +181,7 @@ class data {
                 return; 
             };
             let systemItem = systemMsg[0]
-            if(systemItem.isUse !== 0){
+            if(systemItem.isUse !== 0 || systemItem.isStatisiSystem!==0){
                 ctx.body=imgsrc;
                 return; 
             };
@@ -200,20 +200,21 @@ class data {
             let parser = new UAParser();
             parser.setUA(userAgent);
             let result = parser.getResult();
+
             // environment表数据
             let environment={
                 systemId:systemItem.id,
-                IP:ctx.query.ip||'',
+                IP:ctx.query.IP||'',
                 isp:ctx.query.isp||'',
-                county:ctx.query.country||'',
-                province:ctx.query.region||'',
+                county:ctx.query.county||'',
+                province:ctx.query.province||'',
                 city:ctx.query.city||'',
                 browser:result.browser.name||'',
                 borwserVersion:result.browser.version||'',
                 system:result.os.name||'',
                 systemVersion:result.os.version||'',
-                markUser:markUser||'',
-                markPage:markPage||'',
+                markUser:ctx.query.markUser||'',
+                markPage:ctx.query.markPage||'',
                 url:ctx.query.url||'',
                 createTime:moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
             }
@@ -233,10 +234,79 @@ class data {
     async getPageResources(ctx){
         ctx.set('Access-Control-Allow-Origin','*');
         try{
-            let resourceDatas = ctx.request.body?JSON.parse(ctx.request.body):{}
-            console.log(resourceDatas)
+            //------------校验token是否存在----------------------------------------------------- 
+            let resourceDatas = ctx.request.body?JSON.parse(ctx.request.body):{}  
+            let appId = resourceDatas.appId
+            if(!appId){
+                ctx.body=imgsrc;
+                return; 
+            }; 
+            let sqlstr = sql
+                .table('web_system')
+                .field('isUse,id,slowJsTime,slowCssTime,slowImgTime,isStatisiAjax,isStatisiResource')
+                .where({appId:appId})
+                .select()
+            let systemMsg = await mysql(sqlstr); 
+            if(!systemMsg || !systemMsg.length){
+                ctx.body=imgsrc;
+                return; 
+            };
+            let systemItem = systemMsg[0]
+            if(systemItem.isUse !== 0){
+                ctx.body=imgsrc;
+                return; 
+            };
             
-            ctx.body=imgsrc
+            let createTime = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss');
+
+            let datas = {
+                systemId:systemItem.id,
+                markPage:resourceDatas.markPage,
+                markUser:resourceDatas.markUser,
+                callUrl:resourceDatas.url,
+                createTime:createTime,
+            }
+            resourceDatas.list.forEach(async item=>{
+                let duration = 0;
+                let table = ''
+                let items = JSON.parse(JSON.stringify(datas));
+                items.name=item.name
+                items.duration=item.duration
+                items.decodedBodySize=item.decodedBodySize
+
+                if(item.type === 'script'){
+                    duration = systemItem.slowJsTime
+                }else if(item.type === 'link'||item.type === 'css'){
+                    duration = systemItem.slowCssTime
+                }else if(item.type === 'xmlhttprequest'){
+                    table = 'web_ajax' 
+                }else if(item.type === 'img'){
+                    duration = systemItem.slowImgTime
+                }
+                if(!table && parseInt(item.duration) >= duration*1000){
+                    table = 'web_slowresources'
+                }
+                // 判断是否存储 ajax 和 慢资源
+                if(table&&table==='web_ajax'&&systemItem.isStatisiAjax===0){
+                    let sqlstr2 = sql.table(table).data(items).insert()
+                    await mysql(sqlstr2)
+                }else if(table&&table==='web_slowresources'&&systemItem.isStatisiResource===0){
+                    let sqlstr2 = sql.table(table).data(items).insert()
+                    await mysql(sqlstr2)
+                }
+            })
+
+            // 存储页面所有资源
+            if(systemItem.isStatisiResource !== 0){
+                ctx.body=imgsrc;
+                return; 
+            };
+            datas.resourceDatas = JSON.stringify(resourceDatas.list)
+            let sqlstr3 = sql.table('web_sources').data(datas).insert()
+            await mysql(sqlstr3)
+
+            ctx.body=imgsrc;
+            return;
         }catch(err){
             console.log(err)
             ctx.body=imgsrc

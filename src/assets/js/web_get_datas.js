@@ -146,14 +146,21 @@ function ReportData(){
         user_system_msgs = data
         reportMain()
     }
-    createElement(domain,'reportMark',appId,'script',{id:'web_script_reportMark'})
+    createElement(domain,'reportMark',appId,'script')
 
     // 正式开始上报
     function reportMain(){
         /*---------------------------------统计用户系统信息---------------------------------*/
         createElement(domain,'reportSystem',appId,'img',{
             appId:appId,
-            url:encodeURIComponent(location.href)
+            url:encodeURIComponent(location.href),
+            markPage:user_system_msgs.markPage,
+            markUser:user_system_msgs.markUser,
+            IP:user_system_msgs.IP,
+            city:user_system_msgs.city,
+            county:user_system_msgs.county,
+            isp:user_system_msgs.isp,
+            province:user_system_msgs.province
         })
 
         /*---------------------------------统计页面性能-----------------------------------*/
@@ -226,8 +233,10 @@ function ReportData(){
         fetch(`${domain}reportResource`,{
             method: 'POST',
             body:JSON.stringify({
+                appId:appId,
                 markPage:user_system_msgs.markPage,
                 markUser:user_system_msgs.markUser,
+                url:encodeURIComponent(location.href),
                 list:pushArr
             })
         }).then(function(response) { return response.json(); }).then(function(data) {
