@@ -279,11 +279,12 @@ class data {
                 }else if(item.type === 'link'||item.type === 'css'){
                     duration = systemItem.slowCssTime
                 }else if(item.type === 'xmlhttprequest'){
+                    duration = systemItem.slowAajxTime
                     table = 'web_ajax' 
                 }else if(item.type === 'img'){
                     duration = systemItem.slowImgTime
                 }
-                if(!table && parseInt(item.duration) >= duration*1000){
+                if(parseInt(item.duration) >= duration*1000){
                     table = 'web_slowresources'
                 }
                 // 判断是否存储 ajax 和 慢资源
