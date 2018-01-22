@@ -1,0 +1,70 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/ajax.css">
+<div class="container ajax" id="pages" v-cloak>
+   <div class="common-title">
+        <h1>访问页面</h1>
+        <div class="search">
+            <a href="/addSystem"><button class="cursor">+添加应用</button></a>
+            <span class="reload cursor iconfont">&#xe6ea;</span>
+            <div class="select">
+                <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
+                <div class="select-time">
+                    <li class="select_time_active">30分钟</li>
+                    <li>1小时</li>
+                    <li>6小时</li>
+                    <li>12小时</li>
+                    <li>1天</li>
+                    <li>3天</li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ajax-topsel">
+        请求方式：
+        <select>
+            <option>get</option>
+            <option>post</option>
+        </select>
+    </div>
+    <div class="notice">所有时间单位为毫秒(ms)，此页计算页面平均耗时</div>
+    <div class="table-box">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>URL</th>
+                    <th>调用次数</th>
+                    <th>页面加载时间</th>
+                    <th>白屏时间</th>
+                    <th>DNS解析时间</th>
+                    <th>TCP连接时间</th>
+                    <th>DOM构建时间</th>
+                    <th>资源加载耗时</th>
+                    <th>页面重定向时间</th>
+                    <th>unload时间</th>
+                    <th>request请求耗时</th>
+                    <th>解析dom耗时</th>
+                    <th>页面准备时间</th>  
+                </tr>
+            </thead>
+            <tr v-for="(item,index) in listdata" :key="index">
+                <td><a :href="item.url">{{item.url}}</a></td>
+                <td class="tc">{{item.count}}</td>
+                <td class="tc">{{item.loadTime|toFixed}}</td>
+                <td class="tc">{{item.whiteTime|toFixed}}</td>
+                <td class="tc">{{item.dnsTime|toFixed}}</td>
+                <td class="tc">{{item.tcpTime|toFixed}}</td>
+                <td class="tc">{{item.domTime|toFixed}}</td>
+                <td class="tc">{{item.resourceTime|toFixed}}</td>
+                <td class="tc">{{item.redirectTime|toFixed}}</td>
+                <td class="tc">{{item.unloadTime|toFixed}}</td>
+                <td class="tc">{{item.requestTime|toFixed}}</td>
+                <td class="tc">{{item.analysisDomTime|toFixed}}</td>
+                <td class="tc">{{item.readyTime|toFixed}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<%- include("./footer.html") %>
+<script src="/js/view-pages.js"></script>

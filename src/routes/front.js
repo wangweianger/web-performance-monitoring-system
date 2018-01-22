@@ -32,7 +32,7 @@ router.get(['/'], async(ctx, next) => {
 		}],
 	}
 
-	await ctx.render('index',{
+	await ctx.render('system',{
 		datas:datas
 	}); 
 });
@@ -59,10 +59,21 @@ router.get(['/addSystem'], async(ctx, next) => {
 	}); 
 });
 
+//pages性能分析页面
+router.get(['/pages'], async(ctx, next) => {
+	let datas = {
+		title:'page性能分析',
+	}
+
+	await ctx.render('pages',{
+		datas:datas
+	}); 
+});
+
 //新增应用
 router.get(['/ajax'], async(ctx, next) => {
 	let datas = {
-		title:'Ajax',
+		title:'Ajax性能分析',
 	}
 
 	await ctx.render('ajax',{

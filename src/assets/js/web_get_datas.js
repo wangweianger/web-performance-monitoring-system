@@ -146,7 +146,6 @@ function ReportData(){
     /*----------------------------------打cookie标识----------------------------------*/
     let user_system_msgs = {};
     window.getCookies=function(data){
-        console.log(data)
         user_system_msgs = data
         reportMain()
     }
@@ -244,7 +243,9 @@ function ReportData(){
                 url:encodeURIComponent(location.href),
                 list:pushArr
             })
-        }).then(function(response) { return response.json(); })
+        }).then(function(response) { 
+            // console.log(response)
+        })
     }
 
     // 公共函数新增dom节点

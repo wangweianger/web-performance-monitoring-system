@@ -1,7 +1,7 @@
 <%- include("./header.html") %>
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/index.css">
-<div class="container index" id="index">
+<div class="container index" id="index" v-cloak>
 	<div class="common-title">
         <h1>应用列表</h1>
         <div class="search">
@@ -32,6 +32,13 @@
                 <th>JS资源阀值</th>
                 <th>CSS资源阀值</th>
                 <th>IMG资源阀值</th>
+                <th>AJAX加载阀值</th>
+                <th>是否统计项目</th>
+                <th>是否统计页面</th>
+                <th>是否统计AJAX</th>
+                <th>是否统计页面资源</th>
+                <th>是否统计用户系统信息</th>
+                <th>是否统计错误信息</th>
                 <th>操作</th>
             </tr>
             <tr class="body" v-for="item in datalist">
@@ -42,7 +49,14 @@
                 <td>{{item.slowJsTime+'s'}}</td>
                 <td>{{item.slowCssTime+'s'}}</td>
                 <td>{{item.slowImgTime+'s'}}</td>
-                <td>
+                <td>{{item.slowAajxTime+'s'}}</td>
+                <td>{{item.isUse?'否':'是'}}</td>
+                <td>{{item.isStatisiPages?'否':'是'}}</td>
+                <td>{{item.isStatisiAjax?'否':'是'}}</td>
+                <td>{{item.isStatisiResource?'否':'是'}}</td>
+                <td>{{item.isStatisiSystem?'否':'是'}}</td>
+                <td>{{item.isStatisiError?'否':'是'}}</td>
+                 <td>
                     <span class="active">设置</span>
                     <span class="active">删除</span>
                 </td>

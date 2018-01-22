@@ -71,7 +71,8 @@
         display: block;
         width: 100%;
         height: 100%;
-        padding-left: 30px; }
+        padding-left: 30px;
+        color: #333; }
         .side .side-main li a .iconfont {
           margin-right: 10px; }
 
@@ -152,3 +153,10 @@
           .common-title .search .select .select-time .select_time_active:hover {
             background: #458ef9;
             color: #fff; }
+
+.notice {
+  margin: 20px 0;
+  background: #ebf3ff;
+  color: red;
+  padding: 8px 0;
+  padding-left: 20px; }

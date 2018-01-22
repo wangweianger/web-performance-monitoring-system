@@ -87,6 +87,7 @@
                 width:100%;
                 height:100%;
                 padding-left:30px;
+                color:#333;
                 .iconfont{
                     margin-right:10px;
                 }
@@ -187,3 +188,10 @@
     }
 }
 
+.notice{
+    margin:20px 0;
+    background:#ebf3ff;
+    color:red;
+    padding:8px 0;
+    padding-left:20px;
+}
