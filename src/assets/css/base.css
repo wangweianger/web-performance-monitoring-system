@@ -89,7 +89,7 @@ table.table {
     table.table tr th:nth-child(even) {
       background: #eee; }
     table.table tr td {
-      font-size: 13px;
+      font-size: 12px;
       padding: 6px 5px; }
 
 .user_select {
@@ -385,3 +385,6 @@ a:hover {
   color: red;
   padding: 8px 0;
   padding-left: 20px; }
+
+.common_page_style {
+  margin: 20px; }

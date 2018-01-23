@@ -39,12 +39,11 @@ router.post('/api/pages/getPageList',loginCheckfn, controllers.pages.getPageList
 
 // 统计页面cookie打点标识
 router.get('/reportMark',controllers.dataReport.setMarkCookies);
-// page页面统计上报接口
-router.get('/reportPage',controllers.dataReport.getPagePerformDatas);
+// 页面poage|资源数据上报
+router.post('/reportResource',controllers.dataReport.getPageResources);
 // 用户系统上报
 router.get('/reportSystem',controllers.dataReport.getSystemPerformDatas);
-// 页面资源数据上报
-router.post('/reportResource',controllers.dataReport.getPageResources);
+
 
 module.exports = router
 

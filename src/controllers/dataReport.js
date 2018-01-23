@@ -102,65 +102,6 @@ class data {
             ctx.body=imgsrc
         }
     }
-    // page页面参数上报
-    async getPagePerformDatas(ctx){
-        try{
-            //------------检测token是否存在-----------------------------------------------------  
-            let appId = ctx.query.appId
-            if(!appId){
-                ctx.body=imgsrc;
-                return; 
-            };  
-            let sqlstr = sql
-                .table('web_system')
-                .field('isUse,id,slowPageTime,isStatisiPages')
-                .where({appId:appId})
-                .select()
-            let systemMsg = await mysql(sqlstr); 
-            if(!systemMsg || !systemMsg.length){
-                ctx.body=imgsrc;
-                return; 
-            };
-            let systemItem = systemMsg[0]
-            if(systemItem.isUse !== 0 || systemItem.isStatisiPages !== 0){
-                ctx.body=imgsrc;
-                return; 
-            };
-
-            let datas={
-                loadTime:ctx.query.loadTime,
-                dnsTime:ctx.query.dnsTime,
-                tcpTime:ctx.query.tcpTime,
-                domTime:ctx.query.domTime,
-                whiteTime:ctx.query.whiteTime,
-                redirectTime:ctx.query.redirectTime,
-                unloadTime:ctx.query.unloadTime,
-                requestTime:ctx.query.requestTime,
-                analysisDomTime:ctx.query.analysisDomTime,
-                readyTime:ctx.query.readyTime,
-                url:ctx.query.url,
-                markUser:ctx.query.markUser,
-                markPage:ctx.query.markPage,
-                createTime:moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss'),
-                systemId:systemItem.id,
-                preUrl:ctx.query.preUrl||''
-            }
-
-            let table = 'web_pages';
-            // 判断是否存入慢表
-            if(ctx.query.loadTime >= systemItem.slowPageTime*1000) table = 'web_slowpages';
-
-            let sqlstr1 = sql
-                .table(table)
-                .data(datas)
-                .insert()
-            let result1 = await mysql(sqlstr1);  
-
-            ctx.body=imgsrc 
-        }catch(err){
-            ctx.body=imgsrc
-        }  
-    }
     // 用户系统信息上报
     async getSystemPerformDatas(ctx){
         try{
@@ -230,7 +171,7 @@ class data {
             ctx.body=imgsrc
         }    
     }
-    // 页面资源上报
+    // 页面性能及其资源上报
     async getPageResources(ctx){
         ctx.set('Access-Control-Allow-Origin','*');
         try{
@@ -243,7 +184,7 @@ class data {
             }; 
             let sqlstr = sql
                 .table('web_system')
-                .field('isUse,id,slowJsTime,slowCssTime,slowImgTime,isStatisiAjax,isStatisiResource')
+                .field('isUse,id,slowPageTime,isStatisiPages,slowJsTime,slowCssTime,slowImgTime,isStatisiAjax,isStatisiResource')
                 .where({appId:appId})
                 .select()
             let systemMsg = await mysql(sqlstr); 
@@ -259,11 +200,47 @@ class data {
             
             let createTime = moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss');
 
+            //----------------------------------------存储页面page性能----------------------------------------
+            if(systemItem.isStatisiPages === 0){
+                let pageTimes = resourceDatas.pageTimes || {}
+                let datas={
+                    loadTime:pageTimes.loadTime,
+                    dnsTime:pageTimes.dnsTime,
+                    tcpTime:pageTimes.tcpTime,
+                    domTime:pageTimes.domTime,
+                    whiteTime:pageTimes.whiteTime,
+                    redirectTime:pageTimes.redirectTime,
+                    unloadTime:pageTimes.unloadTime,
+                    requestTime:pageTimes.requestTime,
+                    analysisDomTime:pageTimes.analysisDomTime,
+                    readyTime:pageTimes.readyTime,
+                    pageTime:pageTimes.pageTime,
+                    preUrl:pageTimes.preUrl,
+                    url:decodeURIComponent(resourceDatas.url),
+                    markUser:resourceDatas.markUser,
+                    markPage:resourceDatas.markPage,
+                    createTime:createTime,
+                    systemId:systemItem.id
+                }
+
+                let table = 'web_pages';
+                // 判断是否存入慢表
+                if(ctx.query.pageTime >= systemItem.slowPageTime*1000) table = 'web_slowpages';
+
+                let sqlstr1 = sql
+                    .table(table)
+                    .data(datas)
+                    .insert()
+                let result1 = await mysql(sqlstr1);  
+            }
+
+            //----------------------------------------存储页面资源性能----------------------------------------
+
             let datas = {
                 systemId:systemItem.id,
                 markPage:resourceDatas.markPage,
                 markUser:resourceDatas.markUser,
-                callUrl:resourceDatas.url,
+                callUrl:decodeURIComponent(resourceDatas.url),
                 createTime:createTime,
             }
             resourceDatas.list.forEach(async item=>{
@@ -300,7 +277,7 @@ class data {
             // 存储页面所有资源
             if(systemItem.isStatisiResource !== 0){
                 ctx.body=imgsrc;
-                return; 
+                return;
             };
             datas.resourceDatas = JSON.stringify(resourceDatas.list)
             let sqlstr3 = sql.table('web_sources').data(datas).insert()

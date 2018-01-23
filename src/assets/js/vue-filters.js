@@ -8,9 +8,14 @@ let Filter = {
             return config.imgBaseUrl + img + '?imageslim';
         }
     },
-    toFixed(val){
+    toFixed(val,type=false){
         val = parseFloat(val)
-        return val.toFixed(2);
+        if(type){
+            val = val/1000
+            return val>0?val.toFixed(3)+' s':val.toFixed(2);
+        }else{
+            return val.toFixed(2)+' ms';
+        }
     },
 }
 window.Filter = {};

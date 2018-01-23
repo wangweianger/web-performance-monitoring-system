@@ -166,65 +166,15 @@ function ReportData(){
             province:user_system_msgs.province
         })
 
-        /*---------------------------------统计页面性能-----------------------------------*/
+        /*---------------------------------统计页面性能及其资源性能---------------------------------*/
         if (!window.performance && !window.performance.getEntries) return false;
-        let timer1      = null;
-        let timer2      = null;
 
-        timer1 = setInterval(function(){
-            let timing = performance.timing
-            if(timing.loadEventEnd){
-                clearInterval(timer1);
-                clearTimeout(timer2)
-                // DNS解析时间
-                let dnsTime = timing.domainLookupEnd-timing.domainLookupStart || 0
-                //TCP建立时间
-                let tcpTime = timing.connectEnd-timing.connectStart || 0
-                // 白屏时间
-                let whiteTime = timing.responseStart-timing.navigationStart || 0
-                //dom渲染完成时间
-                let domTime = timing.domContentLoadedEventEnd-timing.navigationStart || 0
-                //页面onload时间
-                let loadTime = timing.loadEventEnd - timing.navigationStart || 0
-                // 页面准备时间
-                let readyTime = timing.fetchStart-timing.navigationStart || 0
-                // 页面重定向时间
-                let redirectTime = timing.redirectEnd - timing.redirectStart || 0
-                // unload时间
-                let unloadTime = timing.unloadEventEnd - timing.unloadEventStart || 0
-                //request请求耗时
-                let requestTime = timing.responseEnd - timing.requestStart || 0
-                //页面解析dom耗时
-                let analysisDomTime = timing.domComplete - timing.domInteractive || 0
-
-                createElement(domain,'reportPage',appId,'img',{
-                    dnsTime:dnsTime,
-                    tcpTime:tcpTime,
-                    whiteTime:whiteTime,
-                    domTime:domTime,
-                    loadTime:loadTime,
-                    readyTime:readyTime,
-                    redirectTime:redirectTime,
-                    unloadTime:unloadTime,
-                    requestTime:requestTime,
-                    analysisDomTime:analysisDomTime,
-                    appId:appId,
-                    url:encodeURIComponent(location.href),
-                    markPage:user_system_msgs.markPage,
-                    markUser:user_system_msgs.markUser
-                })
-            }
-        },500);
-        timer2 = setTimeout(function(){
-            clearInterval(timer1);
-            clearTimeout(timer2)
-        },20000)
-
-        /*---------------------------------统计页面资源性能---------------------------------*/
         let resource = performance.getEntriesByType('resource')
 
         let pushArr = []
+        let pageTime = 0
         resource.forEach((item)=>{
+            pageTime+=item.duration
             pushArr.push({
                 name:item.name,
                 type:item.initiatorType,
@@ -233,6 +183,46 @@ function ReportData(){
                 nextHopProtocol:item.nextHopProtocol,
             })
         })
+
+        /*---------------------------------统计页面性能-----------------------------------*/
+        let timing = performance.timing
+        // DNS解析时间
+        let dnsTime = timing.domainLookupEnd-timing.domainLookupStart || 0
+        //TCP建立时间
+        let tcpTime = timing.connectEnd-timing.connectStart || 0
+        // 白屏时间
+        let whiteTime = timing.responseStart-timing.navigationStart || 0
+        //dom渲染完成时间
+        let domTime = timing.domContentLoadedEventEnd-timing.navigationStart || 0
+        //页面onload时间
+        let loadTime = timing.loadEventEnd - timing.navigationStart || 0
+        // 页面准备时间
+        let readyTime = timing.fetchStart-timing.navigationStart || 0
+        // 页面重定向时间
+        let redirectTime = timing.redirectEnd - timing.redirectStart || 0
+        // unload时间
+        let unloadTime = timing.unloadEventEnd - timing.unloadEventStart || 0
+        //request请求耗时
+        let requestTime = timing.responseEnd - timing.requestStart || 0
+        //页面解析dom耗时
+        let analysisDomTime = timing.domComplete - timing.domInteractive || 0
+        let preUrl = document.referrer&&document.referrer!==location.href?document.referrer:''
+
+        let pageTimes={
+            dnsTime:dnsTime,
+            tcpTime:tcpTime,
+            whiteTime:whiteTime,
+            domTime:domTime,
+            loadTime:loadTime,
+            readyTime:readyTime,
+            redirectTime:redirectTime,
+            unloadTime:unloadTime,
+            requestTime:requestTime,
+            analysisDomTime:analysisDomTime,
+            pageTime:pageTime+loadTime,
+            preUrl:preUrl
+        }
+
         // ajax上报
         fetch(`${domain}reportResource`,{
             method: 'POST',
@@ -241,7 +231,8 @@ function ReportData(){
                 markPage:user_system_msgs.markPage,
                 markUser:user_system_msgs.markUser,
                 url:encodeURIComponent(location.href),
-                list:pushArr
+                list:pushArr,
+                pageTimes:pageTimes,
             })
         }).then(function(response) { 
             // console.log(response)
