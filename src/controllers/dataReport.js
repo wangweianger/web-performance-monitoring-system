@@ -214,7 +214,7 @@ class data {
                     requestTime:pageTimes.requestTime,
                     analysisDomTime:pageTimes.analysisDomTime,
                     readyTime:pageTimes.readyTime,
-                    pageTime:pageTimes.pageTime,
+                    resourceTime:pageTimes.resourceTime,
                     preUrl:pageTimes.preUrl,
                     url:decodeURIComponent(resourceDatas.url),
                     markUser:resourceDatas.markUser,
@@ -225,7 +225,7 @@ class data {
 
                 let table = 'web_pages';
                 // 判断是否存入慢表
-                if(ctx.query.pageTime >= systemItem.slowPageTime*1000) table = 'web_slowpages';
+                if((pageTimes.loadTime+pageTimes.resourceTime) >= systemItem.slowPageTime*1000) table = 'web_slowpages';
 
                 let sqlstr1 = sql
                     .table(table)

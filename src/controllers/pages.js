@@ -35,7 +35,6 @@ class pages {
                                 avg(dnsTime) as dnsTime,
                                 avg(tcpTime) as tcpTime,
                                 avg(domTime) as domTime,
-                                avg(pageTime) as pageTime,
                                 avg(resourceTime) as resourceTime,
                                 avg(whiteTime) as whiteTime,
                                 avg(redirectTime) as redirectTime,
@@ -99,7 +98,7 @@ class pages {
             let sqlstr = sql
                 .table('web_pages')
                 .where(data)
-                .order('createTime')
+                .order('createTime desc')
                 .select()
             let result = await mysql(sqlstr);
 

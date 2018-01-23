@@ -2,12 +2,11 @@
 <%- include("./side.html") %>
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/page.css">
-<link rel="stylesheet" href="/css/ajax.css">
+<link rel="stylesheet" href="/css/page-detail.css">
 <div class="container ajax" id="pages" v-cloak>
    <div class="common-title">
-        <h1>访问页面</h1>
+        <h1>访问页面性能</h1>
         <div class="search">
-            <a href="/addSystem"><button class="cursor">+添加应用</button></a>
             <span class="reload cursor iconfont">&#xe6ea;</span>
             <div class="select">
                 <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
@@ -22,20 +21,17 @@
             </div>
         </div>
     </div>
-    <div class="ajax-topsel">
-        请求方式：
-        <select>
-            <option>get</option>
-            <option>post</option>
-        </select>
+    <div class="common_table_nav">
+        <li class="active">性能详情</li>
+        <li>资源调用</li>
+        <li>ajax调用</li>
+        <li>慢加载追踪</li>
     </div>
-    <div class="notice">所有时间单位为毫秒(ms)，此页计算页面平均耗时</div>
-    <div class="table-box">
+    <div class="table-box main-block">
         <table class="table">
             <thead>
                 <tr>
-                    <th>URL</th>
-                    <th>调用次数</th>
+                    <th class="break-word">URL</th>
                     <th>页面加载时间</th>
                     <th>白屏时间</th>
                     <th>资源加载耗时</th>
@@ -46,15 +42,16 @@
                     <th>页面重定向时间</th>
                     <th>unload时间</th>
                     <th>request请求耗时</th>
-                    <th>页面准备时间</th>
+                    <th>页面准备时间</th> 
+                    <th>页面请求时间</th>
+                    <th>操作</th>  
                 </tr>
             </thead>
             <tr v-for="(item,index) in listdata" :key="index">
-                <td><a :href="'/pages/detail?url='+item.decodeUrl">{{item.url}}</a></td>
-                <td class="tc">{{item.count}}</td>
+                <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length">{{item.url}}</td>
                 <td class="tc">{{item.loadTime|toFixed(true)}}</td>
                 <td class="tc">{{item.whiteTime|toFixed}}</td>
-                <td class="tc">{{item.resourceTime|toFixed(true)}}</td>
+                <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
                 <td class="tc">{{item.domTime|toFixed(true)}}</td>
                 <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
                 <td class="tc">{{item.dnsTime|toFixed}}</td>
@@ -63,6 +60,8 @@
                 <td class="tc">{{item.unloadTime|toFixed}}</td>
                 <td class="tc">{{item.requestTime|toFixed}}</td>
                 <td class="tc">{{item.readyTime|toFixed}}</td>
+                <td class="tc">{{item.dateTime}}</td>
+                <td class="tc"><a href="">资源耗时详情</a></td>
             </tr>
         </table>
     </div>
@@ -73,4 +72,4 @@
 </div>
 <%- include("./footer.html") %>
 <script src="/js/Page.js"></script>
-<script src="/js/view-pages.js"></script>
+<script src="/js/view-page-detail.js"></script>

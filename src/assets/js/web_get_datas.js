@@ -172,9 +172,9 @@ function ReportData(){
         let resource = performance.getEntriesByType('resource')
 
         let pushArr = []
-        let pageTime = 0
+        let resourceTime = 0
         resource.forEach((item)=>{
-            pageTime+=item.duration
+            resourceTime+=item.duration
             pushArr.push({
                 name:item.name,
                 type:item.initiatorType,
@@ -219,7 +219,7 @@ function ReportData(){
             unloadTime:unloadTime,
             requestTime:requestTime,
             analysisDomTime:analysisDomTime,
-            pageTime:pageTime+loadTime,
+            resourceTime:resourceTime,
             preUrl:preUrl
         }
 

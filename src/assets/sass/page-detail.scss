@@ -1,0 +1,12 @@
+.border-right{
+    border-right: solid 1px #eee;
+}
+.break-word{
+    width:150px;
+    a{
+        display:block;
+        width:150px;
+        word-wrap:break-word;
+        overflow:hidden;
+    }
+}
