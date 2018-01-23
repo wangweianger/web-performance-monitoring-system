@@ -24,5 +24,9 @@ new Vue({
                 }
             })
         },
+        getDetail(item){
+            util.setStorage('local','systemMsg',JSON.stringify(item))
+            location.href="/pages"
+        }
     }
 })

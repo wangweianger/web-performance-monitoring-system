@@ -1,7 +1,8 @@
 new Vue({
-    el: '#pages',
-    data: function(){
+    el: '#pagesDetail',
+    data(){
         return{
+            table:1,
             listdata:[],
             pageNo:1,
             pageSize:config.pageSize,
@@ -16,6 +17,9 @@ new Vue({
         this.getinit();
     },
     methods:{
+        changeTable(number){
+            this.table = number
+        },
         getinit(){
             util.ajax({
                 url:config.baseApi+'api/pages/getPageItemDetail',

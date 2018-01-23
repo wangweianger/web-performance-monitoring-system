@@ -3,7 +3,7 @@
 
 .break-word {
   width: 150px; }
-  .break-word a {
+  .break-word span {
     display: block;
     width: 150px;
     word-wrap: break-word;

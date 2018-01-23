@@ -2,16 +2,20 @@
   margin-left: 0;
   padding: 0; }
 
-.index .list {
-  overflow: hidden;
-  margin: 0 20px;
-  margin-bottom: 200px; }
-  .index .list .table .body {
-    text-align: center; }
-    .index .list .table .body .active {
-      color: #999;
-      cursor: pointer;
-      font-size: 12px; }
-    .index .list .table .body .yingyong {
-      font-size: 14px;
-      margin-right: 2px; }
+.system {
+  width: 100%;
+  overflow: hidden; }
+  .system .list {
+    overflow: hidden;
+    margin-top: 20px;
+    width: 100%;
+    padding: 0 20px; }
+    .system .list .table .body {
+      text-align: center; }
+      .system .list .table .body .active {
+        color: #999;
+        cursor: pointer;
+        font-size: 12px; }
+      .system .list .table .body .yingyong {
+        font-size: 14px;
+        margin-right: 2px; }

@@ -2,11 +2,14 @@
     margin-left:0;
     padding:0;
 }
-.index{
+.system{
+    width:100%;
+    overflow:hidden;
     .list{
         overflow:hidden;
-        margin:0 20px;
-        margin-bottom:200px;
+        margin-top:20px;
+        width:100%;
+        padding:0 20px;
         .table{
             .body{
                 text-align:center;

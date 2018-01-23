@@ -1,7 +1,7 @@
 <%- include("./header.html") %>
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/index.css">
-<div class="container index" id="index" v-cloak>
+<div class="container system" id="index" v-cloak>
 	<div class="common-title">
         <h1>应用列表</h1>
         <div class="search">
@@ -42,7 +42,7 @@
                 <th>操作</th>
             </tr>
             <tr class="body" v-for="item in datalist">
-                <td><a href="">{{item.systemName}}</a></td>
+                <td><a href="javascript:" @click="getDetail(item)">{{item.systemName}}</a></td>
                 <td>{{item.systemDomain}}</td>
                 <td>{{item.appId}}</td>
                 <td>{{item.slowPageTime+'s'}}</td>
@@ -59,11 +59,11 @@
                  <td>
                     <span class="active">设置</span>
                     <span class="active">删除</span>
+                    <a href="javascript:" @click="getDetail(item)">详情</a>
                 </td>
             </tr>
         </table>
         <div class="mt30 tc" v-if="!datalist.length">暂无应用，去添加一个吧</div>
     </div>
 </div>
-<%- include("./footer.html") %>
-<script src="/js/view-index.js"></script>
+<script src="/js/view-system.js"></script>

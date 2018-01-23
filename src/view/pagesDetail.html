@@ -3,7 +3,7 @@
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/page.css">
 <link rel="stylesheet" href="/css/page-detail.css">
-<div class="container ajax" id="pages" v-cloak>
+<div class="container ajax" id="pagesDetail" v-cloak>
    <div class="common-title">
         <h1>访问页面性能</h1>
         <div class="search">
@@ -22,54 +22,104 @@
         </div>
     </div>
     <div class="common_table_nav">
-        <li class="active">性能详情</li>
-        <li>资源调用</li>
-        <li>ajax调用</li>
-        <li>慢加载追踪</li>
+        <li :class="{active:table==1}" @click="changeTable(1)">性能详情</li>
+        <li :class="{active:table==2}" @click="changeTable(2)">ajax调用</li>
+        <li :class="{active:table==3}" @click="changeTable(3)">页面慢加载追踪</li>
+        <li :class="{active:table==4}" @click="changeTable(4)">资源慢加载追踪</li>
     </div>
-    <div class="table-box main-block">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="break-word">URL</th>
-                    <th>页面加载时间</th>
-                    <th>白屏时间</th>
-                    <th>资源加载耗时</th>
-                    <th>DOM构建时间</th>
-                    <th>解析dom耗时</th>
-                    <th>DNS解析时间</th>
-                    <th>TCP连接时间</th>
-                    <th>页面重定向时间</th>
-                    <th>unload时间</th>
-                    <th>request请求耗时</th>
-                    <th>页面准备时间</th> 
-                    <th>页面请求时间</th>
-                    <th>操作</th>  
+    <!-- page详情性能列表 -->
+    <div class="table-box main-block" v-if="table==1">
+        <div v-if="listdata.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="break-word">URL</th>
+                        <th>页面加载时间</th>
+                        <th>白屏时间</th>
+                        <th>资源加载耗时</th>
+                        <th>DOM构建时间</th>
+                        <th>解析dom耗时</th>
+                        <th>DNS解析时间</th>
+                        <th>TCP连接时间</th>
+                        <th>页面重定向时间</th>
+                        <th>unload时间</th>
+                        <th>request请求耗时</th>
+                        <th>页面准备时间</th> 
+                        <th>页面请求时间</th>
+                        <th>操作</th>  
+                    </tr>
+                </thead>
+                <tr v-for="(item,index) in listdata" :key="index">
+                    <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length"><span>{{item.url}}</span></td>
+                    <td class="tc">{{item.loadTime|toFixed(true)}}</td>
+                    <td class="tc">{{item.whiteTime|toFixed}}</td>
+                    <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
+                    <td class="tc">{{item.domTime|toFixed(true)}}</td>
+                    <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
+                    <td class="tc">{{item.dnsTime|toFixed}}</td>
+                    <td class="tc">{{item.tcpTime|toFixed}}</td>
+                    <td class="tc">{{item.redirectTime|toFixed}}</td>
+                    <td class="tc">{{item.unloadTime|toFixed}}</td>
+                    <td class="tc">{{item.requestTime|toFixed}}</td>
+                    <td class="tc">{{item.readyTime|toFixed}}</td>
+                    <td class="tc">{{item.dateTime}}</td>
+                    <td class="tc"><a href="">资源耗时详情</a></td>
                 </tr>
-            </thead>
-            <tr v-for="(item,index) in listdata" :key="index">
-                <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length">{{item.url}}</td>
-                <td class="tc">{{item.loadTime|toFixed(true)}}</td>
-                <td class="tc">{{item.whiteTime|toFixed}}</td>
-                <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
-                <td class="tc">{{item.domTime|toFixed(true)}}</td>
-                <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
-                <td class="tc">{{item.dnsTime|toFixed}}</td>
-                <td class="tc">{{item.tcpTime|toFixed}}</td>
-                <td class="tc">{{item.redirectTime|toFixed}}</td>
-                <td class="tc">{{item.unloadTime|toFixed}}</td>
-                <td class="tc">{{item.requestTime|toFixed}}</td>
-                <td class="tc">{{item.readyTime|toFixed}}</td>
-                <td class="tc">{{item.dateTime}}</td>
-                <td class="tc"><a href="">资源耗时详情</a></td>
-            </tr>
-        </table>
+            </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page"></div>
+            </div>
+        </div>
+        <div v-if="!listdata.length" class="loading-block"></div>
     </div>
-    <!--  分页 -->
-    <div class="tc common_page_style">
-        <div id="copot-page"></div>
+    <!-- 页面ajax资源分析 -->
+    <div class="table-box main-block" v-if="table==2">
+        <div v-if="listdata.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="break-word">URL</th>
+                        <th>页面加载时间</th>
+                        <th>白屏时间</th>
+                        <th>资源加载耗时</th>
+                        <th>DOM构建时间</th>
+                        <th>解析dom耗时</th>
+                        <th>DNS解析时间</th>
+                        <th>TCP连接时间</th>
+                        <th>页面重定向时间</th>
+                        <th>unload时间</th>
+                        <th>request请求耗时</th>
+                        <th>页面准备时间</th> 
+                        <th>页面请求时间</th>
+                        <th>操作</th>  
+                    </tr>
+                </thead>
+                <tr v-for="(item,index) in listdata" :key="index">
+                    <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length"><span>{{item.url}}</span></td>
+                    <td class="tc">{{item.loadTime|toFixed(true)}}</td>
+                    <td class="tc">{{item.whiteTime|toFixed}}</td>
+                    <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
+                    <td class="tc">{{item.domTime|toFixed(true)}}</td>
+                    <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
+                    <td class="tc">{{item.dnsTime|toFixed}}</td>
+                    <td class="tc">{{item.tcpTime|toFixed}}</td>
+                    <td class="tc">{{item.redirectTime|toFixed}}</td>
+                    <td class="tc">{{item.unloadTime|toFixed}}</td>
+                    <td class="tc">{{item.requestTime|toFixed}}</td>
+                    <td class="tc">{{item.readyTime|toFixed}}</td>
+                    <td class="tc">{{item.dateTime}}</td>
+                    <td class="tc"><a href="">资源耗时详情</a></td>
+                </tr>
+            </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page"></div>
+            </div>
+        </div>
+        <div v-if="!listdata.length" class="loading-block"></div>
     </div>
+    
 </div>
-<%- include("./footer.html") %>
 <script src="/js/Page.js"></script>
 <script src="/js/view-page-detail.js"></script>
