@@ -10,7 +10,15 @@ const router = new KoaRouter()
 const checkfn       = controllers.common.checkRequestUrl;
 const loginCheckfn  = controllers.common.checkIsLogin;
 
-router.post('/api/test',checkfn, controllers.login.test)
+// router.post('/api/test',checkfn, controllers.login.test)
+
+// 统计页面cookie打点标识
+router.get('/reportMark',controllers.dataReport.setMarkCookies);
+// 页面poage|资源数据上报
+router.post('/reportResource',controllers.dataReport.getPageResources);
+// 用户系统上报
+router.get('/reportSystem',controllers.dataReport.getSystemPerformDatas);
+
 
 // 注册用户信息
 router.post('/api/user/userRegister',checkfn, controllers.login.userRegister)
@@ -30,6 +38,8 @@ router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSyst
 
 // 获得page列表
 router.post('/api/pages/getPageList',loginCheckfn, controllers.pages.getPageList)
+// 获得page详情性能信息
+router.post('/api/pages/getPageItemDetail',loginCheckfn, controllers.pages.getPageItemDetail)
 
 //获得ajax页面列表
 // router.post('/api/ajax/getajaxlist',loginCheckfn, controllers.ajax.getajaxlist)
@@ -37,12 +47,7 @@ router.post('/api/pages/getPageList',loginCheckfn, controllers.pages.getPageList
 
 
 
-// 统计页面cookie打点标识
-router.get('/reportMark',controllers.dataReport.setMarkCookies);
-// 页面poage|资源数据上报
-router.post('/reportResource',controllers.dataReport.getPageResources);
-// 用户系统上报
-router.get('/reportSystem',controllers.dataReport.getSystemPerformDatas);
+
 
 
 module.exports = router

@@ -51,7 +51,7 @@
                 </tr>
             </thead>
             <tr v-for="(item,index) in listdata" :key="index">
-                <td><a :href="item.url">{{item.url}}</a></td>
+                <td><a :href="'/pages/detail?url='+item.decodeUrl">{{item.url}}</a></td>
                 <td class="tc">{{item.count}}</td>
                 <td class="tc">{{item.loadTime|toFixed(true)}}</td>
                 <td class="tc">{{item.whiteTime|toFixed(true)}}</td>

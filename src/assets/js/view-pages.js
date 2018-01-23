@@ -4,8 +4,9 @@ new Vue({
         return{
             listdata:[],
             pageNo:1,
-            pageSize:10,
+            pageSize:config.pageSize,
             totalNum:0,
+            
         }
     },
     filters:{
@@ -25,6 +26,10 @@ new Vue({
                     endTime:'',
                 },
                 success:data => {
+                    if(!data.data.datalist&&!data.data.datalist.length)return;
+                    data.data.datalist.forEach(item=>{
+                        item.decodeUrl = encodeURIComponent(item.url)
+                    })
                     this.listdata = data.data.datalist;
                     new Page({
                          parent: $("#copot-page"),

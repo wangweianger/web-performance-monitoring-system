@@ -64,13 +64,22 @@ router.get(['/pages'], async(ctx, next) => {
 	let datas = {
 		title:'page性能分析',
 	}
-
 	await ctx.render('pages',{
 		datas:datas
 	}); 
 });
+// page详情性能分析
+router.get(['/pages/detail'], async(ctx, next) => {
+	let datas = {
+		title:'page详情性能分析',
+	}
+	await ctx.render('pagesDetail',{
+		datas:datas
+	}); 
+});
 
-//新增应用
+
+//ajax列表
 router.get(['/ajax'], async(ctx, next) => {
 	let datas = {
 		title:'Ajax性能分析',
