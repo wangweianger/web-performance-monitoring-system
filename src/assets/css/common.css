@@ -207,3 +207,6 @@
     float: right;
     margin-top: 12px;
     cursor: pointer; }
+
+.common-nav a {
+  color: #333; }

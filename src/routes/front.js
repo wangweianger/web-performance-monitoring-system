@@ -77,6 +77,15 @@ router.get(['/pages/detail'], async(ctx, next) => {
 		datas:datas
 	}); 
 });
+router.get(['/pages/detail/item'], async(ctx, next) => {
+	let datas = {
+		title:'单个页面详情性能分析',
+	}
+	await ctx.render('pagesDetailItem',{
+		datas:datas
+	}); 
+});
+
 
 
 //ajax列表

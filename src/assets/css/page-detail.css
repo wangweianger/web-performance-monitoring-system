@@ -53,3 +53,7 @@
 .charts-pages {
   width: 100%;
   height: 300px; }
+
+.block-time .item-small-better {
+  width: 50% !important;
+  float: left; }

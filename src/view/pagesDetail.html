@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/page-detail.css">
 <div class="container ajax" id="pagesDetail" v-cloak>
    <div class="common-title">
-        <h1>访问页面性能</h1>
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/pages/">列表</a>/<a href="/pages/detail/">页面性能</a></h1>
         <div class="search">
             <span class="reload cursor iconfont">&#xe6ea;</span>
             <div class="select">
@@ -124,7 +124,7 @@
                         <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length"><span>{{item.url}}</span></td>
                         <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
                         <td class="tc red">{{item.whiteTime|toFixed}}</td>
-                        <td class="tc red"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
+                        <td class="tc red"><a :href="'/pages/detail/item?id='+item.id">{{item.resourceTime|toFixed(true)}}</a></td>
                         <td class="tc red">{{item.domTime|toFixed(true)}}</td>
                         <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
                         <td class="tc">{{item.dnsTime|toFixed}}</td>
@@ -134,7 +134,7 @@
                         <td class="tc">{{item.requestTime|toFixed}}</td>
                         <td class="tc">{{item.readyTime|toFixed}}</td>
                         <td class="tc">{{item.dateTime}}</td>
-                        <td class="tc"><a href="">资源耗时详情</a></td>
+                        <td class="tc"><a :href="'/pages/detail/item?id='+item.id">详情</a></td>
                     </tr>
                 </table>
                 <!--  分页 -->
