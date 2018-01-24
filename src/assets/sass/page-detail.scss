@@ -10,3 +10,56 @@
         overflow:hidden;
     }
 }
+.block-time{
+    margin:20px;
+    overflow:hidden;
+    background:#fff;
+    border-radius:3px;
+    .item{
+        width:33.33333%;
+        float:left;
+        border-right:solid 1px #eee;
+        border-bottom:solid 1px #eee;
+        overflow:hidden;
+        padding:20px;
+    }
+    .h1{
+        font-size:18px!important;
+        border-bottom:solid 1px #eee;
+        padding-bottom:10px;
+        margin-bottom:10px;
+    }
+    .item-full{
+        width:100%;
+        float:left;
+        border-bottom:solid 1px #eee;
+        overflow:hidden;
+        padding:20px;
+        &:nth-child(:odd){
+            border-right:none;
+        }
+        li{
+            width:25%;
+            float:left;
+            margin:8px 0;
+        }
+        h1{
+            font-size:20px;
+        }
+        h2{
+            font-size:30px;
+            color:#000;
+        }
+    }
+    .top-width{
+        width:100%!important;
+    }
+}
+.echartBorwsers{
+    width:100%;
+    height:250px;
+}
+
+
+
+

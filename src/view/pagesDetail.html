@@ -27,6 +27,75 @@
         <li :class="{active:table==3}" @click="changeTable(3)">页面慢加载追踪</li>
         <li :class="{active:table==4}" @click="changeTable(4)">资源慢加载追踪</li>
     </div>
+    <!-- 页面平均耗时说明 -->
+    <div class="block-time" v-show="table==1">
+        <div class="item-full div1">
+            <h1 class="h1">页面平均耗时</h1>
+            <li>
+                <h1>平均加载耗时(s)</h1>
+                <h2 class="red">{{pagesItemData.loadTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>平均白屏耗时(ms)</h1>
+                <h2>{{pagesItemData.whiteTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均资源加载耗时(s)</h1>
+                <h2>{{pagesItemData.resourceTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>平均DOM构建耗时(s)</h1>
+                <h2>{{pagesItemData.domTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>平均解析DOM耗时(s)</h1>
+                <h2>{{pagesItemData.analysisDomTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>调用次数</h1>
+                <h2>{{pagesItemData.count||0}}</h2>
+            </li>
+            <li>
+                <h1>平均DNS解析耗时(ms)</h1>
+                <h2>{{pagesItemData.dnsTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均TCP连接耗时(ms)</h1>
+                <h2>{{pagesItemData.tcpTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均页面重定向耗时(ms)</h1>
+                <h2>{{pagesItemData.redirectTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均unload耗时(ms)</h1>
+                <h2>{{pagesItemData.unloadTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均request请求耗时(ms)</h1>
+                <h2>{{pagesItemData.requestTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均页面准备耗时(ms)</h1>
+                <h2>{{pagesItemData.readyTime|toFixed}}</h2>
+            </li>
+        </div>
+    </div>
+    <div class="block-time" v-show="table==1">
+        <div class="item div2">
+            <h1 class="h1">浏览器分类统计</h1>
+            <div id="echartBorwsers-borwser" class="echartBorwsers"></div>
+        </div>
+        <div class="item div3">
+            <h1 class="h1">系统分类统计</h1>
+            <div id="echartBorwsers-system" class="echartBorwsers"></div>
+        </div>
+        <div class="item div3">
+            <h1 class="h1">地理位置分类统计</h1>
+            <div id="echartBorwsers-address" class="echartBorwsers"></div>
+        </div>
+    </div>
+
     <!-- page详情性能列表 -->
     <div class="table-box main-block" v-show="table==1">
         <div v-show="listdata.length">

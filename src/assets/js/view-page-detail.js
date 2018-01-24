@@ -11,7 +11,8 @@ new Vue({
             pageSize:config.pageSize,
             totalNum:0,
             isLoadEnd:false,
-            url:util.getQueryString('url')
+            url:'',
+            pagesItemData:{},
         }
     },
     filters:{
@@ -20,8 +21,16 @@ new Vue({
         date:window.Filter.date,
         limitTo:window.Filter.limitTo,
     },
-    mounted(){
+    beforeMount(){
+        this.pagesItemData=util.getStorage('session','pagesItemData')?JSON.parse(util.getStorage('session','pagesItemData')):{}
+        this.url = this.pagesItemData.url
         this.changeTable(1);
+        this.getDataForEnvironment(1);
+        this.getDataForEnvironment(2);
+        this.getDataForEnvironment(3);
+    },
+    mounted(){
+        
     },
     methods:{
         changeTable(number){
@@ -103,59 +112,91 @@ new Vue({
                 }
             })
         },
-        // 获得ajax列表详情
-        getDataForAjax(){
+        // 获得浏览器分类情况
+        getDataForEnvironment(type){
             util.ajax({
-                url:config.baseApi+'api/ajax/getPageItemDetail',
+                url:config.baseApi+'api/environment/getDataForEnvironment',
                 data:{
-                    pageNo:this.pageNo,
-                    pageSize:this.pageSize,
-                    callUrl:this.url,
+                    url:this.url,
                     beginTime:'',
                     endTime:'',
+                    type:type
                 },
                 success:data => {
                     this.isLoadEnd=true;
-                    this.listAjax = this.listAjax.concat(data.data.datalist||[]);
-                    new Page({
-                         parent: $("#copot-page-ajax"),
-                         nowPage: this.pageNo,
-                         pageSize: this.pageSize,
-                         totalCount: data.data.totalNum,
-                         callback:(nowPage, totalPage) =>{
-                             this.pageNo = nowPage;
-                             this.getDataForAjax();
-                         }
-                     });
+                    switch(type){
+                        case 1:
+                            this.getData(data.data,'echartBorwsers-borwser','browser','borwserVersion')
+                            break;
+                        case 2:
+                            this.getData(data.data,'echartBorwsers-system','system','systemVersion')
+                            break;
+                        case 3:
+                            this.getData(data.data,'echartBorwsers-address','city')
+                            break;        
+                    }
+                    
                 }
             })
         },
-        // 获得慢页面加载资源
-        getSlowPageItem(){
-            util.ajax({
-                url:config.baseApi+'api/slowpages/getSlowPageItem',
-                data:{
-                    pageNo:this.pageNo,
-                    pageSize:this.pageSize,
-                    callUrl:this.url,
-                    beginTime:'',
-                    endTime:'',
-                },
-                success:data => {
-                    this.isLoadEnd=true;
-                    this.listAjax = this.listAjax.concat(data.data.datalist||[]);
-                    new Page({
-                         parent: $("#copot-page-ajax"),
-                         nowPage: this.pageNo,
-                         pageSize: this.pageSize,
-                         totalCount: data.data.totalNum,
-                         callback:(nowPage, totalPage) =>{
-                             this.pageNo = nowPage;
-                             this.getDataForAjax();
-                         }
-                     });
-                }
+        getData(datas,id,tyle,typeVersion){
+            let seriesData=[];
+            let legendData=[]
+            let totalcount=0
+            if(!datas.length) return;
+            datas.forEach(item=>{
+                totalcount+=item.count
             })
+            datas.forEach(item=>{
+                let name = typeVersion?item[tyle]+' '+item[typeVersion]:item[tyle]
+                legendData.push({
+                    name:name,
+                    icon: 'pin'
+                })
+                seriesData.push({
+                    name:name,
+                    value:item.count,
+                    percentage:((item.count/totalcount)*100).toFixed()+'%'
+                })
+            })
+            this.echartBorwsers(id,legendData,seriesData)
+        },
+        // echart表
+        echartBorwsers(id,legendData,seriesData){
+            var myChart = echarts.init(document.getElementById(id));
+            var option = {
+                tooltip: {
+                    formatter: "{b} : {c} ({d}%)"
+                },
+                color:['#447ed9','#c945dc','#8b3cd8','#3c8bd8','#3cd87f','#cad83c','#d8893c','#d8483c'],
+                legend: {
+                    orient: 'vertical',
+                    right: 0,
+                    top: 20,
+                    bottom: 20,
+                    data:legendData,
+                    formatter:function(name){
+                        for(let i=0;i<seriesData.length;i++){
+                            if(name === seriesData[i].name){
+                                return name+'   '+seriesData[i].value+'   '+seriesData[i].percentage;    
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    radius : '50%',
+                    center: ['25%', '50%'],
+                    label: {
+                        normal: {
+                            show: false,
+                        },
+                    },
+                    data: seriesData
+                }]
+            };
+            myChart.setOption(option);
         }
+       
     }
 })

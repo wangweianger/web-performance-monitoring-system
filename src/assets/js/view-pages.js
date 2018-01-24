@@ -43,6 +43,10 @@ new Vue({
                      });
                 }
             })
+        },
+        gotodetail(item){
+            util.setStorage('session','pagesItemData',JSON.stringify(item))
+            location.href="/pages/detail"
         }
     }
 })

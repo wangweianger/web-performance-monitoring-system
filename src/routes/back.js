@@ -58,6 +58,9 @@ router.post('/api/slowpages/getSlowPageItem',checkHaveSystemId, controllers.slow
 // 根据url参数获取慢资源加载
 router.post('/api/slowresources/getSlowResourcesItem',checkHaveSystemId, controllers.slowresources.getSlowResourcesItem)
 
+//----------------------------SYSTEM表--------------------------------------
+router.post('/api/environment/getDataForEnvironment',checkHaveSystemId, controllers.environment.getDataForEnvironment)
+
 
 module.exports = router
 
