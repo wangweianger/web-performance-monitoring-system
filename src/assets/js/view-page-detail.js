@@ -243,7 +243,7 @@ new Vue({
                 seriesData.push(data)
             })
             datas.forEach(item=>{
-                xAxisData.push(item.dateTime)
+                xAxisData.push( new Date(item.dateTime).format('MM/dd'));
             })
 
             var myChart=  echarts.init(document.getElementById('charts-pages'));
