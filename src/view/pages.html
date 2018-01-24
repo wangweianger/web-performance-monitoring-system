@@ -29,7 +29,6 @@
             <option>post</option>
         </select>
     </div>
-    <div class="notice">此页计算页面平均耗时</div>
     <div class="table-box common-padding">
         <div v-if="listdata.length">
             <table class="table">
@@ -53,8 +52,8 @@
                 <tr v-for="(item,index) in listdata" :key="index">
                     <td><a :href="'/pages/detail?url='+item.decodeUrl">{{item.url}}</a></td>
                     <td class="tc">{{item.count}}</td>
-                    <td class="tc">{{item.loadTime|toFixed(true)}}</td>
-                    <td class="tc">{{item.whiteTime|toFixed}}</td>
+                    <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
+                    <td class="tc red">{{item.whiteTime|toFixed}}</td>
                     <td class="tc">{{item.resourceTime|toFixed(true)}}</td>
                     <td class="tc">{{item.domTime|toFixed(true)}}</td>
                     <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
@@ -71,7 +70,7 @@
     </div>
     <!--  分页 -->
     <div class="tc common_page_style">
-        <div id="copot-page"></div>
+        <div id="copot-page" class="copot-page"></div>
     </div>
 </div>
 <script src="/js/Page.js"></script>

@@ -51,10 +51,10 @@
                 </thead>
                 <tr v-for="(item,index) in listdata" :key="index">
                     <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length"><span>{{item.url}}</span></td>
-                    <td class="tc">{{item.loadTime|toFixed(true)}}</td>
-                    <td class="tc">{{item.whiteTime|toFixed}}</td>
-                    <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
-                    <td class="tc">{{item.domTime|toFixed(true)}}</td>
+                    <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
+                    <td class="tc red">{{item.whiteTime|toFixed}}</td>
+                    <td class="tc red"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
+                    <td class="tc red">{{item.domTime|toFixed(true)}}</td>
                     <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
                     <td class="tc">{{item.dnsTime|toFixed}}</td>
                     <td class="tc">{{item.tcpTime|toFixed}}</td>
@@ -110,6 +110,7 @@
                 <thead>
                     <tr>
                         <th class="break-word">URL</th>
+                        <th>页面总耗时</th>
                         <th>页面加载时间</th>
                         <th>白屏时间</th>
                         <th>资源加载耗时</th>
@@ -121,6 +122,7 @@
                 </thead>
                 <tr v-for="(item,index) in listslowpages" :key="index">
                     <td><span>{{item.url}}</span></td>
+                    <td class="tc red">{{(item.loadTime+item.resourceTime)|toFixed(true)}}</td>
                     <td class="tc">{{item.loadTime|toFixed(true)}}</td>
                     <td class="tc">{{item.whiteTime|toFixed}}</td>
                     <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
@@ -153,7 +155,7 @@
                 </thead>
                 <tr v-for="(item,index) in listresources" :key="index">
                     <td><span>{{item.name}}</span></td>
-                    <td class="tc">{{item.duration|toFixed(true)}}</td>
+                    <td class="tc red">{{item.duration|toFixed(true)}}</td>
                     <td class="tc">{{item.decodedBodySize|toSize}}</td>
                     <td >{{item.callUrl|limitTo(50)}}</td>
                     <td class="tc">{{item.createTime|date('/',true)}}</td>
