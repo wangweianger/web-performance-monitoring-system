@@ -13,6 +13,7 @@ new Vue({
             isLoadEnd:false,
             url:'',
             pagesItemData:{},
+            isShowCharts:false,
         }
     },
     filters:{
@@ -98,7 +99,6 @@ new Vue({
                             this.listresources = this.listresources.concat(data.data.datalist||[]);
                             break;            
                     }
-                    
                     new Page({
                          parent: $(pageName),
                          nowPage: this.pageNo,
@@ -194,6 +194,97 @@ new Vue({
                     },
                     data: seriesData
                 }]
+            };
+            myChart.setOption(option);
+        },
+        showCharts(){
+            this.isShowCharts = !this.isShowCharts
+            setTimeout(()=>{
+                if(this.isShowCharts) this.echartShowPages()
+            },200)
+        },
+        echartShowPages(){
+            let datas       = this.listdata;
+            if(!datas.length) return;
+            let legendData  = ['页面加载时间','白屏时间','资源加载耗时','DOM构建时间','解析dom耗时','request请求耗时','页面准备时间']
+            let xAxisData   = []
+            let seriesData  = []
+            legendData.forEach((item,index)=>{
+                let data = {
+                    name:item,
+                    type: 'line',
+                    data:[],
+                }
+                datas.forEach(proItem=>{
+                    switch(index){
+                        case 0:
+                            data.data.push(proItem.loadTime)
+                            break;
+                        case 1: 
+                            data.data.push(proItem.whiteTime)
+                            break; 
+                        case 2: 
+                            data.data.push(proItem.resourceTime)
+                            break;   
+                        case 3: 
+                            data.data.push(proItem.domTime)
+                            break;   
+                        case 4: 
+                            data.data.push(proItem.analysisDomTime)
+                            break;   
+                        case 5: 
+                            data.data.push(proItem.requestTime)
+                            break;
+                        case 6: 
+                            data.data.push(proItem.readyTime)
+                            break;                                        
+                    }
+                })
+                seriesData.push(data)
+            })
+            datas.forEach(item=>{
+                xAxisData.push(item.dateTime)
+            })
+
+            var myChart=  echarts.init(document.getElementById('charts-pages'));
+            let option=  {
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        label: {
+                            backgroundColor: '#6a7985'
+                        }
+                    }
+                },
+                color:['#447ed9','#c945dc','#8b3cd8','#3c8bd8','#3cd87f','#cad83c','#d8893c','#d8483c'],
+                legend: {
+                    data:legendData
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : xAxisData
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : seriesData
             };
             myChart.setOption(option);
         }

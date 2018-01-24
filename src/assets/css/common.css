@@ -198,3 +198,12 @@
     font-size: 18px;
     line-height: 50px;
     margin-bottom: 10px; }
+  .common-head-title .button {
+    padding: 6px 10px;
+    background: #447ED9;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+    float: right;
+    margin-top: 12px;
+    cursor: pointer; }

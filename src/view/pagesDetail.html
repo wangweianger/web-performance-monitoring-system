@@ -97,10 +97,10 @@
     </div>
 
     <!-- page详情性能列表 -->
-    <div class="common-head-title">
-        <h1>页面性能详情</h1> 
+    <div class="common-head-title" v-show="table==1">
+        <h1>页面性能详情 <button class="button" @click="showCharts">charts表</button></h1> 
         <!-- <div class="table-box main-block" v-show="table==1"> -->
-            <div v-show="listdata.length&&table==1">
+            <div v-show="listdata.length&&!isShowCharts">
                 <table class="table">
                     <thead>
                         <tr>
@@ -145,6 +145,7 @@
             <div v-show="!listdata.length&&!isLoadEnd" class="loading-block"></div>
             <div v-show="!listdata.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
         <!-- </div> -->
+        <div id="charts-pages" v-show="isShowCharts" class="charts-pages"></div>
     </div>
     <!-- 页面ajax资源分析 -->
     <div class="table-box main-block" v-show="table==2">
