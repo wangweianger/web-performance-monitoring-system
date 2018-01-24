@@ -56,7 +56,7 @@ class pages {
             let sqlstr = sql.field(field).table('web_environment')
                 .where(data)
                 .group(group)
-                .limit(0,9)
+                .limit(0,6)
                 .select()
 
             let result = await mysql(sqlstr);
