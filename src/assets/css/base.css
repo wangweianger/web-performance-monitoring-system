@@ -231,6 +231,9 @@ a:hover {
 .mb30 {
   margin-bottom: 30px; }
 
+.mb150 {
+  margin-bottom: 150px !important; }
+
 .bold {
   font-weight: bold; }
 

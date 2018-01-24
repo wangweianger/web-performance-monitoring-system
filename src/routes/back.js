@@ -42,7 +42,8 @@ router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSyst
 router.post('/api/pages/getPageList',checkHaveSystemId, controllers.pages.getPageList)
 // 获得page详情性能信息
 router.post('/api/pages/getPageItemDetail',checkHaveSystemId, controllers.pages.getPageItemDetail)
-
+// 根据ID获得page详情性能信息
+router.post('/api/pages/getPageItemForId',checkHaveSystemId, controllers.pages.getPageItemForId)
 
 //----------------------------AJAX--------------------------------------
 //获得ajax页面列表
@@ -58,8 +59,15 @@ router.post('/api/slowpages/getSlowPageItem',checkHaveSystemId, controllers.slow
 // 根据url参数获取慢资源加载
 router.post('/api/slowresources/getSlowResourcesItem',checkHaveSystemId, controllers.slowresources.getSlowResourcesItem)
 
+//----------------------------页面资源--------------------------------------
+// 根据markPage获得页面资源信息
+router.post('/api/sources/getSourcesForMarkPage',checkHaveSystemId, controllers.sources.getSourcesForMarkPage)
+
+
 //----------------------------SYSTEM表--------------------------------------
 router.post('/api/environment/getDataForEnvironment',checkHaveSystemId, controllers.environment.getDataForEnvironment)
+// 根据markPage获取用户系统信息
+router.post('/api/environment/getUserEnvironment',checkHaveSystemId, controllers.environment.getUserEnvironment)
 
 
 module.exports = router

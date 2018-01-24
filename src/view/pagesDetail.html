@@ -3,7 +3,7 @@
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/page.css">
 <link rel="stylesheet" href="/css/page-detail.css">
-<div class="container ajax" id="pagesDetail" v-cloak>
+<div class="container ajax mb150" id="pagesDetail" v-cloak>
    <div class="common-title">
         <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/pages/">列表</a>/<a href="/pages/detail/">页面性能</a></h1>
         <div class="search">
@@ -121,7 +121,7 @@
                         </tr>
                     </thead>
                     <tr v-for="(item,index) in listdata" :key="index">
-                        <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length"><span>{{item.url}}</span></td>
+                        <td ><a :href="'/pages/detail/item?id='+item.id">{{item.url}}</a></td>
                         <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
                         <td class="tc red">{{item.whiteTime|toFixed}}</td>
                         <td class="tc red"><a :href="'/pages/detail/item?id='+item.id">{{item.resourceTime|toFixed(true)}}</a></td>

@@ -125,6 +125,38 @@ class pages {
             return '';
         }
     }
+    // 根据ID获得page详情性能信息
+    async getPageItemForId(ctx){
+        try {
+            let id       = ctx.request.body.id
+
+            if(!id){
+                ctx.body = util.result({
+                    code: 1001,
+                    desc: 'id参数有误!'
+                });
+                return
+            }
+            // 获得列表
+            let sqlstr = sql
+                .table('web_pages')
+                .where({id:id})
+                .select()
+            let result = await mysql(sqlstr);
+
+            ctx.body = util.result({
+                data:result&&result.length?result[0]:{}
+            });
+
+        } catch (err) {
+            console.log(err)
+            ctx.body = util.result({
+                code: 1001,
+                desc: '系统错误!'
+            });
+            return '';
+        }
+    }
 }
 
 module.exports = new pages();

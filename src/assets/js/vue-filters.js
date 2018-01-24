@@ -39,7 +39,7 @@ let Filter = {
     },
     toSize(val){
         if(val>=1024){
-            return (val/1024).toFixed(2)+' M'
+            return (val/1024).toFixed(2)+' KB'
         }else if(val>0){
             return val.toFixed(2)+' B'
         }else{

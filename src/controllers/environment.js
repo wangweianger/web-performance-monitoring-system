@@ -73,6 +73,40 @@ class pages {
             return '';
         }
     }
+    // 根据markPage获取用户系统信息
+    async getUserEnvironment(ctx){
+        try {
+            let markPage   = ctx.request.body.markPage
+
+            if(!markPage){
+                ctx.body = util.result({
+                    code: 1001,
+                    desc: 'markPage参数有误!'
+                });
+                return
+            }
+
+            // 请求列表数据
+            let sqlstr = sql
+                .table('web_environment')
+                .where({markPage:markPage})
+                .select()
+
+            let result = await mysql(sqlstr);
+
+            ctx.body = util.result({
+                data: result&&result.length?result[0]:{}
+            });
+
+        } catch (err) {
+            console.log(err)
+            ctx.body = util.result({
+                code: 1001,
+                desc: '系统错误!'
+            });
+            return '';
+        }
+    }
 
     
     
