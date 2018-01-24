@@ -80,7 +80,7 @@ hookAjax({
     onreadystatechange:function(xhr){
         if(xhr.readyState === 4){
             urlXMLArr.push(0);
-            if(urlXMLArr.length+1 === ajaxLength){
+            if(urlXMLArr.length === ajaxLength){
                 setTimeout(()=>{
                     if(!urlOnload.length){
                         setTimeout(()=>{

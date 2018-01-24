@@ -188,3 +188,13 @@
     .common_table_nav li.active {
       color: #447ED9;
       border-bottom: solid 2px #447ED9; }
+
+.common-head-title {
+  margin: 20px;
+  background: #fff;
+  overflow: hidden;
+  padding: 0 20px; }
+  .common-head-title h1 {
+    font-size: 18px;
+    line-height: 50px;
+    margin-bottom: 10px; }
