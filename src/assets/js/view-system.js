@@ -25,6 +25,7 @@ new Vue({
             })
         },
         getDetail(item){
+            $.cookie('systemId',item.id)
             util.setStorage('local','systemMsg',JSON.stringify(item))
             location.href="/pages"
         }

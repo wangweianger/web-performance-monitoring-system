@@ -329,6 +329,9 @@ a:hover {
 .container {
   margin: 60px 0 0 220px; }
 
+.common-padding {
+  padding: 0 20px; }
+
 .common-title {
   height: 50px;
   line-height: 50px;

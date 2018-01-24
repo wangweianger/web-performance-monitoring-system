@@ -66,10 +66,6 @@
                     <td class="tc"><a href="">资源耗时详情</a></td>
                 </tr>
             </table>
-            <!--  分页 -->
-            <div class="tc common_page_style">
-                <div id="copot-page"></div>
-            </div>
         </div>
         <div v-if="!listdata.length" class="loading-block"></div>
     </div>
@@ -112,14 +108,13 @@
                     <td class="tc"><a href="">资源耗时详情</a></td>
                 </tr>
             </table>
-            <!--  分页 -->
-            <div class="tc common_page_style">
-                <div id="copot-page"></div>
-            </div>
         </div>
         <div v-if="!listdata.length" class="loading-block"></div>
     </div>
-    
+    <!--  分页 -->
+    <div class="tc common_page_style">
+        <div id="copot-page"></div>
+    </div>
 </div>
 <script src="/js/Page.js"></script>
 <script src="/js/view-page-detail.js"></script>

@@ -22,15 +22,15 @@
             </div>
         </div>
     </div>
-    <div class="ajax-topsel">
+    <div class="ajax-topsel common-padding">
         请求方式：
         <select>
             <option>get</option>
             <option>post</option>
         </select>
     </div>
-    <div class="notice">所有时间单位为毫秒(ms)，此页计算页面平均耗时</div>
-    <div class="table-box" >
+    <div class="notice">此页计算页面平均耗时</div>
+    <div class="table-box common-padding">
         <div v-if="listdata.length">
             <table class="table">
                 <thead>
@@ -66,14 +66,13 @@
                     <td class="tc">{{item.readyTime|toFixed}}</td>
                 </tr>
             </table>
-            <!--  分页 -->
-            <div class="tc common_page_style">
-                <div id="copot-page"></div>
-            </div>
         </div>
         <div v-if="!listdata.length" class="loading-block"></div>
     </div>
-    
+    <!--  分页 -->
+    <div class="tc common_page_style">
+        <div id="copot-page"></div>
+    </div>
 </div>
 <script src="/js/Page.js"></script>
 <script src="/js/view-pages.js"></script>

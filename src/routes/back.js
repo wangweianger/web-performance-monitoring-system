@@ -7,8 +7,9 @@ import {
 const router = new KoaRouter()
 
 // 请求接口校验中间件
-const checkfn       = controllers.common.checkRequestUrl;
-const loginCheckfn  = controllers.common.checkIsLogin;
+const checkfn           = controllers.common.checkRequestUrl;
+const loginCheckfn      = controllers.common.checkIsLogin;
+const checkHaveSystemId = controllers.common.checkHaveSystemId;
 
 // router.post('/api/test',checkfn, controllers.login.test)
 
@@ -37,12 +38,12 @@ router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSyst
 
 
 // 获得page列表
-router.post('/api/pages/getPageList',loginCheckfn, controllers.pages.getPageList)
+router.post('/api/pages/getPageList',checkHaveSystemId, controllers.pages.getPageList)
 // 获得page详情性能信息
-router.post('/api/pages/getPageItemDetail',loginCheckfn, controllers.pages.getPageItemDetail)
+router.post('/api/pages/getPageItemDetail',checkHaveSystemId, controllers.pages.getPageItemDetail)
 
 //获得ajax页面列表
-// router.post('/api/ajax/getajaxlist',loginCheckfn, controllers.ajax.getajaxlist)
+// router.post('/api/ajax/getajaxlist',checkHaveSystemId, controllers.ajax.getajaxlist)
 
 
 

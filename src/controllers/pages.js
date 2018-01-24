@@ -17,13 +17,15 @@ class pages {
     // 获得pages页面列表
     async getPageList(ctx){
         try {
-            let pageNo    = ctx.request.body.pageNo || 1
-            let pageSize  = ctx.request.body.pageSize || SYSTEM.PAGESIZE
-            let beginTime = ctx.request.body.beginTime || ''
-            let endTime = ctx.request.body.endTime || ''
+            let systemId    = ctx.cookie.systemId;
+            let pageNo      = ctx.request.body.pageNo || 1
+            let pageSize    = ctx.request.body.pageSize || SYSTEM.PAGESIZE
+            let beginTime   = ctx.request.body.beginTime || ''
+            let endTime     = ctx.request.body.endTime || ''
             
             // 公共参数
-            let data = beginTime&&endTime?{createTime:{egt:beginTime,elt:endTime}}:{}
+            let data={systemId:systemId}
+            if(beginTime&&endTime) data.createTime = {egt:beginTime,elt:endTime}
             let sqlTotal = sql.field('count(1) as count').table('web_pages').where(data).group('url').select() 
             let total = await mysql(sqlTotal);
             let totalNum = 0
@@ -48,7 +50,8 @@ class pages {
                             .page(pageNo,pageSize)
                             .where(data)
                             .select()
-          
+            console.log(sqlstr)
+
             let result = await mysql(sqlstr);
 
             ctx.body = util.result({
@@ -70,11 +73,12 @@ class pages {
     // 页面性能详情
     async getPageItemDetail(ctx){
         try {
-            let pageNo    = ctx.request.body.pageNo || 1
-            let pageSize  = ctx.request.body.pageSize || SYSTEM.PAGESIZE
-            let beginTime = ctx.request.body.beginTime || ''
-            let endTime = ctx.request.body.endTime || ''
-            let url    = ctx.request.body.url
+            let systemId    = ctx.cookie.systemId;
+            let pageNo      = ctx.request.body.pageNo || 1
+            let pageSize    = ctx.request.body.pageSize || SYSTEM.PAGESIZE
+            let beginTime   = ctx.request.body.beginTime || ''
+            let endTime     = ctx.request.body.endTime || ''
+            let url         = ctx.request.body.url
 
             if(!url){
                 ctx.body = util.result({
@@ -85,14 +89,14 @@ class pages {
             }
 
             // 请求参数
-            let data={url:url}
+            let data={url:url,systemId:systemId}
             if(beginTime&&endTime) data.createTime={egt:beginTime,elt:endTime}
 
             // 获得总条数
             let sqlTotal = sql.field('count(1) as count').table('web_pages').where(data).select() 
             let total = await mysql(sqlTotal);
             let totalNum = 0
-            if(total.length) totalNum = total.length
+            if(total.length) totalNum = total[0].count
 
             // 获得列表
             let sqlstr = sql
