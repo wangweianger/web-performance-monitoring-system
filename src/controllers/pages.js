@@ -50,7 +50,6 @@ class pages {
                             .page(pageNo,pageSize)
                             .where(data)
                             .select()
-            console.log(sqlstr)
 
             let result = await mysql(sqlstr);
 
@@ -73,7 +72,6 @@ class pages {
     // 页面性能详情
     async getPageItemDetail(ctx){
         try {
-            let systemId    = ctx.cookie.systemId;
             let pageNo      = ctx.request.body.pageNo || 1
             let pageSize    = ctx.request.body.pageSize || SYSTEM.PAGESIZE
             let beginTime   = ctx.request.body.beginTime || ''
@@ -83,13 +81,13 @@ class pages {
             if(!url){
                 ctx.body = util.result({
                     code: 1001,
-                    desc: '参数有误!'
+                    desc: 'url参数有误!'
                 });
                 return
             }
 
             // 请求参数
-            let data={url:url,systemId:systemId}
+            let data={url:url}
             if(beginTime&&endTime) data.createTime={egt:beginTime,elt:endTime}
 
             // 获得总条数

@@ -28,8 +28,8 @@
         <li :class="{active:table==4}" @click="changeTable(4)">资源慢加载追踪</li>
     </div>
     <!-- page详情性能列表 -->
-    <div class="table-box main-block" v-if="table==1">
-        <div v-if="listdata.length">
+    <div class="table-box main-block" v-show="table==1">
+        <div v-show="listdata.length">
             <table class="table">
                 <thead>
                     <tr>
@@ -66,12 +66,46 @@
                     <td class="tc"><a href="">资源耗时详情</a></td>
                 </tr>
             </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page-pages" class="copot-page"></div>
+            </div>
         </div>
-        <div v-if="!listdata.length" class="loading-block"></div>
+        <div v-show="!listdata.length&&!isLoadEnd" class="loading-block"></div>
+        <div v-show="!listdata.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
     </div>
     <!-- 页面ajax资源分析 -->
-    <div class="table-box main-block" v-if="table==2">
-        <div v-if="listdata.length">
+    <div class="table-box main-block" v-show="table==2">
+        <div v-show="listAjax.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="break-word">AJAX地址</th>
+                        <th>ajax加载耗时</th>
+                        <th>返回资源大小</th>
+                        <th>调用次数</th>
+                        <th>请求url</th>
+                    </tr>
+                </thead>
+                <tr v-for="(item,index) in listAjax" :key="index">
+                    <td><span>{{item.name}}</span></td>
+                    <td class="tc">{{item.duration|toFixed(true)}}</td>
+                    <td class="tc">{{item.decodedBodySize|toSize}}</td>
+                    <td class="tc">{{item.count}}</td>
+                    <td >{{item.callUrl|limitTo(50)}}</td>
+                </tr>
+            </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page-ajax" class="copot-page"></div>
+            </div>
+        </div>
+        <div v-show="!listAjax.length&&!isLoadEnd" class="loading-block"></div>
+        <div v-show="!listAjax.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
+    </div>
+    <!-- 页面慢加载 -->
+    <div class="table-box main-block" v-show="table==3">
+        <div v-show="listslowpages.length">
             <table class="table">
                 <thead>
                     <tr>
@@ -81,39 +115,57 @@
                         <th>资源加载耗时</th>
                         <th>DOM构建时间</th>
                         <th>解析dom耗时</th>
-                        <th>DNS解析时间</th>
-                        <th>TCP连接时间</th>
-                        <th>页面重定向时间</th>
-                        <th>unload时间</th>
-                        <th>request请求耗时</th>
                         <th>页面准备时间</th> 
-                        <th>页面请求时间</th>
-                        <th>操作</th>  
+                        <th>创建时间</th>
                     </tr>
                 </thead>
-                <tr v-for="(item,index) in listdata" :key="index">
-                    <td v-if="index===0" class="border-right break-word" :rowspan="listdata.length"><span>{{item.url}}</span></td>
+                <tr v-for="(item,index) in listslowpages" :key="index">
+                    <td><span>{{item.url}}</span></td>
                     <td class="tc">{{item.loadTime|toFixed(true)}}</td>
                     <td class="tc">{{item.whiteTime|toFixed}}</td>
                     <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
                     <td class="tc">{{item.domTime|toFixed(true)}}</td>
                     <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
-                    <td class="tc">{{item.dnsTime|toFixed}}</td>
-                    <td class="tc">{{item.tcpTime|toFixed}}</td>
-                    <td class="tc">{{item.redirectTime|toFixed}}</td>
-                    <td class="tc">{{item.unloadTime|toFixed}}</td>
-                    <td class="tc">{{item.requestTime|toFixed}}</td>
                     <td class="tc">{{item.readyTime|toFixed}}</td>
-                    <td class="tc">{{item.dateTime}}</td>
-                    <td class="tc"><a href="">资源耗时详情</a></td>
+                    <td class="tc">{{item.createTime|date('/',true)}}</td>
                 </tr>
             </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page-slowpages" class="copot-page"></div>
+            </div>
         </div>
-        <div v-if="!listdata.length" class="loading-block"></div>
+        <div v-show="!listslowpages.length&&!isLoadEnd" class="loading-block"></div>
+        <div v-show="!listslowpages.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
     </div>
-    <!--  分页 -->
-    <div class="tc common_page_style">
-        <div id="copot-page"></div>
+    <!-- 页面慢资源加载 -->
+    <div class="table-box main-block" v-show="table==4">
+        <div v-show="listresources.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="break-word">URL</th>
+                        <th>资源加载耗时</th>
+                        <th>资源返回大小</th>
+                        <th>请求url</th>
+                        <th>创建时间</th>
+                    </tr>
+                </thead>
+                <tr v-for="(item,index) in listresources" :key="index">
+                    <td><span>{{item.name}}</span></td>
+                    <td class="tc">{{item.duration|toFixed(true)}}</td>
+                    <td class="tc">{{item.decodedBodySize|toSize}}</td>
+                    <td >{{item.callUrl|limitTo(50)}}</td>
+                    <td class="tc">{{item.createTime|date('/',true)}}</td>
+                </tr>
+            </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page-slowresources" class="copot-page"></div>
+            </div>
+        </div>
+        <div v-show="!listresources.length&&!isLoadEnd" class="loading-block"></div>
+        <div v-show="!listresources.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
     </div>
 </div>
 <script src="/js/Page.js"></script>
