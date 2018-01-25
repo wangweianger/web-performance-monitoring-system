@@ -101,6 +101,7 @@ class pages {
                 .table('web_pages')
                 .where(data)
                 .order('createTime desc')
+                .page(pageNo,pageSize)
                 .select()
             let result = await mysql(sqlstr);
 

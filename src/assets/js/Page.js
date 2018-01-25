@@ -105,6 +105,7 @@ Page.prototype.callback = function() {
 
 	//给每个a绑定事件
 	this.parent.find("a").bind("click", function() {
+		window.scrollTo(0, 0)
 		// Layer.loading({width:300,height:110,srcType:3,title:"正在加载中，请稍后..."});
 		This.parent.html(""); //清空
 		var nowPage = $(this).attr("href").substring(1);

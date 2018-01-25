@@ -61,9 +61,14 @@ new Vue({
             let seriesData  = []
 
             datas.forEach(item=>{
-                xAxisData.push(new Date(item.createTime).format('MM/dd'))
-                seriesData.push(item.duration)
+                xAxisData.push(new Date(item.createTime).format('hh:mm:ss'))
+                seriesData.push({
+                    value:item.duration,
+                    name:new Date(item.createTime).format('yyyy/MM/dd hh:mm:ss'),
+                })
             })
+
+            console.log(seriesData)
 
             var myChart = echarts.init(document.getElementById('charts-pages'));
             var option = {
@@ -76,7 +81,9 @@ new Vue({
                     left:40,
                     right:10
                 },
-                tooltip: {},
+                tooltip: {
+                    formatter: "{a} : {c}"
+                },
                 color:['#03a9f4'],
                 xAxis: {
                     data: xAxisData,

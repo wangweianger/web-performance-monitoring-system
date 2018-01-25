@@ -87,16 +87,16 @@ new Vue({
                     this.isLoadEnd=true;
                     switch(this.table){
                         case 1:
-                            this.listdata = this.listdata.concat(data.data.datalist||[]);
+                            this.listdata = data.data.datalist
                             break;
                         case 2:
-                            this.listAjax = this.listAjax.concat(data.data.datalist||[]);
+                            this.listAjax = data.data.datalist
                             break;
                         case 3:
-                            this.listslowpages = this.listslowpages.concat(data.data.datalist||[]);
+                            this.listslowpages = data.data.datalist
                             break;
                         case 4:
-                            this.listresources = this.listresources.concat(data.data.datalist||[]);
+                            this.listresources = data.data.datalist
                             break;            
                     }
                     new Page({
@@ -106,9 +106,10 @@ new Vue({
                          totalCount: data.data.totalNum,
                          callback:(nowPage, totalPage) =>{
                              this.pageNo = nowPage;
-                             this.getinit();
+                             this.getinit(api,pageName);
                          }
-                     });
+                    });
+
                 }
             })
         },
@@ -148,10 +149,20 @@ new Vue({
                 totalcount+=item.count
             })
             datas.forEach(item=>{
-                let name = typeVersion?item[tyle]+' '+item[typeVersion]:item[tyle]
+                let versionArr  = []
+                let version     = ''
+                if(item[typeVersion]){
+                    versionArr  = item[typeVersion].split('.')
+                    if(versionArr.length>=2){
+                        version = versionArr[0]+'.'+versionArr[1]
+                    }else{
+                        version = versionArr[0]
+                    }
+                }
+                let name = typeVersion?item[tyle]+' '+version:item[tyle]
                 legendData.push({
                     name:name,
-                    icon: 'pin'
+                    icon: 'circle',
                 })
                 seriesData.push({
                     name:name,
@@ -168,25 +179,35 @@ new Vue({
                 tooltip: {
                     formatter: "{b} : {c} ({d}%)"
                 },
-                color:['#f44336','#e91e63','#9c27b0','#00bcd4','#3cd87f','#ffeb3b','#ff9800','#ff5722'],
+                grid: {
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    top: 0,
+                    containLabel: true
+                },
+                color:['#f44336','#00bcd4','#3cd87f','#ffeb3b','#9c27b0','#e91e63','#ff9800','#ff5722'],
                 legend: {
                     orient: 'vertical',
                     right: 0,
                     top: 20,
                     bottom: 20,
+                    padding:0,
+                    itemWidth:15,
+                    itemHeight:10,
                     data:legendData,
                     formatter:function(name){
                         for(let i=0;i<seriesData.length;i++){
                             if(name === seriesData[i].name){
-                                return name+'   '+seriesData[i].value+'   '+seriesData[i].percentage;    
+                                return name+'  '+seriesData[i].value+'  '+seriesData[i].percentage;    
                             }
                         }
                     }
                 },
                 series: [{
                     type: 'pie',
-                    radius : '50%',
-                    center: ['25%', '50%'],
+                    radius : '45%',
+                    center: ['22%', '50%'],
                     label: {
                         normal: {
                             show: false,
@@ -257,7 +278,7 @@ new Vue({
                         }
                     }
                 },
-                color:['#f44336','#e91e63','#9c27b0','#00bcd4','#3cd87f','#ffeb3b','#ff9800','#ff5722'],
+                color:['#f44336','#00bcd4','#3cd87f','#ffeb3b','#e91e63','#9c27b0','#ff9800','#ff5722'],
                 legend: {
                     data:legendData
                 },
@@ -272,18 +293,12 @@ new Vue({
                     bottom: '3%',
                     containLabel: true
                 },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : xAxisData
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
+                xAxis : [{
+                    type : 'category',
+                    boundaryGap : false,
+                    data : xAxisData
+                }],
+                yAxis : [{ type : 'value' } ],
                 series : seriesData
             };
             myChart.setOption(option);
