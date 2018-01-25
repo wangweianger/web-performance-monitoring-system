@@ -16,33 +16,21 @@ new Vue({
         limitTo:window.Filter.limitTo,
     },
     beforeMount(){
-        if(this.type&&this.type==='slow'){
-            this.getslowPageItemForId();
-        }else{
-            this.getPageItemForId();
-        }
+        this.getPageItemForId();
     },
     mounted(){
     },
     methods:{
         // 获得页面请求性能详情
         getPageItemForId(){
+            let api = ''
+            if(this.type&&this.type==='slow'){
+                api='api/slowpages/getslowPageItemForId'
+            }else{
+                api='api/pages/getPageItemForId'
+            }
             util.ajax({
-                url:config.baseApi+'api/pages/getPageItemForId',
-                data:{
-                    id:this.id
-                },
-                success:data=>{
-                    this.pagesItemData = data.data
-                    this.getUserEnvironment(data.data.markPage)
-                    this.getSourcesForMarkPage(data.data.markPage)
-                }
-            })
-        },
-        //获得慢页面加载性能详情
-        getslowPageItemForId(){
-            util.ajax({
-                url:config.baseApi+'api/slowpages/getslowPageItemForId',
+                url:config.baseApi+api,
                 data:{
                     id:this.id
                 },

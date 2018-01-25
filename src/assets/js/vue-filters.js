@@ -38,6 +38,7 @@ let Filter = {
         }
     },
     toSize(val){
+        val=val*1
         if(val>=1024){
             return (val/1024).toFixed(2)+' KB'
         }else if(val>0){

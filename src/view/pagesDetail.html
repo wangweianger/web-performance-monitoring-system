@@ -156,7 +156,6 @@
                         <th class="break-word">AJAX地址</th>
                         <th>ajax加载耗时</th>
                         <th>返回资源大小</th>
-                        <th>调用次数</th>
                         <th>请求url</th>
                     </tr>
                 </thead>
@@ -164,7 +163,6 @@
                     <td><span>{{item.name}}</span></td>
                     <td class="tc">{{item.duration|toFixed(true)}}</td>
                     <td class="tc">{{item.decodedBodySize|toSize}}</td>
-                    <td class="tc">{{item.count}}</td>
                     <td >{{item.callUrl|limitTo(50)}}</td>
                 </tr>
             </table>

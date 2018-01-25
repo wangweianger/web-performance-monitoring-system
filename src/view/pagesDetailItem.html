@@ -25,23 +25,23 @@
         <div class="common-block fl">
             <h1 class="h1">页面性能耗时</h1>
             <li>
-                <h1>平均加载耗时(s)</h1>
+                <h1>加载耗时(s)</h1>
                 <h2 class="red">{{pagesItemData.loadTime|toFixed(true)}}</h2>
             </li>
             <li>
-                <h1>平均白屏耗时(ms)</h1>
+                <h1>白屏耗时(ms)</h1>
                 <h2 class="red">{{pagesItemData.whiteTime|toFixed}}</h2>
             </li>
             <li>
-                <h1>平均资源加载耗时(s)</h1>
+                <h1>资源加载耗时(s)</h1>
                 <h2 class="red">{{pagesItemData.resourceTime|toFixed(true)}}</h2>
             </li>
             <li>
-                <h1>平均DOM构建耗时(s)</h1>
+                <h1>DOM构建耗时(s)</h1>
                 <h2>{{pagesItemData.domTime|toFixed(true)}}</h2>
             </li>
             <li>
-                <h1>平均解析DOM耗时(s)</h1>
+                <h1>解析DOM耗时(s)</h1>
                 <h2>{{pagesItemData.analysisDomTime|toFixed(true)}}</h2>
             </li>
             <li>
@@ -49,11 +49,11 @@
                 <h2>{{pagesItemData.count||0}}</h2>
             </li>
             <li>
-                <h1>平均request请求耗时(ms)</h1>
+                <h1>request请求耗时(ms)</h1>
                 <h2>{{pagesItemData.requestTime|toFixed}}</h2>
             </li>
             <li>
-                <h1>平均页面准备耗时(ms)</h1>
+                <h1>页面准备耗时(ms)</h1>
                 <h2>{{pagesItemData.readyTime|toFixed}}</h2>
             </li>
         </div>

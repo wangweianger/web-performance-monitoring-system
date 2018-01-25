@@ -10,7 +10,7 @@
     overflow: hidden; }
 
 .block-time {
-  margin: 20px;
+  margin: 15px;
   overflow: hidden;
   background: #fff;
   border-radius: 3px; }
@@ -56,7 +56,7 @@
 
 .common-margin {
   overflow: hidden;
-  margin: 20px; }
+  margin: 15px; }
   .common-margin .common-block {
     width: 49.5%;
     background: #fff;
@@ -81,7 +81,7 @@
 
 .sources-list {
   background: #fff;
-  margin: 20px;
+  margin: 15px;
   border-radius: 3px;
   padding: 20px; }
   .sources-list .h1 {

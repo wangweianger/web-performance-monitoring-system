@@ -1,0 +1,121 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/page.css">
+<link rel="stylesheet" href="/css/page-detail.css">
+<div class="container ajax mb150" id="pagesDetail" v-cloak>
+   <div class="common-title">
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/pages/">列表</a>/<a href="/pages/detail/">页面性能</a></h1>
+        <div class="search">
+            <span class="reload cursor iconfont">&#xe6ea;</span>
+            <div class="select">
+                <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
+                <div class="select-time">
+                    <li class="select_time_active">30分钟</li>
+                    <li>1小时</li>
+                    <li>6小时</li>
+                    <li>12小时</li>
+                    <li>1天</li>
+                    <li>3天</li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 页面平均耗时说明 -->
+    <div class="block-time">
+        <div class="item-full div1">
+            <h1 class="h1">页面平均耗时</h1>
+            <li>
+                <h1>平均加载耗时(s)</h1>
+                <h2 class="red">{{pagesItemData.loadTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>平均白屏耗时(ms)</h1>
+                <h2 class="red">{{pagesItemData.whiteTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均资源加载耗时(s)</h1>
+                <h2 class="red">{{pagesItemData.resourceTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>平均DOM构建耗时(s)</h1>
+                <h2>{{pagesItemData.domTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>平均解析DOM耗时(s)</h1>
+                <h2>{{pagesItemData.analysisDomTime|toFixed(true)}}</h2>
+            </li>
+            <li>
+                <h1>调用次数</h1>
+                <h2>{{pagesItemData.count||0}}</h2>
+            </li>
+            <li>
+                <h1>平均DNS解析耗时(ms)</h1>
+                <h2>{{pagesItemData.dnsTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均TCP连接耗时(ms)</h1>
+                <h2>{{pagesItemData.tcpTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均页面重定向耗时(ms)</h1>
+                <h2>{{pagesItemData.redirectTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均unload耗时(ms)</h1>
+                <h2>{{pagesItemData.unloadTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均request请求耗时(ms)</h1>
+                <h2>{{pagesItemData.requestTime|toFixed}}</h2>
+            </li>
+            <li>
+                <h1>平均页面准备耗时(ms)</h1>
+                <h2>{{pagesItemData.readyTime|toFixed}}</h2>
+            </li>
+        </div>
+    </div>
+    <!-- page详情性能列表 -->
+    <div class="common-head-title">
+        <h1>页面性能详情 <button class="button" @click="showCharts">charts表</button></h1> 
+        <!-- <div class="table-box main-block" v-show="table==1"> -->
+            <div v-show="listdata.length&&!isShowCharts">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="break-word">URL</th>
+                            <th>页面加载时间</th>
+                            <th>白屏时间</th>
+                            <th>资源加载耗时</th>
+                            <th>DOM构建时间</th>
+                            <th>解析dom耗时</th>
+                            <th>页面准备时间</th> 
+                            <th>页面请求时间</th>
+                            <th>操作</th>  
+                        </tr>
+                    </thead>
+                    <tr v-for="(item,index) in listdata" :key="index">
+                        <td ><a :href="'/pages/detail/item?id='+item.id+'&type=slow'" :title="item.url">{{item.url}}</a></td>
+                        <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
+                        <td class="tc red">{{item.whiteTime|toFixed}}</td>
+                        <td class="tc red"><a :href="'/pages/detail/item?id='+item.id">{{item.resourceTime|toFixed(true)}}</a></td>
+                        <td class="tc red">{{item.domTime|toFixed(true)}}</td>
+                        <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
+                        <td class="tc">{{item.readyTime|toFixed}}</td>
+                        <td class="tc">{{item.createTime|date('/',true)}}</td>
+                        <td class="tc"><a :href="'/pages/detail/item?id='+item.id+'&type=slow'">详情</a></td>
+                    </tr>
+                </table>
+                <!--  分页 -->
+                <div class="tc common_page_style">
+                    <div id="copot-page-pages" class="copot-page"></div>
+                </div>
+            </div>
+            <div v-show="!listdata.length&&!isLoadEnd" class="loading-block"></div>
+            <div v-show="!listdata.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
+        <!-- </div> -->
+        <div id="charts-pages" v-show="isShowCharts" class="charts-pages"></div>
+    </div>
+</div>
+<script src="/js/Page.js"></script>
+<script src="/js/view-slowpages-detail.js"></script>

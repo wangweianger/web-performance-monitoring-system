@@ -86,8 +86,6 @@ router.get(['/pages/detail/item'], async(ctx, next) => {
 	}); 
 });
 
-
-
 //ajax列表
 router.get(['/ajax'], async(ctx, next) => {
 	let datas = {
@@ -107,6 +105,15 @@ router.get(['/ajax/detail'], async(ctx, next) => {
 	}); 
 });
 
+// 慢页面加载页面列表
+router.get(['/slowpages/detail'], async(ctx, next) => {
+	let datas = {
+		title:'慢页面加载页面列表',
+	}
+	await ctx.render('slowPagesDetail',{
+		datas:datas
+	}); 
+});
 
 
 
