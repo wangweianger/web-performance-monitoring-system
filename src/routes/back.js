@@ -47,7 +47,7 @@ router.post('/api/pages/getPageItemForId',checkHaveSystemId, controllers.pages.g
 
 //----------------------------AJAX--------------------------------------
 //获得ajax页面列表
-// router.post('/api/ajax/getajaxlist',checkHaveSystemId, controllers.ajax.getajaxlist)
+router.post('/api/ajax/getajaxlist',checkHaveSystemId, controllers.ajax.getajaxlist)
 // 根据url查询ajax列表
 router.post('/api/ajax/getPageItemDetail',checkHaveSystemId, controllers.ajax.getAjaxMsgForUrl)
 

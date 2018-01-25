@@ -6,7 +6,6 @@ new Vue({
             pageNo:1,
             pageSize:config.pageSize,
             totalNum:0,
-            
         }
     },
     filters:{
@@ -27,9 +26,6 @@ new Vue({
                 },
                 success:data => {
                     if(!data.data.datalist&&!data.data.datalist.length)return;
-                    data.data.datalist.forEach(item=>{
-                        item.decodeUrl = encodeURIComponent(item.url)
-                    })
                     this.listdata = data.data.datalist;
                     new Page({
                          parent: $("#copot-page"),

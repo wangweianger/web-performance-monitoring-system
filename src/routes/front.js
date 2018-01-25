@@ -91,10 +91,18 @@ router.get(['/pages/detail/item'], async(ctx, next) => {
 //ajax列表
 router.get(['/ajax'], async(ctx, next) => {
 	let datas = {
-		title:'Ajax性能分析',
+		title:'Ajax列表',
 	}
-
 	await ctx.render('ajax',{
+		datas:datas
+	}); 
+});
+// ajaxDetail详情
+router.get(['/ajax/detail'], async(ctx, next) => {
+	let datas = {
+		title:'单个Ajax性能分析',
+	}
+	await ctx.render('ajaxDetail',{
 		datas:datas
 	}); 
 });

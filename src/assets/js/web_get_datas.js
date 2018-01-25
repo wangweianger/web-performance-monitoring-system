@@ -75,6 +75,7 @@ let haveAjax  = false;
 
 let timer10,timer11,timer12,timer13;
 
+let ajaxMsg = [];
 // 拦截ajax
 hookAjax({
     onreadystatechange:function(xhr){
@@ -106,6 +107,7 @@ hookAjax({
         }
     },
     open:function(arg,xhr){
+        ajaxMsg.push(arg)
         haveAjax  = true;
         if(ajaxLength===0)performance.clearResourceTimings();
         ajaxLength = ajaxLength+1;
@@ -126,6 +128,8 @@ window.addEventListener("load",function(){
 
 // 数据上报
 function ReportData(){
+    console.log(ajaxMsg)
+    
     // fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
     //   console.log(data);
     // }).catch(function(e) {
@@ -174,15 +178,24 @@ function ReportData(){
         let pushArr = []
         let resourceTime = 0
         resource.forEach((item)=>{
-            resourceTime+=item.duration
-            pushArr.push({
+            let json = {
                 name:item.name,
+                method:'GET',
                 type:item.initiatorType,
                 duration:item.duration.toFixed(2)||0,
                 decodedBodySize:item.decodedBodySize||0,
                 nextHopProtocol:item.nextHopProtocol,
-            })
+            }
+            for(let i=0,len=ajaxMsg.length;i<len;i++){
+                if(ajaxMsg[i][1]===item.name){
+                    json.method = ajaxMsg[i][0]||'GET'
+                }
+            }
+            resourceTime+=item.duration
+            pushArr.push(json)
         })
+
+        console.log(pushArr)
 
         /*---------------------------------统计页面性能-----------------------------------*/
         let timing = performance.timing

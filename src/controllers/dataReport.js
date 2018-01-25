@@ -2,6 +2,8 @@ import moment from 'moment'
 import sql from 'node-transform-mysql'
 import UAParser from 'ua-parser-js'
 import axios from 'axios'
+import url from 'url'
+import querystring from 'querystring'
 import {
     SYSTEM
 } from '../config'
@@ -156,7 +158,7 @@ class data {
                 systemVersion:result.os.version||'',
                 markUser:ctx.query.markUser||'',
                 markPage:ctx.query.markPage||'',
-                url:ctx.query.url||'',
+                url:decodeURIComponent(ctx.query.url)||'',
                 createTime:moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
             }
 
@@ -250,20 +252,33 @@ class data {
                 items.name=item.name
                 items.duration=item.duration
                 items.decodedBodySize=item.decodedBodySize
+                items.method = item.method
 
                 if(item.type === 'script'){
                     duration = systemItem.slowJsTime
                 }else if(item.type === 'link'||item.type === 'css'){
                     duration = systemItem.slowCssTime
                 }else if(item.type === 'xmlhttprequest'){
+                    let newurl      = url.parse(item.name)
+                    let newName     = newurl.protocol+'//'+newurl.host+newurl.pathname
+                    let querydata   = newurl.query?querystring.parse(newurl.query):{}
+
+                    items.querydata = JSON.stringify(querydata)
+                    items.name      = newName
+                    item.querydata  = querydata
+                    item.name       = newName
+
                     duration = systemItem.slowAajxTime
                     table = 'web_ajax' 
+
                 }else if(item.type === 'img'){
                     duration = systemItem.slowImgTime
                 }
                 if(parseInt(item.duration) >= duration*1000){
                     table = 'web_slowresources'
                 }
+
+
                 // 判断是否存储 ajax 和 慢资源
                 if(table&&table==='web_ajax'&&systemItem.isStatisiAjax===0){
                     let sqlstr2 = sql.table(table).data(items).insert()
@@ -279,6 +294,7 @@ class data {
                 ctx.body=imgsrc;
                 return;
             };
+
             datas.resourceDatas = JSON.stringify(resourceDatas.list)
             let sqlstr3 = sql.table('web_sources').data(datas).insert()
             await mysql(sqlstr3)

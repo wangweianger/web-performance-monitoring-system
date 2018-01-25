@@ -1,8 +1,9 @@
 <%- include("./header.html") %>
 <%- include("./side.html") %>
 <!-- 样式 -->
+<link rel="stylesheet" href="/css/page.css">
 <link rel="stylesheet" href="/css/ajax.css">
-<div class="container ajax" id="ajax">
+<div class="container ajax" id="ajax" v-cloak>
    <div class="common-title">
         <h1>AJAX</h1>
         <div class="search">
@@ -25,35 +26,38 @@
     </div>
     <div class="ajax-topsel">
         请求方式：
-        <select>
-            <option>get</option>
-            <option>post</option>
+        <select v-mode="method">
+            <option value="">选择http请求方式</option>
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
         </select>
     </div>
-    <div class="table-box">
+    <div class="table-box common_page_style">
         <table class="table">
             <thead>
                 <tr>
-                    <th>URL</th>
+                    <th class="w-400">AJAX URL</th>
                     <th>请求方式</th>
                     <th>调用量</th>
                     <th>相应时间</th>
-                    <th>web应用耗时</th>
-                    <th>回调函数执行时间</th>
-                    <th>返回数据大小</th>
-                    <th>正确率</th>
+                    <th>body数据大小</th>
+                    <th>操作</th>
                 </tr>
             </thead>
             <tr v-for="(item,index) in listdata" :key="index">
-                <td>{{item.url}}</td>
-                <td>{{item.method}}</td>
-                <td>{{item.callNumber}}</td>
-                <td>{{item.responseTime}}</td>
-                <td>{{item.createTime}}</td>
-                <td>{{item.responseSize}}</td>
+                <td><a href="javascript:" @click="gotodetail(item)">{{item.name}}</a></td>
+                <td class="tc">{{item.method}}</td>
+                <td class="tc">{{item.count}}</td>
+                <td class="tc red">{{item.duration|toFixed}}</td>
+                <td class="tc">{{item.decodedBodySize|toSize}}</td>
+                <td class="tc"><a href="javascript:" @click="gotodetail(item)">查看详情</a></td> 
             </tr>
         </table>
     </div>
+    <!--  分页 -->
+    <div class="tc common_page_style">
+        <div id="copot-page" class="copot-page"></div>
+    </div>
 </div>
-<%- include("./footer.html") %>
+<script src="/js/Page.js"></script>
 <script src="/js/view-ajax.js"></script>
