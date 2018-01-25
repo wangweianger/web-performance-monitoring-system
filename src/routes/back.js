@@ -50,6 +50,8 @@ router.post('/api/pages/getPageItemForId',checkHaveSystemId, controllers.pages.g
 router.post('/api/ajax/getajaxlist',checkHaveSystemId, controllers.ajax.getajaxlist)
 // 根据url查询ajax列表
 router.post('/api/ajax/getPageItemDetail',checkHaveSystemId, controllers.ajax.getAjaxMsgForUrl)
+// 根据name字段查询ajax列表信息
+router.post('/api/ajax/getAjaxListForName',checkHaveSystemId, controllers.ajax.getAjaxListForName)
 
 //----------------------------慢页面--------------------------------------
 // 根据url参数获取慢加载页面

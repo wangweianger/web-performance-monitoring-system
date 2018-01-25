@@ -40,54 +40,43 @@
             <h2>{{pagesItemData.decodedBodySize|toSize}}</h2>
         </li>
     </div>
+    <!-- charts -->
+    <div class="charts">
+        <div id="charts-pages" class="charts-pages"></div>
+    </div>
     <!-- page详情性能列表 -->
     <div class="common-head-title" v-show="table==1">
-        <h1>页面性能详情 <button class="button" @click="showCharts">charts表</button></h1> 
-            <div v-show="listdata.length&&!isShowCharts">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="break-word">URL</th>
-                            <th>页面加载时间</th>
-                            <th>白屏时间</th>
-                            <th>资源加载耗时</th>
-                            <th>DOM构建时间</th>
-                            <th>解析dom耗时</th>
-                            <th>DNS解析时间</th>
-                            <th>TCP连接时间</th>
-                            <th>页面重定向时间</th>
-                            <th>unload时间</th>
-                            <th>request请求耗时</th>
-                            <th>页面准备时间</th> 
-                            <th>页面请求时间</th>
-                            <th>操作</th>  
-                        </tr>
-                    </thead>
-                    <tr v-for="(item,index) in listdata" :key="index">
-                        <td ><a :href="'/pages/detail/item?id='+item.id" :title="item.url">{{item.url}}</a></td>
-                        <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
-                        <td class="tc red">{{item.whiteTime|toFixed}}</td>
-                        <td class="tc red"><a :href="'/pages/detail/item?id='+item.id">{{item.resourceTime|toFixed(true)}}</a></td>
-                        <td class="tc red">{{item.domTime|toFixed(true)}}</td>
-                        <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
-                        <td class="tc">{{item.dnsTime|toFixed}}</td>
-                        <td class="tc">{{item.tcpTime|toFixed}}</td>
-                        <td class="tc">{{item.redirectTime|toFixed}}</td>
-                        <td class="tc">{{item.unloadTime|toFixed}}</td>
-                        <td class="tc">{{item.requestTime|toFixed}}</td>
-                        <td class="tc">{{item.readyTime|toFixed}}</td>
-                        <td class="tc">{{item.dateTime}}</td>
-                        <td class="tc"><a :href="'/pages/detail/item?id='+item.id">详情</a></td>
+        <h1>页面性能详情</h1> 
+        <div v-show="listdata.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="break-word">AJAX URL</th>
+                        <th>请求方式</th>
+                        <th>请求耗时</th>
+                        <th>返回资源大小</th>
+                        <th>请求参数</th>
+                        <th>请求时间</th>
+                        <th>调用页面</th>
                     </tr>
-                </table>
-                <!--  分页 -->
-                <div class="tc common_page_style">
-                    <div id="copot-page-pages" class="copot-page"></div>
-                </div>
+                </thead>
+                <tr v-for="(item,index) in listdata" :key="index">
+                    <td >{{item.name}}</td>
+                    <td class="tc">{{item.method}}</td>
+                    <td class="tc red">{{item.duration}}</td>
+                    <td class="tc">{{item.decodedBodySize|toSize}}</td>
+                    <td>{{item.querydata}}</td>
+                    <td class="tc">{{item.createTime|date('/',true)}}</td>
+                    <td class="tc" :title="item.callUrl">{{item.callUrl|limitTo(50)}}</td>
+                </tr>
+            </table>
+            <!--  分页 -->
+            <div class="tc common_page_style">
+                <div id="copot-page-pages" class="copot-page"></div>
             </div>
-            <div v-show="!listdata.length&&!isLoadEnd" class="loading-block"></div>
-            <div v-show="!listdata.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
-        <div id="charts-pages" v-show="isShowCharts" class="charts-pages"></div>
+        </div>
+        <div v-show="!listdata.length&&!isLoadEnd" class="loading-block"></div>
+        <div v-show="!listdata.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
     </div>
 </div>
 <script src="/js/Page.js"></script>
