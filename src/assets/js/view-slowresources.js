@@ -10,23 +10,16 @@ new Vue({
         }
     },
     filters:{
-        toFixed:window.Filter.toFixed
+        toFixed:window.Filter.toFixed,
+        toSize:window.Filter.toSize,
     },
     mounted(){
         this.getinit();
     },
     methods:{
         getinit(){
-            let api = ''
-
-            if(this.slow&&this.slow=='slow'){
-                api = 'api/slowpages/getSlowpagesList'
-            }else{
-                api = 'api/pages/getPageList'
-            }
-
             util.ajax({
-                url:config.baseApi+api,
+                url:config.baseApi+'api/slowresources/getSlowresourcesList',
                 data:{
                     pageNo:this.pageNo,
                     pageSize:this.pageSize,
@@ -50,13 +43,8 @@ new Vue({
             })
         },
         gotodetail(item){
-            if(this.slow&&this.slow=='slow'){
-                util.setStorage('session','slowpagesItemData',JSON.stringify(item))
-                location.href="/slowpages/detail?type=zane"
-            }else{
-                util.setStorage('session','pagesItemData',JSON.stringify(item))
-                location.href="/pages/detail?type=zane"
-            }
+            util.setStorage('session','slowresourcesItemData',JSON.stringify(item))
+            location.href="/slowresources/detail"
         }
     }
 })

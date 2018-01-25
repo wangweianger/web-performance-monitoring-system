@@ -115,6 +115,26 @@ router.get(['/slowpages/detail'], async(ctx, next) => {
 	}); 
 });
 
+//慢资源统计列表
+router.get(['/slowresources'], async(ctx, next) => {
+	let datas = {
+		title:'慢资源统计列表',
+	}
+	await ctx.render('slowresources',{
+		datas:datas
+	}); 
+});
+
+//慢资源统计列表详情
+router.get(['/slowresources/detail'], async(ctx, next) => {
+	let datas = {
+		title:'慢资源统计列表详情',
+	}
+	await ctx.render('slowresourcesDetail',{
+		datas:datas
+	}); 
+});
+
 
 
 module.exports = router

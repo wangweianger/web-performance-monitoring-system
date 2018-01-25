@@ -22,14 +22,30 @@ class pages {
             let pageSize    = ctx.request.body.pageSize || SYSTEM.PAGESIZE
             let beginTime   = ctx.request.body.beginTime || ''
             let endTime     = ctx.request.body.endTime || ''
-            
+            let isAllAvg    = ctx.request.body.isAllAvg || true
+            let url         = ctx.request.body.url 
+
             // 公共参数
             let data={systemId:systemId}
+
+            if(isAllAvg=='false'){
+                if(!url){
+                    ctx.body = util.result({
+                        code: 1001,
+                        desc: 'url参数有误!'
+                    });
+                    return
+                }
+                data.url = url
+            }
+
             if(beginTime&&endTime) data.createTime = {egt:beginTime,elt:endTime}
-            let sqlTotal = sql.field('count(1) as count').table('web_pages').where(data).group('url').select() 
-            let total = await mysql(sqlTotal);
             let totalNum = 0
-            if(total.length) totalNum = total.length
+            if(isAllAvg != 'false'){
+                let sqlTotal = sql.field('count(1) as count').table('web_pages').where(data).group('url').select() 
+                let total = await mysql(sqlTotal);
+                if(total.length) totalNum = total.length
+            } 
 
             // 请求列表数据
             let sqlstr = sql.field(`url,
@@ -53,11 +69,16 @@ class pages {
 
             let result = await mysql(sqlstr);
 
+            let valjson = {}
+            if(isAllAvg=='false'){
+                valjson = result&&result.length?result[0]:{}
+            }else{
+                valjson.totalNum = totalNum;
+                valjson.datalist = result
+            }
+
             ctx.body = util.result({
-                data: {
-                    totalNum:totalNum,
-                    datalist:result
-                }
+                data: valjson
             });
 
         } catch (err) {

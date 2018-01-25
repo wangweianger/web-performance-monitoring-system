@@ -65,8 +65,10 @@ router.post('/api/slowpages/getslowPageItemForId',checkHaveSystemId, controllers
 //----------------------------慢资源--------------------------------------
 // 根据url参数获取慢资源加载
 router.post('/api/slowresources/getSlowResourcesItem',checkHaveSystemId, controllers.slowresources.getSlowResourcesItem)
-
-
+// 获得慢资源分类列表
+router.post('/api/slowresources/getSlowresourcesList',checkHaveSystemId, controllers.slowresources.getSlowresourcesList)
+// 根据name参数获取慢资源加载
+router.post('/api/slowresources/getSlowResourcesForName',checkHaveSystemId, controllers.slowresources.getSlowResourcesForName)
 
 //----------------------------页面资源--------------------------------------
 // 根据markPage获得页面资源信息

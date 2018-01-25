@@ -160,7 +160,7 @@
                     </tr>
                 </thead>
                 <tr v-for="(item,index) in listAjax" :key="index">
-                    <td><span>{{item.name}}</span></td>
+                    <td><span><a href="javascript:" @click="gotoAjaxDetail(item)">{{item.name}}</a></span></td>
                     <td class="tc">{{item.duration|toFixed(true)}}</td>
                     <td class="tc">{{item.decodedBodySize|toSize}}</td>
                     <td >{{item.callUrl|limitTo(50)}}</td>
@@ -225,7 +225,7 @@
                     </tr>
                 </thead>
                 <tr v-for="(item,index) in listresources" :key="index">
-                    <td><span>{{item.name}}</span></td>
+                    <td><span><a href="javascript:" @click="gotoSourcesDetail(item)">{{item.name}}</a></span></td>
                     <td class="tc red">{{item.duration|toFixed(true)}}</td>
                     <td class="tc">{{item.decodedBodySize|toSize}}</td>
                     <td >{{item.callUrl|limitTo(50)}}</td>

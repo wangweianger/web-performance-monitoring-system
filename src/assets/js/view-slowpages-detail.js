@@ -7,7 +7,7 @@ new Vue({
             pageSize:config.pageSize,
             totalNum:0,
             isLoadEnd:false,
-            url:'',
+            url:util.getQueryString('url'),
             pagesItemData:{},
             isShowCharts:false,
         }
@@ -19,14 +19,31 @@ new Vue({
         limitTo:window.Filter.limitTo,
     },
     beforeMount(){
-        this.pagesItemData=util.getStorage('session','slowpagesItemData')?JSON.parse(util.getStorage('session','slowpagesItemData')):{}
-        this.url = this.pagesItemData.url
+        if(this.url){
+            this.getAverageValues()
+        }else{
+            this.pagesItemData=util.getStorage('session','slowpagesItemData')?JSON.parse(util.getStorage('session','slowpagesItemData')):{}
+            this.url = this.pagesItemData.url
+        }
         this.getinit();
     },
     mounted(){
         
     },
     methods:{
+        // 获得平均性能
+        getAverageValues(){
+            util.ajax({
+                url:config.baseApi+'api/slowpages/getSlowpagesList',
+                data:{
+                    url:this.url,
+                    isAllAvg:false,
+                },
+                success:data=>{
+                    this.pagesItemData=data.data   
+                }
+            })
+        },
         // 获得page详情
         getinit(){
             util.ajax({

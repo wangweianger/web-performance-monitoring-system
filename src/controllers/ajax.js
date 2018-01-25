@@ -21,14 +21,31 @@ class ajax {
             let pageSize    = ctx.request.body.pageSize || SYSTEM.PAGESIZE
             let beginTime   = ctx.request.body.beginTime || ''
             let endTime     = ctx.request.body.endTime || ''
+            let isAllAvg    = ctx.request.body.isAllAvg || true
+            let name         = ctx.request.body.name 
             
             // 公共参数
             let data={systemId:systemId}
+
+            if(isAllAvg=='false'){
+                if(!name){
+                    ctx.body = util.result({
+                        code: 1001,
+                        desc: 'name参数有误!'
+                    });
+                    return
+                }
+                data.name = name
+            }
+
             if(beginTime&&endTime) data.createTime = {egt:beginTime,elt:endTime}
-            let sqlTotal = sql.field('count(1) as count').table('web_ajax').where(data).group('name').select() 
-            let total = await mysql(sqlTotal);
+
             let totalNum = 0
-            if(total.length) totalNum = total.length
+            if(isAllAvg != 'false'){    
+                let sqlTotal = sql.field('count(1) as count').table('web_ajax').where(data).group('name').select() 
+                let total = await mysql(sqlTotal);
+                if(total.length) totalNum = total.length
+            }     
 
             // 请求列表数据
             let sqlstr = sql.field(`name,method,
@@ -43,11 +60,16 @@ class ajax {
 
             let result = await mysql(sqlstr);
 
+            let valjson = {}
+            if(isAllAvg=='false'){
+                valjson = result&&result.length?result[0]:{}
+            }else{
+                valjson.totalNum = totalNum;
+                valjson.datalist = result
+            }
+
             ctx.body = util.result({
-                data: {
-                    totalNum:totalNum,
-                    datalist:result
-                }
+                data: valjson
             });
 
         } catch (err) {

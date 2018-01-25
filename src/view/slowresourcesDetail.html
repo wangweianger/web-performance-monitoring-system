@@ -27,7 +27,7 @@
     <!-- 页面平均耗时说明 -->
     <div class="block-time" v-show="table==1">
         <li class="li1">
-            <h1>AJAX响应平均耗时</h1>
+            <h1>慢资源响应平均耗时</h1>
             <h2 class="red">{{pagesItemData.duration|toFixed}}</h2>
         </li>
         <li class="li2">
@@ -39,18 +39,14 @@
             <h2>{{pagesItemData.decodedBodySize|toSize}}</h2>
         </li>
     </div>
-    <!-- charts -->
-    <div class="charts">
-        <div id="charts-pages" class="charts-pages"></div>
-    </div>
     <!-- page详情性能列表 -->
     <div class="common-head-title" v-show="table==1">
-        <h1>AJAX性能详情</h1> 
+        <h1>资源性能详情</h1> 
         <div v-show="listdata.length">
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="break-word">AJAX URL</th>
+                        <th class="break-word">资源URL</th>
                         <th>请求方式</th>
                         <th>请求耗时</th>
                         <th>返回资源大小</th>
@@ -65,8 +61,8 @@
                     <td class="tc red">{{item.duration}}</td>
                     <td class="tc">{{item.decodedBodySize|toSize}}</td>
                     <td>{{item.querydata}}</td>
-                    <td>{{item.createTime|date('/',true)}}</td>
-                    <td class="tc" :title="item.callUrl">{{item.callUrl|limitTo(50)}}</td>
+                    <td class="tc">{{item.createTime|date('/',true)}}</td>
+                    <td :title="item.callUrl">{{item.callUrl|limitTo(50)}}</td>
                 </tr>
             </table>
             <!--  分页 -->
@@ -79,4 +75,4 @@
     </div>
 </div>
 <script src="/js/Page.js"></script>
-<script src="/js/view-ajax-detail.js"></script>
+<script src="/js/view-slowresources-detail.js"></script>

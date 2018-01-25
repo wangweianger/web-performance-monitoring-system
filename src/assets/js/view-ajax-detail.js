@@ -7,7 +7,7 @@ new Vue({
             pageNo:1,
             pageSize:config.pageSize,
             totalNum:0,
-            name:'',
+            name:util.getQueryString('name'),
             pagesItemData:{},
             isLoadEnd:false,
         }
@@ -19,14 +19,31 @@ new Vue({
         limitTo:window.Filter.limitTo,
     },
     beforeMount(){
-        this.pagesItemData=util.getStorage('session','ajaxItemData')?JSON.parse(util.getStorage('session','ajaxItemData')):{}
-        this.name = this.pagesItemData.name
+        if(this.name){
+            this.getAverageValues()
+        }else{
+            this.pagesItemData=util.getStorage('session','ajaxItemData')?JSON.parse(util.getStorage('session','ajaxItemData')):{}
+            this.name = this.pagesItemData.name
+        }
         this.getAjaxListForName();
     },
     mounted(){
         
     },
     methods:{
+        // 获得平均性能
+        getAverageValues(){
+            util.ajax({
+                url:config.baseApi+'api/ajax/getajaxlist',
+                data:{
+                    name:this.name,
+                    isAllAvg:false,
+                },
+                success:data=>{
+                    this.pagesItemData=data.data   
+                }
+            })
+        },
         getAjaxListForName(){
             util.ajax({
                 url:config.baseApi+'api/ajax/getAjaxListForName',
@@ -67,8 +84,6 @@ new Vue({
                     name:new Date(item.createTime).format('yyyy/MM/dd hh:mm:ss'),
                 })
             })
-
-            console.log(seriesData)
 
             var myChart = echarts.init(document.getElementById('charts-pages'));
             var option = {

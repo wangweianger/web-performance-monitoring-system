@@ -11,7 +11,7 @@ new Vue({
             pageSize:config.pageSize,
             totalNum:0,
             isLoadEnd:false,
-            url:'',
+            url:util.getQueryString('url'),
             pagesItemData:{},
             isShowCharts:false,
         }
@@ -23,8 +23,12 @@ new Vue({
         limitTo:window.Filter.limitTo,
     },
     beforeMount(){
-        this.pagesItemData=util.getStorage('session','pagesItemData')?JSON.parse(util.getStorage('session','pagesItemData')):{}
-        this.url = this.pagesItemData.url
+        if(this.url){
+            this.getAverageValues()
+        }else{
+            this.pagesItemData=util.getStorage('session','pagesItemData')?JSON.parse(util.getStorage('session','pagesItemData')):{}
+            this.url = this.pagesItemData.url
+        }
         this.changeTable(1);
         this.getDataForEnvironment(1);
         this.getDataForEnvironment(2);
@@ -34,6 +38,19 @@ new Vue({
         
     },
     methods:{
+        // 获得平均性能
+        getAverageValues(){
+            util.ajax({
+                url:config.baseApi+'api/pages/getPageList',
+                data:{
+                    url:this.url,
+                    isAllAvg:false,
+                },
+                success:data=>{
+                    this.pagesItemData=data.data   
+                }
+            })
+        },
         changeTable(number){
             this.isLoadEnd  =false
             this.pageNo     = 1
@@ -302,7 +319,13 @@ new Vue({
                 series : seriesData
             };
             myChart.setOption(option);
-        }
+        },
+        gotoAjaxDetail(item){
+            location.href="/ajax/detail?name="+encodeURIComponent(item.name)
+        },
+        gotoSourcesDetail(item){
+            location.href="/slowresources/detail?name="+encodeURIComponent(item.name)
+        },
        
     }
 })

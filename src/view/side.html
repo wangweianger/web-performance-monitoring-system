@@ -4,24 +4,24 @@
         <span class="iconfont fl ml10">&#xe60e;</span>
     </div>
     <div class="side-main">
-        <ul>
+        <ul id="side-main-nav">
             <!-- <li class="active">
                 <a href=""><span class="iconfont">&#xe60f;</span> <span>仪表盘</span></a>
             </li> -->
-            <li>
-                <a href="/pages"><span class="iconfont">&#xe6e9;</span> <span>访问页面</span></a>
+            <li data-mark="zane">
+                <a href="/pages?type=zane"><span class="iconfont">&#xe6e9;</span> <span>访问页面</span></a>
             </li>
-            <li>
+            <li data-mark="error">
                 <a href=""><span class="iconfont">&#xe7bd;</span> <span>脚本错误</span></a>
             </li>
-            <li>
+            <li data-mark="ajax">
                 <a href="/ajax"><span class="iconfont">&#xe7bf;</span> <span>AJAX性能</span></a>
             </li>
-            <li>
+            <li data-mark="slow">
                 <a href="/pages?type=slow"><span class="iconfont">&#xe642;</span> <span>慢页面追踪</span></a>
             </li>
-            <li>
-                <a href="/pages?type=slow"><span class="iconfont">&#xe642;</span> <span>慢资源追踪</span></a>
+            <li data-mark="slowresources">
+                <a href="/slowresources"><span class="iconfont">&#xe642;</span> <span>慢资源追踪</span></a>
             </li>
             <li>
                 <a href=""><span class="iconfont">&#xe642;</span> <span>接口性能测试</span></a>
@@ -29,10 +29,26 @@
             <li>
                 <a href=""><span class="iconfont">&#xe642;</span> <span>线上页面性能测试</span></a>
             </li>
-            <li>
+            <li data-mark="seeting">
                 <a href=""><span class="iconfont">&#xe63c;</span> <span>系统设置</span></a>
             </li>
         </ul>
     </div>
 </div>
+
+<script type="text/javascript">
+    var href = location.href;
+    let liobjs = $('#side-main-nav').find('li')
+
+    for(var i=0,len=liobjs.length;i<len;i++){
+        let attrr = $(liobjs[i]).attr('data-mark')
+        console.log(attrr)
+        if(href.indexOf(attrr)!= -1){
+            liobjs.removeClass('active')
+            $(liobjs[i]).addClass('active')
+        }
+    }
+</script>
+
+
 
