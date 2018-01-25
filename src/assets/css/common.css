@@ -64,7 +64,14 @@
     border-right: solid 1px #eee; }
     .side .side-main li {
       height: 50px;
-      line-height: 50px; }
+      line-height: 50px;
+      font-size: 16px; }
+      .side .side-main li img {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin: 15px 5px 0 0; }
       .side .side-main li.active a {
         color: #447ED9; }
       .side .side-main li a {
