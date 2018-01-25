@@ -37,11 +37,11 @@
             </li>
             <li>
                 <h1>平均白屏耗时(ms)</h1>
-                <h2>{{pagesItemData.whiteTime|toFixed}}</h2>
+                <h2 class="red">{{pagesItemData.whiteTime|toFixed}}</h2>
             </li>
             <li>
                 <h1>平均资源加载耗时(s)</h1>
-                <h2>{{pagesItemData.resourceTime|toFixed(true)}}</h2>
+                <h2 class="red">{{pagesItemData.resourceTime|toFixed(true)}}</h2>
             </li>
             <li>
                 <h1>平均DOM构建耗时(s)</h1>
@@ -121,7 +121,7 @@
                         </tr>
                     </thead>
                     <tr v-for="(item,index) in listdata" :key="index">
-                        <td ><a :href="'/pages/detail/item?id='+item.id">{{item.url}}</a></td>
+                        <td ><a :href="'/pages/detail/item?id='+item.id" :title="item.url">{{item.url}}</a></td>
                         <td class="tc red">{{item.loadTime|toFixed(true)}}</td>
                         <td class="tc red">{{item.whiteTime|toFixed}}</td>
                         <td class="tc red"><a :href="'/pages/detail/item?id='+item.id">{{item.resourceTime|toFixed(true)}}</a></td>
@@ -194,11 +194,11 @@
                     </tr>
                 </thead>
                 <tr v-for="(item,index) in listslowpages" :key="index">
-                    <td><span>{{item.url}}</span></td>
+                    <td><a :href="'/pages/detail/item?id='+item.id+'&type=slow'" :title="item.url">{{item.url|limitTo(40)}}</a></td>
                     <td class="tc red">{{(item.loadTime+item.resourceTime)|toFixed(true)}}</td>
                     <td class="tc">{{item.loadTime|toFixed(true)}}</td>
                     <td class="tc">{{item.whiteTime|toFixed}}</td>
-                    <td class="tc"><a href="">{{item.resourceTime|toFixed(true)}}</a></td>
+                    <td class="tc"><a :href="'/pages/detail/item?id='+item.id+'&type=slow'">{{item.resourceTime|toFixed(true)}}</a></td>
                     <td class="tc">{{item.domTime|toFixed(true)}}</td>
                     <td class="tc">{{item.analysisDomTime|toFixed(true)}}</td>
                     <td class="tc">{{item.readyTime|toFixed}}</td>

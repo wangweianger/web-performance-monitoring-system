@@ -3,6 +3,7 @@ new Vue({
     data(){
         return{
             id:util.getQueryString('id'),
+            type:util.getQueryString('type'),
             pagesItemData:{},
             environment:{},
             sourceslist:[],
@@ -15,17 +16,33 @@ new Vue({
         limitTo:window.Filter.limitTo,
     },
     beforeMount(){
-        this.pagesItemData=util.getStorage('session','pagesItemData')?JSON.parse(util.getStorage('session','pagesItemData')):{}
-        this.url = this.pagesItemData.url
+        if(this.type&&this.type==='slow'){
+            this.getslowPageItemForId();
+        }else{
+            this.getPageItemForId();
+        }
     },
     mounted(){
-        this.getPageItemForId();
     },
     methods:{
         // 获得页面请求性能详情
         getPageItemForId(){
             util.ajax({
                 url:config.baseApi+'api/pages/getPageItemForId',
+                data:{
+                    id:this.id
+                },
+                success:data=>{
+                    this.pagesItemData = data.data
+                    this.getUserEnvironment(data.data.markPage)
+                    this.getSourcesForMarkPage(data.data.markPage)
+                }
+            })
+        },
+        //获得慢页面加载性能详情
+        getslowPageItemForId(){
+            util.ajax({
+                url:config.baseApi+'api/slowpages/getslowPageItemForId',
                 data:{
                     id:this.id
                 },

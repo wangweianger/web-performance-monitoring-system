@@ -39,10 +39,10 @@
       float: left;
       margin: 8px 0; }
     .block-time .item-full h1 {
-      font-size: 20px; }
+      font-size: 20px;
+      color: #999; }
     .block-time .item-full h2 {
-      font-size: 30px;
-      color: #000; }
+      font-size: 30px; }
   .block-time .top-width {
     width: 100% !important; }
 
@@ -73,7 +73,8 @@
       float: left;
       margin: 8px 0; }
     .common-margin .common-block h1 {
-      font-size: 18px; }
+      font-size: 18px;
+      color: #999; }
     .common-margin .common-block h2 {
       font-size: 25px;
       color: #000; }
@@ -96,13 +97,25 @@
     padding-left: 10px;
     position: relative;
     margin-bottom: 10px; }
+    .sources-list li:nth-child(odd) {
+      background: #f9f9f9; }
+    .sources-list li:nth-child(even) {
+      background: #eee; }
     .sources-list li .bili {
       position: absolute;
       left: 0;
       top: 0;
       width: 300px;
       height: 35px;
-      background: #cddfdf; }
+      background: #ffeb3b; }
+      .sources-list li .bili.color1 {
+        background: #3aa3f7; }
+      .sources-list li .bili.color2 {
+        background: #25cc4e; }
+      .sources-list li .bili.color3 {
+        background: #dacd5c; }
+      .sources-list li .bili.color4 {
+        background: #cddc39; }
     .sources-list li .s1 {
       position: absolute;
       left: 0;

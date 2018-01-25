@@ -54,6 +54,8 @@ router.post('/api/ajax/getPageItemDetail',checkHaveSystemId, controllers.ajax.ge
 //----------------------------慢页面--------------------------------------
 // 根据url参数获取慢加载页面
 router.post('/api/slowpages/getSlowPageItem',checkHaveSystemId, controllers.slowpages.getSlowPageItem)
+// 根据id获得慢资源详情
+router.post('/api/slowpages/getslowPageItemForId',checkHaveSystemId, controllers.slowpages.getslowPageItemForId)
 
 //----------------------------慢资源--------------------------------------
 // 根据url参数获取慢资源加载

@@ -168,7 +168,7 @@ new Vue({
                 tooltip: {
                     formatter: "{b} : {c} ({d}%)"
                 },
-                color:['#447ed9','#c945dc','#8b3cd8','#3c8bd8','#3cd87f','#cad83c','#d8893c','#d8483c'],
+                color:['#f44336','#e91e63','#9c27b0','#00bcd4','#3cd87f','#ffeb3b','#ff9800','#ff5722'],
                 legend: {
                     orient: 'vertical',
                     right: 0,
@@ -257,7 +257,7 @@ new Vue({
                         }
                     }
                 },
-                color:['#447ed9','#c945dc','#8b3cd8','#3c8bd8','#3cd87f','#cad83c','#d8893c','#d8483c'],
+                color:['#f44336','#e91e63','#9c27b0','#00bcd4','#3cd87f','#ffeb3b','#ff9800','#ff5722'],
                 legend: {
                     data:legendData
                 },

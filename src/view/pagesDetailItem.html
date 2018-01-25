@@ -30,11 +30,11 @@
             </li>
             <li>
                 <h1>平均白屏耗时(ms)</h1>
-                <h2>{{pagesItemData.whiteTime|toFixed}}</h2>
+                <h2 class="red">{{pagesItemData.whiteTime|toFixed}}</h2>
             </li>
             <li>
                 <h1>平均资源加载耗时(s)</h1>
-                <h2>{{pagesItemData.resourceTime|toFixed(true)}}</h2>
+                <h2 class="red">{{pagesItemData.resourceTime|toFixed(true)}}</h2>
             </li>
             <li>
                 <h1>平均DOM构建耗时(s)</h1>
@@ -61,7 +61,7 @@
             <h1 class="h1">页面访问者信息</h1>
             <li>
                 <h1>浏览器类型</h1>
-                <h2 class="red">{{environment.browser}}</h2>
+                <h2>{{environment.browser}}</h2>
             </li>
             <li>
                 <h1>浏览器版本号</h1>
@@ -97,10 +97,12 @@
     <div class="sources-list">
         <h1 class="h1">页面资源请求详情信息</h1>
         <li v-for="item in sourceslist">
-            <span class="bili" :style="{'width':item.proportion+'%'}"></span>
+            <span class="bili" 
+                :class="[{'color1':item.type==='css','color2':item.type==='img','color3':item.type==='xmlhttprequest','color4':item.type==='script'}]" 
+                :style="{'width':item.proportion+'%'}"></span>
             <div class="s1">
-                <span class="name">{{item.name}}</span>
-                <span class="type">{{item.type}}</span>
+                <span class="name" :title="item.name">{{item.name}}</span>
+                <span class="type" :title="item.type">{{item.type}}</span>
                 <span class="type red">{{item.duration|toFixed(true)}}</span>
                 <span class="type">{{item.decodedBodySize|toSize}}</span>
             </div>

@@ -45,10 +45,10 @@
         }
         h1{
             font-size:20px;
+            color:#999;
         }
         h2{
             font-size:30px;
-            color:#000;
         }
     }
     .top-width{
@@ -87,6 +87,7 @@
         }
         h1{
             font-size:18px;
+            color:#999;
         }
         h2{
             font-size:25px;
@@ -114,13 +115,31 @@
         padding-left:10px;
         position:relative;
         margin-bottom:10px;
+        &:nth-child(odd){
+            background:#f9f9f9;
+        }
+        &:nth-child(even){
+            background:#eee;
+        }
         .bili{
             position:absolute;
             left:0;
             top:0;
             width:300px;
             height:35px;
-            background:#cddfdf;
+            background:#ffeb3b;
+            &.color1{
+                background:#3aa3f7;
+            }
+            &.color2{
+                background:#25cc4e;
+            }
+            &.color3{
+                background:#dacd5c;
+            }
+            &.color4{
+                background:#cddc39;
+            }
         }
         .s1{
             position:absolute;
