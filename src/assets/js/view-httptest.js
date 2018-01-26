@@ -120,5 +120,8 @@ new Vue({
                 }
             })
         },
+        changeTable(){
+            
+        },
     }
 })
