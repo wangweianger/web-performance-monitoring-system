@@ -14,6 +14,7 @@ new Vue({
             httptestData:{
                 duration:0,
             },
+            isLoading:false
         }
     },
     filters:{
@@ -84,6 +85,7 @@ new Vue({
                 })
             }
 
+            this.isLoading=true
             util.ajax({
                 url:config.baseApi+'api/httptest/getHttpResponseData',
                 data:{
@@ -93,6 +95,7 @@ new Vue({
                     headers:headers,
                 },
                 success:data=>{
+                    popup.miss({title:'请求成功!'})
                     let scriptObj = $('#script-https')
                     if(scriptObj&&scriptObj.length){
                         scriptObj.remove()
@@ -111,6 +114,9 @@ new Vue({
                     $('#viewShowDatas').text(responseData)
                     $('#viewShowHeaders').text(responseHeader)
                     $('body').append('<script id="script-https" src="https://cdn.bootcss.com/prism/1.9.0/prism.min.js"></script>')
+                },
+                complete:()=>{
+                    this.isLoading=false
                 }
             })
         },

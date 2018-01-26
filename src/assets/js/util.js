@@ -42,6 +42,9 @@ class utilfn {
 		let url = null;
 		let asyncVal = typeof(json.async) == 'boolean' ? json.async : true;
 		This.showLoading();
+
+		console.log(json.timeout || config.ajaxtimeout)
+
 		//是否有请求超时
 		if (!json.notimeout) {
 			var timeout = setTimeout(function() {

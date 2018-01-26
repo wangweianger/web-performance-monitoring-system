@@ -69,6 +69,15 @@
                 background:transparent;
                 width:120px;
             }
+            div.loading{
+                margin-right:100px;
+                font-size:16px;
+                img{
+                    float:left;
+                    margin-top:3px;
+                    margin-right:10px;
+                }
+            }
         }
         .content{
             .totaltime{

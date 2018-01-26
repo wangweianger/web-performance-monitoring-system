@@ -60,6 +60,13 @@
         border: none;
         background: transparent;
         width: 120px; }
+      .setting-body .switchTable .nav div.loading {
+        margin-right: 100px;
+        font-size: 16px; }
+        .setting-body .switchTable .nav div.loading img {
+          float: left;
+          margin-top: 3px;
+          margin-right: 10px; }
     .setting-body .switchTable .content .totaltime {
       font-size: 18px;
       margin: 20px 0; }

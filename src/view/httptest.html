@@ -51,6 +51,7 @@ key2=value2"></textarea>
             <div class="nav">
                 <li :class="{active:checknavtwo==1?true:false}" @click="checknavtwo=1">Body</li>
                 <li :class="{active:checknavtwo==2?true:false}" @click="checknavtwo=2">Header</li>
+                <div class="loading fr" v-show="isLoading"><img src="/images/common/loading-2.gif">HTTP链接请求中，请耐心等待...</div>
             </div>
             <div class="content">
                 <div class="textarea">

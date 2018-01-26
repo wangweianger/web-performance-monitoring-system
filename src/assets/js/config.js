@@ -10,7 +10,7 @@ window.config={
 	baseApi:'/',
 
 	//ajax 请求超时时间
-	ajaxtimeout:12000,
+	ajaxtimeout:15000,
 
 	//发送验证码时间间隔
 	msgTime:60,
