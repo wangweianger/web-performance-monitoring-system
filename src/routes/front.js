@@ -135,6 +135,15 @@ router.get(['/slowresources/detail'], async(ctx, next) => {
 	}); 
 });
 
+// 系统设置
+router.get(['/setting'], async(ctx, next) => {
+	let datas = {
+		title:'系统设置',
+	}
+	await ctx.render('setting',{
+		datas:datas
+	}); 
+});
 
 
 module.exports = router

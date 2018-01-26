@@ -1,0 +1,61 @@
+.setting-body {
+  margin: 15px;
+  background: #fff;
+  padding: 20px; }
+  .setting-body .block {
+    overflow: hidden; }
+    .setting-body .block .h1 {
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 35px;
+      border-bottom: solid 1px #eee;
+      padding-bottom: 8px; }
+    .setting-body .block .content {
+      margin: 15px 0 20px 50px; }
+      .setting-body .block .content .script-text {
+        width: 800px;
+        background: #f4f4f4;
+        color: #333;
+        font-size: 14px;
+        border: none;
+        height: 60px;
+        padding: 10px; }
+    .setting-body .block .code code {
+      padding: 6px 10px;
+      background: #000;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 5px;
+      margin: 0 3px; }
+  .setting-body .block-two {
+    overflow: hidden; }
+    .setting-body .block-two .onepart {
+      width: 40%;
+      float: left;
+      margin-right: 10%; }
+  .setting-body .block-center {
+    width: 500px;
+    margin-left: 150px; }
+  .setting-body .button {
+    width: 200px;
+    height: 45px;
+    background: #447ED9;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 155px; }
+  .setting-body .item {
+    margin-bottom: 20px;
+    font-size: 14px; }
+    .setting-body .item .left {
+      display: inline-block;
+      width: 150px;
+      text-align: right; }
+    .setting-body .item input {
+      height: 40px;
+      background: #f4f4f4;
+      border: none;
+      width: 300px;
+      padding-left: 10px; }

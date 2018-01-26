@@ -81,7 +81,7 @@ class common {
     // 验证登录是否有systemId
     async checkHaveSystemId(ctx,next){
         const cookies   = ctx.cookie;
-        let systemId    = cookies.systemId||''
+        let systemId    = cookies&&cookies.systemId||''
         let verSource   = util.verSource(ctx)
         let checkSigin  = util.checkSiginHttp(ctx);
         let username    = ctx.cookies.get('userName');
@@ -104,7 +104,7 @@ class common {
 
         if(!(systemId+'')){
             ctx.body = util.result({
-                code: 1010,
+                code: 1004,
                 desc: "systemId不能为空！"
             });
             return;

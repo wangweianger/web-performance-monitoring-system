@@ -31,11 +31,14 @@ router.post('/api/user/loginOut',checkfn, controllers.login.loginOut)
 //----------------------------SYSTEMS--------------------------------------
 // 新增应用
 router.post('/api/system/addSystem',loginCheckfn, controllers.system.addSystem)
+// 修改应用
+router.post('/api/system/updateSystem',loginCheckfn, controllers.system.updateSystem)
 // 请求某个应用详情
 router.post('/api/system/getItemSystem',loginCheckfn, controllers.system.getItemSystem)
-
 //获得系统列表
 router.post('/api/system/getSystemList',loginCheckfn, controllers.system.getSystemList)
+// 设置系统是否需要统计数据
+router.post('/api/system/isStatisData',loginCheckfn, controllers.system.isStatisData)
 
 //----------------------------PAGES--------------------------------------
 // 获得page列表

@@ -102,9 +102,9 @@
   background: #fff;
   padding: 0 10px; }
   .common-title h1 {
-    font-size: 18px;
+    font-size: 14px;
     float: left;
-    padding-left: 30px; }
+    padding-left: 10px; }
   .common-title .search {
     float: right;
     width: 280px; }
@@ -181,11 +181,11 @@
   overflow: hidden;
   background: #fff;
   width: 100%;
-  padding-left: 30px; }
+  padding-left: 20px; }
   .common_table_nav li {
     float: left;
-    height: 50px;
-    line-height: 50px;
+    height: 40px;
+    line-height: 40px;
     text-align: center;
     font-size: 14px;
     color: #000;

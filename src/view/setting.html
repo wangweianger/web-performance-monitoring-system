@@ -1,0 +1,113 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link href="https://cdn.bootcss.com/switchery/0.8.2/switchery.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/setting.css">
+<div class="container" class="addSystem mb150" id="setting" v-cloak>
+    <div class="common-title">
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/setting/">设置</a></h1>
+    </div>
+    <div class="common_table_nav">
+        <li :class="{active:table==1}" @click="changeTable(1)">部署说明</li>
+        <li :class="{active:table==2}" @click="changeTable(2)">阀值设置</li>
+        <li :class="{active:table==3}" @click="changeTable(3)">统计设置</li>
+        <li :class="{active:table==4}" @click="changeTable(4)">预警设置</li>
+        <li :class="{active:table==5}" @click="changeTable(5)">数据库性能设置</li>
+    </div>
+    <div class="setting-body">
+        <div class="block" v-show="table==1">
+            <h1 class="h1">1.启用数据接收</h1>
+            <div class="content">
+                <span class="mr10">是否启用:</span><input type="checkbox" class="js-switch" checked />
+            </div>
+            <h1 class="h1">2.获取脚本代码</h1>
+            <div class="content">
+                <div class="script-text"><code>{{systemInfo.script}}</code></div>
+            </div>
+            <h1 class="h1">3.部署脚本说明</h1>
+            <div class="content code">
+                <p>复制生成的代码，将其粘贴在<code>&lt;head&gt;</code>中。</p>
+                <p class="notice">注意：需要将代码粘贴在<code>&lt;meta&gt;</code>后面，所有<code>&lt;script&gt;</code>前面。</p>
+            </div>
+        </div>
+        <div class="block" v-show="table==2">
+            <h1 class="h1">各项阀值设置</h1>
+            <div class="block-center">
+                <div class="item mt20">
+                    <span class="left">应用名称：</span>
+                    <input type="text" v-model.trim="systemInfo.systemName" placeholder="我的博客">
+                </div>
+                <div class="item">
+                    <span class="left">应用域名：</span>
+                    <input type="text" v-model.trim="systemInfo.systemDomain" placeholder="http://seosiwei.com/">
+                </div>
+                <div class="item">
+                    <span class="left">页面慢加载阀值(s)：</span>
+                    <input type="text" v-model.trim="systemInfo.slowPageTime" placeholder="默认8s">
+                </div>
+                <div class="item">
+                    <span class="left">JS慢加载阀值(s)：</span>
+                    <input type="text" v-model.trim="systemInfo.slowJsTime" placeholder="默认2s">
+                </div>
+                <div class="item">
+                    <span class="left">CSS慢加载阀值(s)：</span>
+                    <input type="text" v-model.trim="systemInfo.slowCssTime" placeholder="默认1s">
+                </div>
+                <div class="item">
+                    <span class="left">IMG慢加载阀值(s)：</span>
+                    <input type="text" v-model.trim="systemInfo.slowImgTime" placeholder="默认2s">
+                </div>
+                <button class="button left-botton" @click="updateSystem">保存</button>
+            </div>
+        </div>
+        <div class="block block-two" v-show="table==3">
+            <div class="block-center">
+                <div class="onepart">
+                    <h1 class="h1">是否统计页面性能指标:</h1>
+                    <div class="content">
+                        <span class="mr10">是否启用:</span>
+                        <input type="checkbox" class="js-switch-item js-switch-1" checked />
+                    </div>
+                </div>
+                <div class="onepart">
+                    <h1 class="h1">是否统计AJAX性能指标:</h1>
+                    <div class="content">
+                        <span class="mr10">是否启用:</span><input type="checkbox" class="js-switch-item js-switch-2" checked />
+                    </div>
+                </div>
+                <div class="onepart">
+                    <h1 class="h1">是否统计资源性能指标:</h1>
+                    <div class="content">
+                        <span class="mr10">是否启用:</span><input type="checkbox" class="js-switch-item js-switch-3" checked />
+                    </div>
+                </div>
+                <div class="onepart">
+                    <h1 class="h1">是否存储访问者系统信息:</h1>
+                    <div class="content">
+                        <span class="mr10">是否启用:</span><input type="checkbox" class="js-switch-item js-switch-4" checked />
+                    </div>
+                </div>
+                <div class="onepart">
+                    <h1 class="h1">是否统计错误信息:</h1>
+                    <div class="content">
+                        <span class="mr10">是否启用:</span><input type="checkbox" class="js-switch-item js-switch-5" checked />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="block">
+            <p>输入应用名称后，复制生成的代码，将其粘贴在<code>&lt;head&gt;</code>中。</p>
+            <p class="notice">注意：需要将代码粘贴在<code>&lt;meta&gt;</code>后面，所有<code>&lt;script&gt;</code>前面。</p>
+        </div>
+        <h1 class="h1">获取代码</h1>
+        <div class="block">
+            <div class="script-text">{{scriptstr}}</div>
+        </div>
+        <div class="goback">
+            <button onclick="location.href='/'" class="button">返回应用列表</button>
+        </div> -->
+    </div>
+</div>
+<script src="https://cdn.bootcss.com/switchery/0.8.2/switchery.min.js"></script>
+<script src="/js/view-setting.js"></script>
