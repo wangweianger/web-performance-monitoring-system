@@ -27,15 +27,17 @@
       font-size: 12px;
       border-radius: 5px;
       margin: 0 3px; }
+  .setting-body .block-center {
+    width: 500px;
+    margin-left: 150px; }
   .setting-body .block-two {
     overflow: hidden; }
+    .setting-body .block-two .block-center {
+      width: 500px; }
     .setting-body .block-two .onepart {
       width: 40%;
       float: left;
       margin-right: 10%; }
-  .setting-body .block-center {
-    width: 500px;
-    margin-left: 150px; }
   .setting-body .button {
     width: 200px;
     height: 45px;

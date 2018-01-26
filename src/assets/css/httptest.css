@@ -1,0 +1,71 @@
+.setting-body {
+  margin: 15px;
+  background: #fff;
+  padding: 20px; }
+  .setting-body .inp-text {
+    position: relative;
+    border: solid 1px #ddd;
+    height: 42px; }
+    .setting-body .inp-text .input {
+      float: left;
+      height: 40px;
+      border: none;
+      border-radius: 0;
+      background: #fff;
+      display: inline-block; }
+    .setting-body .inp-text select.input {
+      width: 80px; }
+    .setting-body .inp-text input.input {
+      border-left: solid 1px #ddd;
+      padding-left: 20px;
+      width: 80%;
+      position: absolute;
+      left: 80px;
+      top: 0; }
+    .setting-body .inp-text button.input {
+      position: absolute;
+      right: -1px;
+      top: -2px;
+      height: 44px;
+      border-left: solid 1px #ddd;
+      padding: 0 30px;
+      background: #447ED9;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer; }
+  .setting-body .switchTable {
+    margin-top: 30px; }
+    .setting-body .switchTable .h1 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 20px; }
+    .setting-body .switchTable .nav {
+      height: 40px;
+      line-height: 40px;
+      position: relative;
+      left: 0;
+      top: 0;
+      z-index: 100;
+      margin-bottom: -1px; }
+      .setting-body .switchTable .nav li {
+        display: inline-block;
+        height: 40px;
+        padding: 0 20px;
+        cursor: pointer; }
+        .setting-body .switchTable .nav li.active {
+          border: solid 1px #ddd;
+          border-bottom: solid 1px #fff; }
+      .setting-body .switchTable .nav select {
+        height: 40px;
+        border: none;
+        background: transparent;
+        width: 120px; }
+    .setting-body .switchTable .content .totaltime {
+      font-size: 18px;
+      margin: 20px 0; }
+    .setting-body .switchTable .content .textarea {
+      display: block;
+      width: 100%;
+      min-height: 150px;
+      border: solid 1px #ddd;
+      padding: 10px; }

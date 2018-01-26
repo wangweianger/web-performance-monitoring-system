@@ -1,0 +1,66 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link href="https://cdn.bootcss.com/prism/1.9.0/themes/prism.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/httptest.css">
+<div class="container" class="addSystem mb150" id="setting" v-cloak>
+    <div class="common-title">
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/setting/">设置</a></h1>
+    </div>
+    <div class="common_table_nav">
+        <li :class="{active:table==1}" @click="changeTable(1)">HTTP接口测试</li>
+        <li :class="{active:table==2}" @click="changeTable(2)">HTTP并发量测试</li>
+    </div>
+    <div class="setting-body">
+        <div class="inp-text">
+            <select v-model="method" class="input">
+                <option value="GET">GET</option>
+                <option value="POST">POST</option>
+                <option value="GET">PUT</option>
+                <option value="GET">PATCH</option>
+                <option value="GET">DELETE</option>
+            </select>
+            <input class="input" v-model.trim="url" type="text" placeholder="输入网址地址">
+            <button class="input" @click="getHttptest">发送请求</button>
+        </div>
+        
+        <div class="switchTable">
+            <h1 class="h1">Request</h1>
+            <div class="notice">参数一行一个</div>
+            <div class="nav">
+                <li :class="{active:checknav==1?true:false}" @click="checknav=1">Body</li>
+                <li :class="{active:checknav==2?true:false}" @click="checknav=2">Header</li>
+                <li>
+                    <select v-model="selectval">
+                        <option value="">Content-Type</option>
+                        <option value="1">application/xml</option>
+                        <option value="2">application/json</option>
+                        <option value="3">multipart/form-data</option>
+                        <option value="4">application/x-www-form-urlencoded</option>
+                    </select>
+                </li>
+            </div>
+            <div class="content">
+                <textarea v-show="checknav==1" v-model="requestBodyText" class="textarea" placeholder="key1=value1
+key2=value2"></textarea>
+                <textarea v-show="checknav==2" v-model="requestHeaderText" class="textarea"></textarea>
+            </div>
+        </div>
+        <div class="switchTable mb150">
+            <h1 class="h1">Response</h1>
+            <div class="nav">
+                <li :class="{active:checknavtwo==1?true:false}" @click="checknavtwo=1">Body</li>
+                <li :class="{active:checknavtwo==2?true:false}" @click="checknavtwo=2">Header</li>
+            </div>
+            <div class="content">
+                <div class="textarea">
+                    <div class="totaltime">HTTP响应耗时：<span class="red">{{httptestData.duration|toFixed(true)}}</span></div>
+                    <div v-show="checknavtwo==1"><pre><code class="language-html" id="viewShowDatas"></code></pre></div>
+                    <div v-show="checknavtwo==2"><pre><code class="language-js" id="viewShowHeaders"></code></pre></div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<script src="/js/view-httptest.js"></script>

@@ -145,6 +145,16 @@ router.get(['/setting'], async(ctx, next) => {
 	}); 
 });
 
+// httptest
+router.get(['/httptest'], async(ctx, next) => {
+	let datas = {
+		title:'HTTP测试分析',
+	}
+	await ctx.render('httptest',{
+		datas:datas
+	}); 
+});
+
 
 module.exports = router
 

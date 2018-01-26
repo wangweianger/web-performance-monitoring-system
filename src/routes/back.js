@@ -83,6 +83,10 @@ router.post('/api/environment/getDataForEnvironment',checkHaveSystemId, controll
 // 根据markPage获取用户系统信息
 router.post('/api/environment/getUserEnvironment',checkHaveSystemId, controllers.environment.getUserEnvironment)
 
+//----------------------------httptest--------------------------------------
+router.post('/api/httptest/getHttpResponseData',checkHaveSystemId, controllers.httptest.getHttpResponseData)
+
+
 
 module.exports = router
 

@@ -23,11 +23,11 @@
             <li data-mark="slowresources">
                 <a href="/slowresources"><img src="/images/common/icon-1.png"> <span>慢资源追踪</span></a>
             </li>
-            <li>
-                <a href=""><img src="/images/common/icon-1.png"> <span>接口性能测试</span></a>
+            <li data-mark="httptest">
+                <a href="/httptest"><img src="/images/common/icon-1.png"> <span>接口性能测试</span></a>
             </li>
             <li>
-                <a href=""><img src="/images/common/icon-1.png"> <span>线上页面性能测试</span></a>
+                <a href=""><img src="/images/common/icon-1.png"> <span>页面性能测评</span></a>
             </li>
             <li data-mark="setting">
                 <a href="/setting"><img src="/images/common/icon-1.png"> <span>系统设置</span></a>
@@ -38,11 +38,9 @@
 
 <script type="text/javascript">
     var href = location.href;
-    let liobjs = $('#side-main-nav').find('li')
-
+    var liobjs = $('#side-main-nav').find('li')
     for(var i=0,len=liobjs.length;i<len;i++){
-        let attrr = $(liobjs[i]).attr('data-mark')
-        console.log(attrr)
+        var attrr = $(liobjs[i]).attr('data-mark')
         if(href.indexOf(attrr)!= -1){
             liobjs.removeClass('active')
             $(liobjs[i]).addClass('active')

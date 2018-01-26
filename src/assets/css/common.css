@@ -23,7 +23,7 @@
   left: 0;
   top: 0;
   background: #273547;
-  z-index: 100; }
+  z-index: 100000; }
   .header .left img {
     height: 50px;
     cursor: pointer;
