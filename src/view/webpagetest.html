@@ -1,0 +1,88 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/webpagetest.css">
+<div class="container" class="addSystem mb150" id="webpagetest" v-cloak>
+    <div class="common-title">
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/webpagetest/">页面性能测评</a></h1>
+    </div>
+    <div class="content">
+        <div class="url">
+            <input type="text" v-model.trim="weburl" placeholder="输入一个链接地址">
+            <button @click="biginTest">开始测评</button>
+        </div>
+        <div class="h1">设置条件</div>
+        <div class="seeting">
+            <div class="select">
+                <span class="s1">选择设备：</span>
+                <span class="select">
+                    <select v-model="screentype">
+                        <option value="0">PC端</option>
+                        <option value="1">iPhone5</option>
+                        <option value="2">iPhone系列</option>
+                        <option value="3">iPhone Plus系列</option>
+                        <option value="4">iPhone X</option>
+                    </select>
+                </span>
+            </div>
+            <div class="tianchong">
+                <div class="item">
+                    <span>屏幕宽度：</span>
+                    <input placeholder="输入屏幕宽度" v-model.trim="screenWidth" type="text">
+                </div>
+                <div class="item">
+                    <span>屏幕高度：</span>
+                    <input placeholder="输入屏幕高度" v-model.trim="screenHeight" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="result">
+            <div class="h1 h1-1">测评结果</div>
+            <!-- 页面平均耗时说明 -->
+            <div class="block-time">
+                <li class="li1">
+                    <h1>页面总响应耗时</h1>
+                    <h2 class="red">{{100|toFixed(true)}}</h2>
+                </li>
+                <li class="li3">
+                    <h1>页面返回大小</h1>
+                    <h2>{{'50kb'}}</h2>
+                </li>
+                <li class="li2">
+                    <h1>所有资源响应耗时</h1>
+                    <h2 class="red">{{300|toFixed(true)}}</h2>
+                </li>
+                <li class="li3">
+                    <h1>所有资源返回大小</h1>
+                    <h2>{{'20kb'}}</h2>
+                </li>
+            </div>
+            <!-- 资源请求列表 -->
+            <div class="sources-list">
+                <h1 class="h1">页面资源请求详情信息</h1>
+                <li class="first">
+                    <div class="s1">
+                        <span class="name">资源名称</span>
+                        <span class="type">资源类型</span>
+                        <span class="type">请求耗时</span>
+                        <span class="type">等待时间</span>
+                        <span class="type">资源大小</span>
+                    </div>
+                </li>
+                <li v-for="item in [0,0,0]">
+                    <span class="bili" 
+                        :class="[{'color1':item.type==='css','color2':item.type==='img','color3':item.type==='xmlhttprequest','color4':item.type==='script'}]" 
+                        :style="{'width':item.proportion+'%'}"></span>
+                    <div class="s1">
+                        <span class="name" :title="item.name">{{'item.name'}}</span>
+                        <span class="type" :title="item.type">{{'item.type'}}</span>
+                        <span class="type red">{{200|toFixed(true)}}</span>
+                        <span class="type">{{500|toSize}}</span>
+                        <span class="type">{{500|toSize}}</span>
+                    </div>
+                </li>
+            </div> 
+        </div>  
+    </div>   
+</div>
+<script src="/js/view-webpagetest.js"></script>

@@ -86,6 +86,9 @@ router.post('/api/environment/getUserEnvironment',checkHaveSystemId, controllers
 //----------------------------httptest--------------------------------------
 router.post('/api/httptest/getHttpResponseData',checkHaveSystemId, controllers.httptest.getHttpResponseData)
 
+//----------------------------webpagetest--------------------------------------
+router.post('/api/webpagetest/getWebHttpResponseData',checkHaveSystemId, controllers.webpagetest.getWebHttpResponseData)
+
 
 
 module.exports = router

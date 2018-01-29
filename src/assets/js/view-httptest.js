@@ -120,8 +120,8 @@ new Vue({
                 }
             })
         },
-        changeTable(){
-            
+        changeTable(number){
+            this.table = number
         },
     }
 })

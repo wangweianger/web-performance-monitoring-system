@@ -5,13 +5,13 @@
 <link rel="stylesheet" href="/css/httptest.css">
 <div class="container" class="addSystem mb150" id="setting" v-cloak>
     <div class="common-title">
-        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/setting/">设置</a></h1>
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/httptest/">接口性能测评</a></h1>
     </div>
     <div class="common_table_nav">
         <li :class="{active:table==1}" @click="changeTable(1)">HTTP接口测试</li>
         <li :class="{active:table==2}" @click="changeTable(2)">HTTP并发量测试</li>
     </div>
-    <div class="setting-body">
+    <div class="setting-body" v-show="table==1?true:false">
         <div class="inp-text">
             <select v-model="method" class="input">
                 <option value="GET">GET</option>
@@ -61,7 +61,7 @@ key2=value2"></textarea>
                 </div>
             </div>
         </div>
-        
     </div>
+    <div class="center mt20" v-show="table==2?true:false">功能开发中...</div>
 </div>
 <script src="/js/view-httptest.js"></script>

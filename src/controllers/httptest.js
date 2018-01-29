@@ -68,7 +68,7 @@ class user {
             });
 
         } catch (err) {
-            console.log(err)
+            // console.log(err)
             ctx.body = util.result({
                 code: 1001,
                 desc: '系统错误!'

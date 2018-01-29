@@ -81,6 +81,7 @@
     "externalip": "^1.0.2",
     "install": "^0.10.2",
     "npm": "^5.6.0",
+    "phantom": "^4.0.12",
     "request-ip": "^2.0.2"
   }
 }

@@ -155,6 +155,17 @@ router.get(['/httptest'], async(ctx, next) => {
 	}); 
 });
 
+// webpagetest
+router.get(['/webpagetest'], async(ctx, next) => {
+	let datas = {
+		title:'WEB页面性能分析测试',
+	}
+	await ctx.render('webpagetest',{
+		datas:datas
+	}); 
+});
+
+
 
 module.exports = router
 
