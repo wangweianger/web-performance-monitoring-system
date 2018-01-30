@@ -95,6 +95,7 @@ class user {
                 let  startReplyTime = new Date(startReply.time).getTime()
 
                 entries.push({
+                    requestStartTime:requestTime-startTime,
                     startedDateTime: requestTime,
                     request: {
                         method: request.method,
