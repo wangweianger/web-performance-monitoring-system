@@ -1,47 +1,49 @@
-.content {
+.main-content {
   background: #fff;
   overflow: hidden;
   padding: 20px;
   margin: 15px; }
-  .content .url input {
-    width: 60%;
-    height: 40px;
-    background: #f9f9f9;
-    border: solid 1px #ddd;
-    padding-left: 10px; }
-  .content .url button {
-    padding: 0 20px;
-    height: 40px;
-    background: #447ED9;
-    font-size: 14px;
-    border: none;
-    color: #fff;
-    cursor: pointer; }
-  .content .h1 {
+  .main-content .url {
+    overflow: hidden; }
+    .main-content .url input {
+      width: 60%;
+      height: 40px;
+      background: #f9f9f9;
+      border: solid 1px #ddd;
+      padding-left: 10px; }
+    .main-content .url button {
+      padding: 0 20px;
+      height: 40px;
+      background: #447ED9;
+      font-size: 14px;
+      border: none;
+      color: #fff;
+      cursor: pointer; }
+  .main-content .h1 {
     font-size: 18px;
     font-weight: bold;
     line-height: 35px;
     margin: 10px 0;
     border-bottom: solid 1px #eee; }
-  .content .h1-1 {
+  .main-content .h1-1 {
     margin-top: 30px; }
-  .content .seeting .select {
+  .main-content .seeting .select {
     margin-bottom: 20px; }
-    .content .seeting .select span.s1 {
+    .main-content .seeting .select span.s1 {
       font-size: 16px; }
-    .content .seeting .select select {
+    .main-content .seeting .select select {
       width: 300px;
       height: 30px;
       border: none;
       background: #fff; }
-    .content .seeting .select span.select {
+    .main-content .seeting .select span.select {
       display: inline-block;
       padding: 3px;
       border: solid 1px #ccc; }
-  .content .tianchong .item {
+  .main-content .tianchong .item {
     font-size: 16px;
     margin-bottom: 8px; }
-    .content .tianchong .item input {
+    .main-content .tianchong .item input {
       height: 35px;
       width: 300px;
       padding-left: 10px;
@@ -137,3 +139,10 @@
           padding-left: 10px; }
         .sources-list li .s1 span.type {
           width: 150px; }
+
+.loading {
+  display: flex;
+  align-items: center;
+  margin-left: 30px; }
+  .loading img {
+    margin-right: 10px; }

@@ -48,7 +48,9 @@ new Vue({
     },
     methods:{
         biginTest(){
+            this.isLoading=true;
             util.ajax({
+                timeout:20000,
                 url:config.baseApi+'api/webpagetest/getWebHttpResponseData',
                 data:{
                     url:this.weburl,
@@ -57,9 +59,11 @@ new Vue({
                 },
                 success:data=>{
                     
-
+                },
+                complete:data=>{
+                    this.isLoading=false;
+                    popup.miss({title:'测评成功!'})
                 }
-
             })
         },
         

@@ -1,9 +1,10 @@
-.content{
+.main-content{
     background:#fff;
     overflow:hidden;
     padding:20px;
     margin:15px;
     .url{
+        overflow:hidden;
         input{
             width:60%;
             height:40px;
@@ -176,6 +177,13 @@
         }
     }
 }
-
+.loading{
+    display:flex;
+    align-items:center;
+    margin-left:30px;
+    img{
+        margin-right:10px;
+    }
+}
 
 

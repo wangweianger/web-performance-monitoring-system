@@ -38,7 +38,13 @@ class user {
             const phantom = require('phantom');
             const instance = await phantom.create();
             const page = await instance.createPage();
-            
+
+            await page.property('viewportSize', {width: screenWidth, height: screenHeight})
+
+            await page.on('onLoadStarted', function() {
+                startTime = new Date().getTime();
+            });
+
             await page.on('onResourceRequested', function(req) {
                 resources[req.id] = {
                     request: req,
@@ -60,19 +66,19 @@ class user {
             const status = await page.open(url);
             // const content = await page.property('content');
 
-            endTime = new Date();
+            endTime = new Date().getTime();
 
             const title = await page.property('title');
 
-            // console.log(JSON.stringify(resources))
+            console.log(JSON.stringify(resources))
 
             await instance.exit();   
 
             var entries = [];
             resources.forEach(function (resource) {
-                var request = resource.request,
-                    startReply = resource.startReply,
-                    endReply = resource.endReply;
+                var request     = resource.request,
+                    startReply  = resource.startReply,
+                    endReply    = resource.endReply;
 
                 if (!request || !startReply || !endReply) {
                     return;
@@ -84,9 +90,12 @@ class user {
                     return;
                 }
 
+                let  endReplyTime   = new Date(endReply.time).getTime()  
+                let  requestTime    = new Date(request.time).getTime()
+                let  startReplyTime = new Date(startReply.time).getTime()
+
                 entries.push({
-                    startedDateTime: request.time,
-                    time: endReply.time - request.time,
+                    startedDateTime: requestTime,
                     request: {
                         method: request.method,
                         url: request.url,
@@ -103,8 +112,9 @@ class user {
                         }
                     },
                     timings: {
-                        wait: startReply.time - request.time,
-                        receive: endReply.time - startReply.time,
+                        time: endReplyTime - requestTime,
+                        wait: startReplyTime - requestTime,
+                        receive: endReplyTime - startReplyTime,
                     },
                 });
             });
@@ -114,9 +124,7 @@ class user {
                 pages: {
                     startedDateTime: startTime,
                     title: title,
-                    pageTimings: {
-                        onLoad: endTime - startTime
-                    }
+                    onLoad: endTime - startTime,
                 },
                 entries: entries
             };
