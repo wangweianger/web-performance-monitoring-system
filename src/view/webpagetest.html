@@ -43,34 +43,73 @@
             <div class="block-time">
                 <li class="li1">
                     <h1>页面总响应耗时</h1>
-                    <h2 class="red">{{100|toFixed(true)}}</h2>
+                    <h2 class="red">{{pageTotalTime/10000}}s</h2>
                 </li>
                 <li class="li3">
                     <h1>页面返回大小</h1>
-                    <h2>{{'50kb'}}</h2>
+                    <h2>{{pageTotalsize|toSize(true)}}</h2>
                 </li>
                 <li class="li2">
                     <h1>所有资源响应耗时</h1>
-                    <h2 class="red">{{300|toFixed(true)}}</h2>
+                    <h2 class="red">{{responseTotal/10000}}s</h2>
                 </li>
                 <li class="li3">
                     <h1>所有资源返回大小</h1>
-                    <h2>{{'20kb'}}</h2>
+                    <h2>{{bodySizeSize|toSize}}</h2>
                 </li>
             </div>
             <!-- 资源请求列表 -->
             <div class="sources-list">
                 <h1 class="h1">页面资源请求详情信息</h1>
-                <li class="first">
-                    <div class="s1">
-                        <span class="name">资源名称</span>
-                        <span class="type">资源类型</span>
-                        <span class="type">请求耗时</span>
-                        <span class="type">等待时间</span>
-                        <span class="type">资源大小</span>
-                    </div>
-                </li>
-                <li v-for="item in [0,0,0]">
+                <div class="sources-tab">
+                    <ul>
+                        <li :class="className == 'allData'?'actives':''" @click="setdata('allData')">ALL</li>
+                        <li :class="className == 'XHRData'?'actives':''" @click="setdata('XHRData')">XHR</li>
+                        <li :class="className == 'JSData'?'actives':''" @click="setdata('JSData')">JS</li>
+                        <li :class="className == 'CSSData'?'actives':''" @click="setdata('CSSData')">CSS</li>
+                        <li :class="className == 'IMGData'?'actives':''" @click="setdata('IMGData')">IMG</li>
+                        <li :class="className == 'OtherData'?'actives':''" @click="setdata('OtherData')">Other</li>
+                    </ul>
+                </div>
+                <div class="sources-contai">
+                    <table class="tab table">
+                        <thead>
+                            <tr>
+                                <th class="tc" width="15%">资源名称</th>
+                                <th class="tc" width="7.5%">资源状态码</th>
+                                <th class="tc" width="7.5%">资源大小</th>
+                                <th class="tc" width="70%" id="thbox">资源耗时</th>
+                            </tr>
+                        </thead>
+                        <tr v-for="(item,index) in listdata.entries" :key="index">
+                            <td class="15"><p>{{item.pathname}}</p></td>
+                            <td class="tc">{{item.response.status}}</td>
+                            <td class="tc">{{item.response.bodySize | toSize}}</td>
+                            <td class="70">
+                                <div class="sources-table">
+                                    <span :style="{width:item.waitwidth+'px',left:item.lefts+'px'}" class="spans"></span>
+                                    <label :style="{width:item.timewidth+'px',left:item.lefts+'px'}" class="labels">
+                                    </label>
+                                    <i class='fonts' :style="{left:item.lefts+item.timewidth+'px'}">{{item.timings.wait+item.timings.time}}ms</i>
+                                    <div :style="{width:item.lefts+item.timewidth+50+'px',left:item.lefts+'px'}" class="sourec-list">
+                                        <div class="source-absolute">
+                                            <p class="source-abso-tit">{{item.requestStartTime}}</p>
+                                            <ul>
+                                                <li>
+                                                    <span class="source-abso-span"></span><label class="source-abso-label">资源等待时间：{{item.timings.wait}}ms</label>
+                                                </li>
+                                                <li>
+                                                    <span class="source-abso-span two"></span><label class="source-abso-label">资源加载时间：{{item.timings.time}}ms</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!-- <li v-for="item in [0,0,0]">
                     <span class="bili" 
                         :class="[{'color1':item.type==='css','color2':item.type==='img','color3':item.type==='xmlhttprequest','color4':item.type==='script'}]" 
                         :style="{'width':item.proportion+'%'}"></span>
@@ -78,10 +117,11 @@
                         <span class="name" :title="item.name">{{'item.name'}}</span>
                         <span class="type" :title="item.type">{{'item.type'}}</span>
                         <span class="type red">{{200|toFixed(true)}}</span>
-                        <span class="type">{{500|toSize}}</span>
+                        <span class="type">{{500|toSize (true)}}</span>
                         <span class="type">{{500|toSize}}</span>
                     </div>
-                </li>
+                </li> -->
+                <li ></li>
             </div> 
         </div>  
     </div>   
