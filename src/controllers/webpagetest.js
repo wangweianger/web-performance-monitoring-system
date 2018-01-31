@@ -1,6 +1,8 @@
 import moment from 'moment'
 import sql from 'node-transform-mysql'
 import axios from 'axios'
+import querystring from 'querystring'
+import urls from 'url'
 import {
     SYSTEM
 } from '../config'
@@ -86,15 +88,16 @@ class user {
 
                 // Exclude Data URI from HAR file because
                 // they aren't included in specification
-                if (request.url.match(/(^data:image\/.*)/i)) {
-                    return;
-                }
+                // if (request.url.match(/(^data:image\/.*)/i)) {
+                //     return;
+                // }
 
                 let  endReplyTime   = new Date(endReply.time).getTime()  
                 let  requestTime    = new Date(request.time).getTime()
                 let  startReplyTime = new Date(startReply.time).getTime()
-
+                let  urlObj         = urls.parse(request.url)
                 entries.push({
+                    pathname:urlObj.pathname=='/'?urlObj.href:urlObj.pathname,
                     requestStartTime:requestTime-startTime,
                     startedDateTime: requestTime,
                     request: {

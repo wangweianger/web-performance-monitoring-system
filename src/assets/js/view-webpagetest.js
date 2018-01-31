@@ -29,6 +29,21 @@ new Vue({
             screenWidth:1920,
             screenHeight:1080,
             weburl:'',
+            listdata:[],
+            divwidth:'',
+            pageTotalTime:0,
+            responseTotal:0,
+            bodySizeSize:0,
+            pageTotalsize:0,
+            allData:[],
+            XHRData:[],
+            CSSData:[],
+            JSData:[],
+            IMGData:[],
+            OtherData:[],
+            className:'allData',
+            widndowWidth:'',
+            widndowHeight:'',
         }
     },
     filters:{
@@ -44,7 +59,11 @@ new Vue({
         }
     },
     mounted(){
-        
+        this.$nextTick(() => {
+            this.divwidth = $('#thbox').width()-80;
+            this.widndowWidth = $(window).width();
+            this.widndowHeight = $(window).height();
+        })
     },
     methods:{
         biginTest(){
@@ -58,14 +77,67 @@ new Vue({
                     screenHeight:this.screenHeight,
                 },
                 success:data=>{
+                    this.allData= [];
+                    this.XHRData= [];
+                    this.CSSData= [];
+                    this.JSData= [];
+                    this.IMGData= [];
+                    this.OtherData= [];
+                    this.listdata = [];
                     
+                    this.pageTotalsize = data.data.entries[0].response.bodySize;
+                    let lasitem = data.data.entries[data.data.entries.length-1];
+                    let lastReqleft = lasitem.requestStartTime
+                    let lastReqright =  lasitem.timings.time   
+                    let totalTime = lastReqleft+lastReqright
+                    let W1 = lastReqleft/totalTime*this.divwidth;
+                    let W2 = lastReqright/totalTime*this.divwidth;
+
+                    data.data.entries.forEach((i,v) => {
+                        i.shows = false;
+                        i.parster = '';
+                        i.timewidth = i.timings.time/totalTime*this.divwidth;
+                        i.waitwidth = i.timings.wait/totalTime*this.divwidth;
+                        i.lefts = i.requestStartTime/lastReqleft*W1;
+                        i.boxleft = i.requestStartTime/lastReqleft*W1 > this.divwidth-150 ? this.divwidth-200:i.requestStartTime/lastReqleft*W1;
+                        i.boxtop = i.requestStartTime/lastReqleft*W1 > this.divwidth-150 ? '30':'-110';
+                        this.pageTotalTime = this.pageTotalTime+i.timings.time;
+                        this.responseTotal = this.responseTotal+i.timings.wait;
+                        this.bodySizeSize = this.bodySizeSize+i.response.bodySize;
+                        
+                        let mimeType = i.response.content.mimeType;
+                        if (mimeType.indexOf('text/css') != -1) {
+                            this.CSSData.push(i)
+                        }else if (mimeType.indexOf('application/javascript') != -1) {
+                            this.JSData.push(i);
+                        }else if (mimeType.indexOf('image') != -1) {
+                            this.IMGData.push(i);
+                        }else if(mimeType.indexOf('application/json') != -1 || mimeType.indexOf('application/xml') != -1 || mimeType.indexOf('multipart/form-data') != -1 || mimeType.indexOf('application/x-www-form-urlencoded') != -1){
+                            this.XHRData.push(i);
+                        }else {
+                            this.OtherData.push(i);
+                        }
+                        this.allData.push(i);
+                    });
+                    this.listdata = data.data;
                 },
                 complete:data=>{
                     this.isLoading=false;
-                    popup.miss({title:'测评成功!'})
+                    popup.miss({title:'测评成功!'});
                 }
             })
         },
-        
+        setdata(type) {
+            this.className = type;
+            this.listdata.entries = this[type];
+        },
+        showtr(item,index) {
+            // let newitem  = JSON.parse(JSON.stringify(item));
+            // newitem.shows = !newitem.shows;
+            // Vue.set(this.listdata,index,newitem);
+            // $($event.target).parents('.sliders').next().slideToggle();
+            item.shows = !item.shows;
+            console.log(item.shows)
+        }
     }
 })

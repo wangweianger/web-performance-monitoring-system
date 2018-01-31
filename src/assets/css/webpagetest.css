@@ -84,9 +84,7 @@
 
 .sources-list {
   background: #fff;
-  margin: 15px;
-  border-radius: 3px;
-  padding: 20px; }
+  border-radius: 3px; }
   .sources-list .first {
     font-weight: bold;
     font-size: 15px; }
@@ -95,50 +93,6 @@
     border-bottom: solid 1px #eee;
     padding-bottom: 10px;
     margin-bottom: 10px; }
-  .sources-list li {
-    height: 35px;
-    width: 100%;
-    background: #f4f4f4;
-    line-height: 35px;
-    padding-left: 10px;
-    position: relative;
-    margin-bottom: 10px; }
-    .sources-list li:nth-child(odd) {
-      background: #f9f9f9; }
-    .sources-list li:nth-child(even) {
-      background: #eee; }
-    .sources-list li .bili {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 300px;
-      height: 35px;
-      background: #ffeb3b; }
-      .sources-list li .bili.color1 {
-        background: #3aa3f7; }
-      .sources-list li .bili.color2 {
-        background: #25cc4e; }
-      .sources-list li .bili.color3 {
-        background: #dacd5c; }
-      .sources-list li .bili.color4 {
-        background: #cddc39; }
-    .sources-list li .s1 {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 35px;
-      z-index: 10; }
-      .sources-list li .s1 span {
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis; }
-        .sources-list li .s1 span.name {
-          width: 30%;
-          padding-left: 10px; }
-        .sources-list li .s1 span.type {
-          width: 150px; }
 
 .loading {
   display: flex;
@@ -146,3 +100,150 @@
   margin-left: 30px; }
   .loading img {
     margin-right: 10px; }
+
+.sources-tab {
+  display: block; }
+  .sources-tab ul {
+    list-style: none;
+    position: relative;
+    height: 34px;
+    z-index: 99; }
+  .sources-tab li {
+    float: left;
+    line-height: 34px;
+    font-size: 14px;
+    color: #333;
+    padding: 0 25px;
+    overflow: hidden;
+    border-left: none;
+    cursor: pointer;
+    background: #fff; }
+    .sources-tab li.actives {
+      border: 1px solid #d8d8d8;
+      border-bottom: none;
+      height: 35px; }
+
+.sources-contai {
+  border: 1px solid #d8d8d8;
+  padding: 5px; }
+
+.sources-table {
+  display: block;
+  position: relative;
+  min-height: 20px; }
+  .sources-table .spans, .sources-table .labels, .sources-table .fonts {
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+    z-index: 1;
+    line-height: 20px; }
+  .sources-table .spans {
+    background: #0074bc;
+    z-index: 2; }
+  .sources-table .labels {
+    background: #ccc; }
+  .sources-table .sourec-list {
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+    height: 20px; }
+    .sources-table .sourec-list:hover .source-absolute {
+      display: block; }
+  .sources-table .source-absolute {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: -110px;
+    width: 200px;
+    border: 1px solid #ff9900;
+    padding: 10px;
+    z-index: 9999;
+    background: #fff;
+    height: 110px; }
+    .sources-table .source-absolute ul {
+      list-style: none;
+      overflow: hidden;
+      padding-bottom: 10px; }
+      .sources-table .source-absolute ul li {
+        display: block;
+        line-height: 20px; }
+        .sources-table .source-absolute ul li span {
+          height: 15px;
+          width: 10px;
+          display: inline-block;
+          margin-right: 20px;
+          background: #0074bc;
+          vertical-align: middle; }
+          .sources-table .source-absolute ul li span.two {
+            background: #ccc; }
+
+.sources-contai .table th {
+  background: #fdfdfd; }
+
+.sources-contai .table th, .sources-contai .table td {
+  word-break: break-all;
+  padding: 1px 5px !important; }
+
+.sources-contai .table td i {
+  cursor: pointer; }
+
+.sources-contai .table td .source-abso-tit {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 230px; }
+
+.sources-botfont {
+  display: block;
+  font-size: 14px;
+  line-height: 30px;
+  overflow: hidden; }
+  .sources-botfont span {
+    float: left;
+    margin-right: 50px; }
+  .sources-botfont label {
+    float: right; }
+
+.showtr_box {
+  display: block;
+  padding: 10px 20px;
+  background: #f3f3f3; }
+  .showtr_box dl {
+    position: relative; }
+    .showtr_box dl dt {
+      line-height: 20px;
+      font-size: 12px;
+      color: #666;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+      font-weight: bold;
+      margin-bottom: 10px; }
+    .showtr_box dl dd {
+      display: block; }
+      .showtr_box dl dd p {
+        position: relative;
+        line-height: 20px;
+        font-size: 12px; }
+        .showtr_box dl dd p span {
+          font-weight: bold;
+          font-size: 12px;
+          display: inline-block;
+          margin-right: 10px;
+          width: 300px;
+          text-align: right; }
+
+.slide-fade-enter-active {
+  transition: all .3s ease; }
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1); }
+
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0; }
