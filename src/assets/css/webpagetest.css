@@ -84,9 +84,7 @@
 
 .sources-list {
   background: #fff;
-  margin: 15px;
-  border-radius: 3px;
-  padding: 20px; }
+  border-radius: 3px; }
   .sources-list .first {
     font-weight: bold;
     font-size: 15px; }
@@ -179,7 +177,7 @@
 .sources-contai .table th, .sources-contai .table td {
   word-break: break-all; }
 
-.sources-contai .table td p {
+.sources-contai .table td .source-abso-tit {
   display: block;
   height: 30px;
   line-height: 30px;
@@ -188,3 +186,46 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 230px; }
+
+.sources-botfont {
+  display: block;
+  font-size: 14px;
+  line-height: 30px;
+  overflow: hidden; }
+  .sources-botfont span {
+    float: left;
+    margin-right: 50px; }
+  .sources-botfont label {
+    float: right; }
+
+.showtr_box {
+  display: block; }
+  .showtr_box dl {
+    position: relative;
+    margin: 20px 0 0 50px; }
+    .showtr_box dl dt {
+      line-height: 30px;
+      font-size: 16px;
+      color: #0074bc;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px; }
+    .showtr_box dl dd {
+      display: block; }
+      .showtr_box dl dd p {
+        position: relative;
+        line-height: 30px;
+        font-size: 14px; }
+        .showtr_box dl dd p span {
+          font-weight: bold;
+          font-size: 14px;
+          display: inline-block;
+          margin-right: 20px; }
+
+.slide-fade-enter-active {
+  transition: all .3s ease; }
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1); }
+
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0; }

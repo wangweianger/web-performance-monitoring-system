@@ -41,7 +41,9 @@ new Vue({
             JSData:[],
             IMGData:[],
             OtherData:[],
-            className:'allData'
+            className:'allData',
+            widndowWidth:'',
+            widndowHeight:'',
         }
     },
     filters:{
@@ -59,6 +61,8 @@ new Vue({
     mounted(){
         this.$nextTick(() => {
             this.divwidth = $('#thbox').width()-80;
+            this.widndowWidth = $(window).width();
+            this.widndowHeight = $(window).height();
         })
     },
     methods:{
@@ -90,9 +94,13 @@ new Vue({
                     let W2 = lastReqright/totalTime*this.divwidth;
 
                     this.listdata.entries.forEach((i,v) => {
+                        i.shows = false;
+                        i.parster = '';
                         i.timewidth = i.timings.time/totalTime*this.divwidth;
                         i.waitwidth = i.timings.wait/totalTime*this.divwidth;
                         i.lefts = i.requestStartTime/lastReqleft*W1;
+                        i.boxleft = i.requestStartTime/lastReqleft*W1 > this.divwidth-150 ? this.divwidth-200:i.requestStartTime/lastReqleft*W1;
+                        i.boxtop = i.requestStartTime/lastReqleft*W1 > this.divwidth-150 ? '30':'-110';
                         this.pageTotalTime = this.pageTotalTime+i.timings.time;
                         this.responseTotal = this.responseTotal+i.timings.wait;
                         this.bodySizeSize = this.bodySizeSize+i.response.bodySize;
@@ -121,6 +129,12 @@ new Vue({
         setdata(type) {
             this.className = type;
             this.listdata.entries = this[type];
+        },
+        showtr($event,type) {
+            // let newitem  = JSON.parse(JSON.stringify(item));
+            // newitem.shows = !newitem.shows;
+            // Vue.set(this.listdata,index,newitem);
+            $($event.target).parents('.sliders').next().slideToggle();
         }
     }
 })

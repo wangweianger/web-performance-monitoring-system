@@ -107,9 +107,7 @@
 }
 .sources-list{
     background:#fff;
-    margin:15px;
     border-radius:3px;
-    padding:20px;
     .first{
         font-weight:bold;
         font-size:15px;
@@ -225,7 +223,7 @@
             word-break: break-all;
         }
         td {
-            p {
+            .source-abso-tit {
                 display: block;
                 height: 30px;
                 line-height: 30px;
@@ -238,4 +236,54 @@
         }
     }
 }
-
+.sources-botfont {
+    display: block;
+    font-size: 14px;
+    line-height: 30px;
+    overflow:hidden;
+    span {
+        float: left;
+        margin-right:50px;
+    }
+    label {
+        float: right;
+    }
+}
+.showtr_box {
+    display: block;
+    dl {
+        position:relative;
+        margin:20px 0 0 50px;
+        dt {
+            line-height: 30px;
+            font-size: 16px;
+            color: #0074bc;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+        }
+        dd {
+            display: block;
+            p {
+                position:relative;
+                line-height: 30px;
+                font-size: 14px;
+                span {
+                    font-weight: bold;
+                    font-size: 14px;
+                    display: inline-block;
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+}
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  opacity: 0;
+}
