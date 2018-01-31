@@ -19,7 +19,8 @@ router.get('/reportMark',controllers.dataReport.setMarkCookies);
 router.post('/reportResource',controllers.dataReport.getPageResources);
 // 用户系统上报
 router.get('/reportSystem',controllers.dataReport.getSystemPerformDatas);
-
+// 错误上报
+router.post('/reportErrorMsg', controllers.dataReport.getErrorMsg)
 
 // 注册用户信息
 router.post('/api/user/userRegister',checkfn, controllers.login.userRegister)
@@ -88,8 +89,6 @@ router.post('/api/httptest/getHttpResponseData',checkHaveSystemId, controllers.h
 
 //----------------------------webpagetest--------------------------------------
 router.post('/api/webpagetest/getWebHttpResponseData',checkHaveSystemId, controllers.webpagetest.getWebHttpResponseData)
-
-
 
 module.exports = router
 

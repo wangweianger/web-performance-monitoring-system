@@ -306,6 +306,66 @@ class data {
             ctx.body=imgsrc
         }  
     }
+    // 页面错误上报收集
+    async getErrorMsg(ctx){
+        ctx.set('Access-Control-Allow-Origin','*');
+        try{
+            //------------校验token是否存在----------------------------------------------------- 
+            let resourceDatas = ctx.request.body?JSON.parse(ctx.request.body):{}  
+            let appId = resourceDatas.appId
+            let reportDataList = resourceDatas.reportDataList
+            if(!reportDataList.length) return;
+            if(!appId){
+                ctx.body=imgsrc;
+                return; 
+            }; 
+            let sqlstr = sql
+                .table('web_system')
+                .field('isUse,id,isStatisiError')
+                .where({appId:appId})
+                .select()
+            let systemMsg = await mysql(sqlstr); 
+            if(!systemMsg || !systemMsg.length){
+                ctx.body=imgsrc;
+                return; 
+            };
+            let systemItem = systemMsg[0]
+            if(systemItem.isUse !== 0){
+                ctx.body=imgsrc;
+                return; 
+            };
+
+            if(systemItem.isStatisiError === 0){
+                reportDataList.forEach(async item=>{
+                    let datas={
+                        useragent:item.a||'',
+                        msg:item.msg||'',
+                        category:item.data.category||'',
+                        pageUrl:item.data.pageUrl||'',
+                        resourceUrl:item.data.resourceUrl||'',
+                        target:item.data.target||'',
+                        type:item.data.type||'',
+                        status:item.data.status||'',
+                        text:item.data.text||'',
+                        col:item.data.col||'',
+                        line:item.data.line||'',
+                        createTime:moment(new Date(item.t)).format('YYYY-MM-DD HH:mm:ss'),
+                        systemId:systemItem.id
+                    }
+                    let sqlstr1 = sql
+                        .table('web_error')
+                        .data(datas)
+                        .insert()
+                    let result1 = await mysql(sqlstr1);  
+                })
+            }
+
+            ctx.body=imgsrc
+        }catch(err){
+            console.log(err)
+            ctx.body=imgsrc
+        }  
+    }
 }
 
 module.exports = new data();

@@ -1,3 +1,150 @@
+;(function(){
+//--------------------------错误信息上报--------------------------------------
+var reportDataList = [];
+;(function(){
+    if (window.jsErrorReport){
+        return window.jsErrorReport
+    };
+    /*默认上报的错误信息*/
+    var defaults = {
+        t:'',   //发送数据时的时间戳
+        n:'js',//模块名,
+        msg:'',  //错误的具体信息,
+        a:navigator.appVersion,
+        data:{}
+    };
+    /*格式化参数*/
+    function formatParams(data) {
+        var arr = [];
+        for (var name in data) {
+            arr.push(encodeURIComponent(name) + "=" + encodeURIComponent(data[name]));
+        }
+        return arr.join("&");
+    }
+    /*上报函数*/
+    // function report(url,data){
+    //     var img = new Image();
+    //     img.src = url+'?v=1&' +formatParams(data) ;
+    // }
+    /**js错误监控**/
+    var jsErrorReport=function(params){
+        if(!params.url){return}
+        defaults.n = params.moduleName;
+        var url = params.url;
+
+        //重写send方法,监控xhr请求
+        var s_ajaxListener = new Object();
+        s_ajaxListener.tempSend = XMLHttpRequest.prototype.send;//复制原先的send方法
+        s_ajaxListener.tempOpen= XMLHttpRequest.prototype.open;//复制原先的open方法
+        //重写open方法,记录请求的url
+        XMLHttpRequest.prototype.open = function(method,url,boolen){
+            s_ajaxListener.tempOpen.apply(this, [method,url,boolen]);
+            this.ajaxUrl = url;
+
+        };
+        XMLHttpRequest.prototype.send = function(_data){
+            s_ajaxListener.tempSend.apply(this, [_data]);
+            this.onreadystatechange = function(){
+                if (this.readyState==4) {
+                    if (this.status >= 200 && this.status < 300) {
+                        return true;
+                    }
+                    else {
+                        defaults.t =new Date().getTime();
+                        defaults.msg = 'ajax请求错误';
+                        defaults.data = {
+                            resourceUrl:this.ajaxUrl,
+                            pageUrl:location.href,
+                            category:'ajax',
+                            text:this.statusText,
+                            status:this.status
+                        }
+                        // 合并上报的数据，包括默认上报的数据和自定义上报的数据
+                        var reportData=Object.assign({},params.data || {},defaults);
+                        reportDataList.push(reportData)
+                    }
+                }
+            }
+        };
+        //监控资源加载错误(img,script,css,以及jsonp)
+        window.addEventListener('error',function(e){
+            defaults.t =new Date().getTime();
+            defaults.msg =e.target.localName+' is load error';
+            defaults.data ={
+               target: e.target.localName,
+               type: e.type,
+               resourceUrl:e.target.currentSrc,
+               pageUrl:location.href,
+               category:'resource'
+            };
+            if(e.target!=window){//抛去js语法错误
+                // 合并上报的数据，包括默认上报的数据和自定义上报的数据
+                var reportData=Object.assign({},params.data || {},defaults);
+                reportDataList.push(reportData)
+            }
+        },true);
+
+        //监控js错误
+        window.onerror = function(msg,_url,line,col,error){
+            //采用异步的方式,避免阻塞
+            setTimeout(function(){
+                //不一定所有浏览器都支持col参数，如果不支持就用window.event来兼容
+                col = col || (window.event && window.event.errorCharacter) || 0;
+                if (error && error.stack){
+                    //msg信息较少,如果浏览器有追溯栈信息,使用追溯栈信息
+                    defaults.msg = error.stack.toString();
+
+                }else{
+                    defaults.msg = msg;
+                }
+                defaults.data={
+                    resourceUrl:_url,
+                    pageUrl:location.href,
+                    category:'js',
+                    line:line,
+                    col:col
+                };
+                defaults.t=new Date().getTime();
+                defaults.level='error';
+                // 合并上报的数据，包括默认上报的数据和自定义上报的数据
+                var reportData=Object.assign({},params.data || {},defaults);
+                reportDataList.push(reportData)
+            },0);
+
+            // return true;   //错误不会console浏览器上,如需要，可将这样注释
+        };
+    }
+    window.jsErrorReport=jsErrorReport;
+})();
+
+let domain      = 'http://127.0.0.1:18080/'
+
+// error错误上报
+jsErrorReport({
+    url:domain+'reportErrorMsg',//上报地址
+    moduleName:'error',//上报模块名
+    data:{}//自定义参数
+});
+
+//-----------------------页面性能数据上报--------------------------------------
+// 资源列表信息
+let resource = null;
+// 延迟请求resourceTime资源时间
+let resourceTime = 2000;
+// onreadystatechange请求的XML信息
+let urlXMLArr   = [];
+// onload的xml请求信息
+let urlOnload   = [];
+// 页面ajax数量
+let ajaxLength = 0
+// 页面是否有ajax请求
+let haveAjax  = false;
+
+let timer10,timer11,timer12,timer13;
+
+let ajaxMsg = [];
+
+
 !function (ob) {
     ob.hookAjax = function (funs) {
         window._ahrealxhr = window._ahrealxhr || XMLHttpRequest
@@ -18,13 +165,11 @@
                 }
             }
         }
-
         function getFactory(attr) {
             return function () {
                 return this.hasOwnProperty(attr + "_")?this[attr + "_"]:this.xhr[attr];
             }
         }
-
         function setFactory(attr) {
             return function (f) {
                 let xhr = this.xhr;
@@ -42,7 +187,6 @@
                 }
             }
         }
-
         function hookfun(fun) {
             return function () {
                 let args = [].slice.call(arguments)
@@ -60,22 +204,6 @@
     }
 }(window)
 
-// 资源列表信息
-let resource = null;
-// 延迟请求resourceTime资源时间
-let resourceTime = 2000;
-// onreadystatechange请求的XML信息
-let urlXMLArr   = [];
-// onload的xml请求信息
-let urlOnload   = [];
-// 页面ajax数量
-let ajaxLength = 0
-// 页面是否有ajax请求
-let haveAjax  = false;
-
-let timer10,timer11,timer12,timer13;
-
-let ajaxMsg = [];
 // 拦截ajax
 hookAjax({
     onreadystatechange:function(xhr){
@@ -84,7 +212,8 @@ hookAjax({
             if(urlXMLArr.length === ajaxLength){
                 setTimeout(()=>{
                     if(!urlOnload.length){
-                        setTimeout(()=>{
+                        clearTimeout(timer10)
+                        timer10 = setTimeout(()=>{
                             console.log('走了AJAX onreadystatechange 方法')
                             ajaxLength = 0
                             resource = performance.getEntriesByType('resource')
@@ -95,10 +224,15 @@ hookAjax({
             }
         }
     },
+    onerror:function(){
+
+    },
     onload:function(xhr){
         urlOnload.push(0);
-        if(urlOnload.length+1 === ajaxLength){
-            setTimeout(()=>{
+        console.log(urlOnload.length+'---'+ajaxLength)
+        if(urlOnload.length === ajaxLength){
+            clearTimeout(timer11)
+            timer11 = setTimeout(()=>{
                 console.log('走了AJAX onload 方法')
                 ajaxLength = 0
                 resource = performance.getEntriesByType('resource')
@@ -107,6 +241,7 @@ hookAjax({
         }
     },
     open:function(arg,xhr){
+        if(arg[1].indexOf('http://localhost:8000/sockjs-node/info')!=-1) return;
         ajaxMsg.push(arg)
         haveAjax  = true;
         if(ajaxLength===0)performance.clearResourceTimings();
@@ -117,7 +252,8 @@ hookAjax({
 // 绑定onload事件
 window.addEventListener("load",function(){
     if(!haveAjax){
-        setTimeout(()=>{
+        clearTimeout(timer12)
+        timer12=setTimeout(()=>{
             console.log('走了WINDOW onload 方法')
             performance.clearResourceTimings()
             resource = performance.getEntriesByType('resource')
@@ -128,8 +264,17 @@ window.addEventListener("load",function(){
 
 // 数据上报
 function ReportData(){
-    console.log(ajaxMsg)
-    
+    ajaxLength  = 0
+    urlXMLArr   = []
+    urlOnload   = []
+    ajaxMsg     = []
+    haveAjax    = false
+    resource = null
+
+
+    console.log(reportDataList)
+
+    // return
     // fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
     //   console.log(data);
     // }).catch(function(e) {
@@ -142,7 +287,7 @@ function ReportData(){
     //   console.log(e);
     // });
 
-    let domain      = 'http://127.0.0.1:18080/'
+    
     let webscript   = document.getElementById('web_performance_script');
     let appId       = webscript.getAttribute('data-appId')
     if(!appId) return;
@@ -157,6 +302,21 @@ function ReportData(){
 
     // 正式开始上报
     function reportMain(){
+        /*---------------------------------错误信息上报---------------------------------*/
+        // 错误信息上报
+        fetch(`${domain}reportErrorMsg`,{
+            method: 'POST',
+            body:JSON.stringify({
+                appId:appId,
+                reportDataList:reportDataList,
+            })
+        }).then(function(response) { 
+            // console.log(response)
+        })
+        reportDataList=[]
+
+        return
+
         /*---------------------------------统计用户系统信息---------------------------------*/
         createElement(domain,'reportSystem',appId,'img',{
             appId:appId,
@@ -268,4 +428,4 @@ function ReportData(){
         document.body.appendChild(imgBjc);
     }
 }
-
+})();
