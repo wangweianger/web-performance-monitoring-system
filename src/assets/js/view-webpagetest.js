@@ -84,16 +84,16 @@ new Vue({
                     this.IMGData= [];
                     this.OtherData= [];
                     this.listdata = [];
-                    this.listdata = data.data;
-                    this.pageTotalsize = this.listdata.entries[0].response.bodySize;
-                    let lasitem = this.listdata.entries[this.listdata.entries.length-1];
+                    
+                    this.pageTotalsize = data.data.entries[0].response.bodySize;
+                    let lasitem = data.data.entries[data.data.entries.length-1];
                     let lastReqleft = lasitem.requestStartTime
                     let lastReqright =  lasitem.timings.time   
                     let totalTime = lastReqleft+lastReqright
                     let W1 = lastReqleft/totalTime*this.divwidth;
                     let W2 = lastReqright/totalTime*this.divwidth;
 
-                    this.listdata.entries.forEach((i,v) => {
+                    data.data.entries.forEach((i,v) => {
                         i.shows = false;
                         i.parster = '';
                         i.timewidth = i.timings.time/totalTime*this.divwidth;
@@ -119,6 +119,7 @@ new Vue({
                         }
                         this.allData.push(i);
                     });
+                    this.listdata = data.data;
                 },
                 complete:data=>{
                     this.isLoading=false;
@@ -130,11 +131,13 @@ new Vue({
             this.className = type;
             this.listdata.entries = this[type];
         },
-        showtr($event,type) {
+        showtr(item,index) {
             // let newitem  = JSON.parse(JSON.stringify(item));
             // newitem.shows = !newitem.shows;
             // Vue.set(this.listdata,index,newitem);
-            $($event.target).parents('.sliders').next().slideToggle();
+            // $($event.target).parents('.sliders').next().slideToggle();
+            item.shows = !item.shows;
+            console.log(item.shows)
         }
     }
 })

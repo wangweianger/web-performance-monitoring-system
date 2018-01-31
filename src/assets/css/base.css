@@ -135,8 +135,13 @@ table.table {
   background: #f4f4f4;
   padding-top: 20px; }
 
-.clearfix {
-  clear: both; }
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0; }
 
 html, body {
   color: #333;

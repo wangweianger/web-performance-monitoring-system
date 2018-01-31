@@ -38,9 +38,9 @@
             </div>
         </div>
         <div class="result">
-            <div class="h1 h1-1">测评结果</div>
+            <div class="h1 h1-1"  v-show="isLoading">测评结果</div>
             <!-- 页面平均耗时说明 -->
-            <div class="block-time">
+            <div class="block-time"  v-show="isLoading">
                 <li class="li1">
                     <h1>页面总响应耗时</h1>
                     <h2 class="red">{{pageTotalTime/10000}}s</h2>
@@ -62,7 +62,7 @@
             <div class="sources-list">
                 <h1 class="h1">页面资源请求详情信息</h1>
                 <div class="sources-tab">
-                    <ul>
+                    <ul class="clearfix">
                         <li :class="className == 'allData'?'actives':''" @click="setdata('allData')">ALL</li>
                         <li :class="className == 'XHRData'?'actives':''" @click="setdata('XHRData')">XHR</li>
                         <li :class="className == 'JSData'?'actives':''" @click="setdata('JSData')">JS</li>
@@ -75,9 +75,9 @@
                     <table class="tab table">
                         <thead>
                             <tr>
-                                <td>
+                                <th>
                                     
-                                </td>
+                                </th>
                                 <th class="tc" width="15%">资源名称</th>
                                 <th class="tc" width="7.5%">资源状态码</th>
                                 <th class="tc" width="7.5%">资源大小</th>
@@ -85,15 +85,15 @@
                             </tr>
                         </thead>
                         <tbody v-for="(item,index) in listdata.entries" :key="index">
-                            <tr class="sliders">
-                                <td>
-                                    <i class="iconfont" v-show="item.shows" @click="showtr($event,1)">&#xe601;</i>
-                                    <i class="iconfont" v-show="!item.shows" @click="showtr($event,2)">&#xe693;</i>
+                            <tr class="sliders"  @click="showtr(item,index)">
+                                <td class="cursor">
+                                    <i class="iconfont" v-show="item.shows" >&#xe601;</i>
+                                    <i class="iconfont" v-show="!item.shows" >&#xe693;</i>
                                 </td>
-                                <td class="15"><p>{{item.pathname}}</p></td>
+                                <td class="tc"><p class="source-abso-tit" :title="item.request.url">{{item.pathname}}</p></td>
                                 <td class="tc">{{item.response.status}}</td>
                                 <td class="tc">{{item.response.bodySize | toSize}}</td>
-                                <td class="70">
+                                <td class="tc">
                                     <div class="sources-table">
                                         <span :style="{width:item.waitwidth+'px',left:item.lefts+'px'}" class="spans"></span>
                                         <label :style="{width:item.timewidth+'px',left:item.lefts+'px'}" class="labels">
@@ -115,23 +115,23 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr v-show="item.shows">
+                            <tr>
                                 <td colspan="5">
-                                    <div class="showtr_box" >
+                                    <div class="showtr_box" v-show="item.shows">
                                         <dl>
                                             <dt>request Header</dt>
                                             <dd>
                                                 <p v-for="(item1,index1) in item.request.headers" :key="index1">
-                                                <span>{{item1.name}}</span>
+                                                <span>{{item1.name}}</span>：
                                                 <label>{{item1.value}}</label>
                                             </p>
                                             </dd>
                                         </dl>
                                         <dl>
-                                            <dt>request Header</dt>
+                                            <dt>response Header</dt>
                                             <dd>
                                                 <p v-for="(item2,index2) in item.response.headers" :key="index2">
-                                                <span>{{item2.name}}</span>
+                                                <span>{{item2.name}}</span>：
                                                 <label>{{item2.value}}</label>
                                                 </p>
                                             </dd>

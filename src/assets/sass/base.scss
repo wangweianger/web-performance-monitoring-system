@@ -86,7 +86,7 @@ table.table{
 //--------等待加载样式结束---------
 
 
-.clearfix{clear:both;}
+.clearfix:after{visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
 //字体相关样式
 html,body {
     color: #333;

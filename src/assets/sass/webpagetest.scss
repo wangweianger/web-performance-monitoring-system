@@ -132,8 +132,9 @@
     display: block;
     ul {
         list-style: none;
-        overflow:hidden;
-        border-left:1px solid #d8d8d8;
+        position:relative;
+        height: 34px;
+        z-index: 99;
     }
     li {
         float:left;
@@ -142,28 +143,33 @@
         color: #333;
         padding: 0 25px;
         overflow:hidden;
-        border:1px solid #d8d8d8;
         border-left:none;
         cursor: pointer;
+        background:#fff;
         &.actives {
-            color: #fff;
-            background:#0074bc;
+            border:1px solid #d8d8d8;
+            border-bottom:none;
+            height: 35px;
         }
     }
+}
+.sources-contai {
+    border:1px solid #d8d8d8;
+    padding:5px;
 }
 .sources-table {
     display: block;
     position: relative;
-    min-height: 30px;
+    min-height: 20px;
     .spans,.labels,.fonts {
-        height: 30px;
+        height: 20px;
         display: inline-block;
         position:absolute;
         left: 0;
         top: 50%;
-        margin-top:-15px;
+        margin-top:-10px;
         z-index: 1;
-        line-height: 30px;
+        line-height: 20px;
     }
     .spans {
         background:#0074bc;
@@ -177,7 +183,7 @@
         position:absolute;
         top: 0;
         z-index: 9999;
-        height: 30px;
+        height: 20px;
         &:hover {
             .source-absolute {
                 display: block;
@@ -201,12 +207,12 @@
             padding-bottom: 10px;
             li {
                 display: block;
-                line-height: 30px;
+                line-height: 20px;
                 span {
                     height: 15px;
                     width: 10px;
                     display: inline-block;
-                    margin-right: 30px;
+                    margin-right: 20px;
                     background:#0074bc;
                     vertical-align: middle;
                     &.two {
@@ -219,14 +225,21 @@
 }
 .sources-contai {
     .table {
+        th {
+            background:#fdfdfd;
+        }
         th,td {
             word-break: break-all;
+            padding:1px 5px !important;
         }
         td {
+            i {
+                cursor: pointer;
+            }
             .source-abso-tit {
                 display: block;
-                height: 30px;
-                line-height: 30px;
+                height: 20px;
+                line-height: 20px;
                 font-size: 14px;
                 overflow:hidden;
                 text-overflow: ellipsis;
@@ -251,27 +264,32 @@
 }
 .showtr_box {
     display: block;
+    padding:10px 20px;
+    background:#f3f3f3;
     dl {
         position:relative;
-        margin:20px 0 0 50px;
         dt {
-            line-height: 30px;
-            font-size: 16px;
-            color: #0074bc;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
+            line-height: 20px;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         dd {
             display: block;
             p {
                 position:relative;
-                line-height: 30px;
-                font-size: 14px;
+                line-height: 20px;
+                font-size: 12px;
                 span {
                     font-weight: bold;
-                    font-size: 14px;
+                    font-size: 12px;
                     display: inline-block;
-                    margin-right: 20px;
+                    margin-right: 10px;
+                    width: 300px;
+                    text-align: right;
                 }
             }
         }
