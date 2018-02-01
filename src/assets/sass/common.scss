@@ -59,11 +59,11 @@
 
     .top{
         height:50px;
-        background:#447ED9;
+        background:#2077ff;
         color:#fff;
         line-height:50px;
         padding-left:30px;
-        border-right:solid 1px #447ED9;
+        border-right:solid 1px #2077ff;
         .iconfont{
             font-size:25px;
             color:#fff;
@@ -86,7 +86,7 @@
             }
             &.active{
                 a{
-                   color:#447ED9; 
+                   color:#2077ff; 
                 }
             }
             a{
@@ -133,7 +133,7 @@
         width:280px;
         button{
             float:left;
-            background:#447ED9;
+            background:#2077ff;
             color:#fff;
             padding:6px 10px;
             font-size:12px;
@@ -229,8 +229,8 @@
         margin-right:20px;
         cursor:pointer;
         &.active{
-            color:#447ED9;
-            border-bottom:solid 2px #447ED9;
+            color:#2077ff;
+            border-bottom:solid 2px #2077ff;
         }
         
     }
@@ -247,7 +247,7 @@
     }
     .button{
         padding:6px 10px;
-        background:#447ED9;
+        background:#2077ff;
         color:#fff;
         font-size:14px;
         border-radius:3px;
@@ -261,4 +261,25 @@
         color:#333;
     }
 }
+.common-nav-table{
+    height:50px;
+    overflow:hidden;
+    li{
+        padding:6px 12px;
+        display:inline-block;
+        font-size:12px;
+        background:#ddd;
+        border:solid 1px #e8e8e8;
+        border-radius:50px;
+        cursor:pointer;
+        &.active{
+            background:#2077ff;
+            color:#fff;
+        }
+    }
+}
+
+
+
+
 

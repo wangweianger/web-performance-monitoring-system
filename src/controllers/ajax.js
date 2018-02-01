@@ -42,7 +42,7 @@ class ajax {
 
             let totalNum = 0
             if(isAllAvg != 'false'){    
-                let sqlTotal = sql.field('count(1) as count').table('web_ajax').where(data).group('name').select() 
+                let sqlTotal = sql.field('count(1) as count').table('web_ajax').where(data).group('name,method').select() 
                 let total = await mysql(sqlTotal);
                 if(total.length) totalNum = total.length
             }     

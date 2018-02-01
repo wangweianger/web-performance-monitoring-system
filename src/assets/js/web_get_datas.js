@@ -38,6 +38,7 @@ var reportDataList = [];
         s_ajaxListener.tempOpen= XMLHttpRequest.prototype.open;//复制原先的open方法
         //重写open方法,记录请求的url
         XMLHttpRequest.prototype.open = function(method,url,boolen){
+            defaults.method = method
             s_ajaxListener.tempOpen.apply(this, [method,url,boolen]);
             this.ajaxUrl = url;
 
@@ -48,8 +49,7 @@ var reportDataList = [];
                 if (this.readyState==4) {
                     if (this.status >= 200 && this.status < 300) {
                         return true;
-                    }
-                    else {
+                    }else {
                         defaults.t =new Date().getTime();
                         defaults.msg = 'ajax请求错误';
                         defaults.data = {
@@ -70,6 +70,7 @@ var reportDataList = [];
         window.addEventListener('error',function(e){
             defaults.t =new Date().getTime();
             defaults.msg =e.target.localName+' is load error';
+            defaults.method = 'GET'
             defaults.data ={
                target: e.target.localName,
                type: e.type,
@@ -97,6 +98,7 @@ var reportDataList = [];
                 }else{
                     defaults.msg = msg;
                 }
+                defaults.method = 'GET'
                 defaults.data={
                     resourceUrl:_url,
                     pageUrl:location.href,
@@ -303,18 +305,19 @@ function ReportData(){
     // 正式开始上报
     function reportMain(){
         /*---------------------------------错误信息上报---------------------------------*/
-        // 错误信息上报
-        fetch(`${domain}reportErrorMsg`,{
-            method: 'POST',
-            body:JSON.stringify({
-                appId:appId,
-                reportDataList:reportDataList,
+        if(reportDataList&&reportDataList.length){
+            // 错误信息上报
+            fetch(`${domain}reportErrorMsg`,{
+                method: 'POST',
+                body:JSON.stringify({
+                    appId:appId,
+                    reportDataList:reportDataList,
+                })
+            }).then(function(response) { 
+                // console.log(response)
             })
-        }).then(function(response) { 
-            // console.log(response)
-        })
-        reportDataList=[]
-
+            reportDataList=[]
+        }
         return
 
         /*---------------------------------统计用户系统信息---------------------------------*/

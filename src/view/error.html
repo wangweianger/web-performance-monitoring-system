@@ -2,12 +2,11 @@
 <%- include("./side.html") %>
 <!-- 样式 -->
 <link rel="stylesheet" href="/css/page.css">
-<link rel="stylesheet" href="/css/ajax.css">
+<link rel="stylesheet" href="/css/error.css">
 <div class="container ajax" id="ajax" v-cloak>
    <div class="common-title">
-        <h1>AJAX</h1>
+        <h1>WEB页面错误分析</h1>
         <div class="search">
-            <a href="/addSystem"><button class="cursor">+添加应用</button></a>
             <span class="reload cursor iconfont">&#xe6ea;</span>
             <div class="select">
                 <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
@@ -24,33 +23,29 @@
             </div>
         </div>
     </div>
-    <div class="ajax-topsel">
-        请求方式：
-        <select v-mode="method">
-            <option value="">选择http请求方式</option>
-            <option value="GET">GET</option>
-            <option value="POST">POST</option>
-        </select>
-    </div>
     <div class="table-box common_page_style">
+        <div class="common-nav-table">
+            <li :class="{active:table==0}" @click="selectTab(0)">全部</li>
+            <li :class="{active:table==1}" @click="selectTab(1)">AJAX错误</li>
+            <li :class="{active:table==2}" @click="selectTab(2)">RESORUCE错误</li>
+            <li :class="{active:table==3}" @click="selectTab(3)">JS错误</li>
+        </div>
         <div v-if="listdata.length">
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="w-400">AJAX URL</th>
-                        <th>请求方式</th>
-                        <th>调用量</th>
-                        <th>相应时间</th>
-                        <th>body数据大小</th>
+                        <th class="w-400">错误资源</th>
+                        <th>错误类型</th>
+                        <th>错误数量</th>
+                        <th>错误信息</th>
                         <th>操作</th>
                     </tr>
                 </thead>
-                <tr v-for="(item,index) in listdata" :key="index">
-                    <td><a href="javascript:" @click="gotodetail(item)">{{item.name}}</a></td>
-                    <td class="tc">{{item.method}}</td>
-                    <td class="tc">{{item.count}}</td>
-                    <td class="tc red">{{item.duration|toFixed}}</td>
-                    <td class="tc">{{item.decodedBodySize|toSize}}</td>
+                <tr v-for="(item,index) in datalist" :key="index">
+                    <td><a href="javascript:" @click="gotodetail(item)">{{item.resourceUrl}}</a></td>
+                    <td class="tc">{{item.category}}</td>
+                    <td class="tc red">{{item.count}}</td>
+                    <td class="tc red">{{item.msg}}</td>
                     <td class="tc"><a href="javascript:" @click="gotodetail(item)">查看详情</a></td> 
                 </tr>
             </table>
@@ -63,4 +58,4 @@
     </div>
 </div>
 <script src="/js/Page.js"></script>
-<script src="/js/view-ajax.js"></script>
+<script src="/js/view-error.js"></script>

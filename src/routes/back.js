@@ -78,7 +78,6 @@ router.post('/api/slowresources/getSlowResourcesForName',checkHaveSystemId, cont
 // 根据markPage获得页面资源信息
 router.post('/api/sources/getSourcesForMarkPage',checkHaveSystemId, controllers.sources.getSourcesForMarkPage)
 
-
 //----------------------------SYSTEM表--------------------------------------
 router.post('/api/environment/getDataForEnvironment',checkHaveSystemId, controllers.environment.getDataForEnvironment)
 // 根据markPage获取用户系统信息
@@ -89,6 +88,14 @@ router.post('/api/httptest/getHttpResponseData',checkHaveSystemId, controllers.h
 
 //----------------------------webpagetest--------------------------------------
 router.post('/api/webpagetest/getWebHttpResponseData',checkHaveSystemId, controllers.webpagetest.getWebHttpResponseData)
+
+//----------------------------ERROR---------------------------------------------
+router.post('/api/error/getErrorList',checkHaveSystemId, controllers.error.getErrorList)
+// 获得error item list
+router.post('/api/error/getErrorListDetail',checkHaveSystemId, controllers.error.getErrorListDetail)
+// 错误item详情
+router.post('/api/error/getErrorItemDetail',checkHaveSystemId, controllers.error.getErrorItemDetail)
+
 
 module.exports = router
 

@@ -165,6 +165,34 @@ router.get(['/webpagetest'], async(ctx, next) => {
 	}); 
 });
 
+// 错误信息列表
+router.get(['/error'], async(ctx, next) => {
+	let datas = {
+		title:'错误分析',
+	}
+	await ctx.render('error',{
+		datas:datas
+	}); 
+});
+
+// 错误信息详情
+router.get(['/error/detail'], async(ctx, next) => {
+	let datas = {
+		title:'错误分析列表详情',
+	}
+	await ctx.render('errorDetail',{
+		datas:datas
+	}); 
+});
+// 错误信息Item详情
+router.get(['/error/detail/item'], async(ctx, next) => {
+	let datas = {
+		title:'错误分析Item详情',
+	}
+	await ctx.render('errorDetailItem',{
+		datas:datas
+	}); 
+});
 
 
 module.exports = router

@@ -337,21 +337,34 @@ class data {
 
             if(systemItem.isStatisiError === 0){
                 reportDataList.forEach(async item=>{
+                    let newurl      = url.parse(item.data.resourceUrl)
+                    let newName     = ''
+                    if(newurl.protocol) newName=newurl.protocol+'//'
+                    if(newurl.host) newName=newName+newurl.host
+                    if(newurl.pathname) newName=newName+newurl.pathname
+                    let querydata   = newurl.query?querystring.parse(newurl.query):{}
+
                     let datas={
                         useragent:item.a||'',
                         msg:item.msg||'',
                         category:item.data.category||'',
                         pageUrl:item.data.pageUrl||'',
-                        resourceUrl:item.data.resourceUrl||'',
+                        resourceUrl:newName,
+                        querydata:JSON.stringify(querydata),
                         target:item.data.target||'',
                         type:item.data.type||'',
                         status:item.data.status||'',
                         text:item.data.text||'',
                         col:item.data.col||'',
                         line:item.data.line||'',
+                        method:item.method,
+                        fullurl:item.data.resourceUrl,
                         createTime:moment(new Date(item.t)).format('YYYY-MM-DD HH:mm:ss'),
                         systemId:systemItem.id
                     }
+
+                    console.log(datas)
+
                     let sqlstr1 = sql
                         .table('web_error')
                         .data(datas)

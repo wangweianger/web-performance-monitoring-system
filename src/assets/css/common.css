@@ -50,11 +50,11 @@
   z-index: 101; }
   .side .top {
     height: 50px;
-    background: #447ED9;
+    background: #2077ff;
     color: #fff;
     line-height: 50px;
     padding-left: 30px;
-    border-right: solid 1px #447ED9; }
+    border-right: solid 1px #2077ff; }
     .side .top .iconfont {
       font-size: 25px;
       color: #fff;
@@ -73,7 +73,7 @@
         float: left;
         margin: 15px 5px 0 0; }
       .side .side-main li.active a {
-        color: #447ED9; }
+        color: #2077ff; }
       .side .side-main li a {
         display: block;
         width: 100%;
@@ -110,7 +110,7 @@
     width: 280px; }
     .common-title .search button {
       float: left;
-      background: #447ED9;
+      background: #2077ff;
       color: #fff;
       padding: 6px 10px;
       font-size: 12px;
@@ -193,8 +193,8 @@
     margin-right: 20px;
     cursor: pointer; }
     .common_table_nav li.active {
-      color: #447ED9;
-      border-bottom: solid 2px #447ED9; }
+      color: #2077ff;
+      border-bottom: solid 2px #2077ff; }
 
 .common-head-title {
   margin: 20px;
@@ -207,7 +207,7 @@
     margin-bottom: 10px; }
   .common-head-title .button {
     padding: 6px 10px;
-    background: #447ED9;
+    background: #2077ff;
     color: #fff;
     font-size: 14px;
     border-radius: 3px;
@@ -217,3 +217,18 @@
 
 .common-nav a {
   color: #333; }
+
+.common-nav-table {
+  height: 50px;
+  overflow: hidden; }
+  .common-nav-table li {
+    padding: 6px 12px;
+    display: inline-block;
+    font-size: 12px;
+    background: #ddd;
+    border: solid 1px #e8e8e8;
+    border-radius: 50px;
+    cursor: pointer; }
+    .common-nav-table li.active {
+      background: #2077ff;
+      color: #fff; }

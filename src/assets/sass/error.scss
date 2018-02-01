@@ -1,0 +1,26 @@
+.common-block-style{
+    background:#fff;
+    padding:20px;
+    border-radius:3px;
+    .h1{
+        font-size:18px;
+        margin-bottom:25px;
+        padding-bottom:10px;
+        border-bottom:solid 1px #eee;
+    }
+    .block{
+        margin-bottom:15px;
+        font-size:16px;
+        overflow:hidden;
+        span{
+            display:block;
+            float:left;
+        }
+        .t1{
+            width:120px;
+        }
+        .t2{
+            max-width:1200px;
+        }
+    }
+}

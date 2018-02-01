@@ -1,0 +1,92 @@
+<%- include("./header.html") %>
+<%- include("./side.html") %>
+<!-- 样式 -->
+<link rel="stylesheet" href="/css/error.css">
+<div class="container ajax" id="ajax" v-cloak>
+   <div class="common-title">
+        <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/error/">列表</a>/详情</h1>
+        <div class="search">
+            <span class="reload cursor iconfont">&#xe6ea;</span>
+            <div class="select">
+                <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
+                <div class="select-time">
+                    <li class="select_time_active">30分钟</li>
+                    <li>1小时</li>
+                    <li>6小时</li>
+                    <li>12小时</li>
+                    <li>1天</li>
+                    <li>7天</li>
+                    <li>30天</li>
+                    <li>自定义</li>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="table-box common_page_style">
+       <div class="common-block-style" v-if="datas.id+''">
+            <h1 class="h1">错误详细信息</h1>
+            <div class="block">
+                <span class="t1">错误url:</span>
+                <span class="t2">{{datas.resourceUrl}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">错误信息:</span>
+                <span class="t2 red">{{datas.msg}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">浏览器UA:</span>
+                <span class="t2">{{datas.useragent}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">资源类型:</span>
+                <span class="t2">{{datas.category}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">生成时间:</span>
+                <span class="t2">{{datas.createTime|date('/',true)}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">所属URL:</span>
+                <span class="t2">{{datas.pageUrl}}</span>
+            </div>
+            <div class="block" v-if="category=='resource'">
+                <span class="t1">错误资源:</span>
+                <span class="t2">{{datas.target}}</span>
+            </div>
+            <div class="block" v-if="category=='resource'">
+                <span class="t1">错误类型:</span>
+                <span class="t2">{{datas.type}}</span>
+            </div>
+            <div class="block" v-if="category=='ajax'">
+                <span class="t1">状态码:</span>
+                <span class="t2">{{datas.status}}</span>
+            </div>
+            <div class="block" v-if="category=='ajax'">
+                <span class="t1">类型详情:</span>
+                <span class="t2">{{datas.text}}</span>
+            </div>
+            <div class="block" v-if="category=='js'">
+                <span class="t1">错误列:</span>
+                <span class="t2">{{datas.line}}</span>
+            </div>
+            <div class="block" v-if="category=='js'">
+                <span class="t1">错误行:</span>
+                <span class="t2">{{datas.col}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">完整URL:</span>
+                <span class="t2">{{datas.fullurl}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">请求方式:</span>
+                <span class="t2">{{datas.method}}</span>
+            </div>
+            <div class="block">
+                <span class="t1">请求参数:</span>
+                <span class="t2">{{datas.querydata}}</span>
+            </div>
+       </div>
+       <div v-if="!datas.id" class="loading-block"></div>
+    </div>
+</div>
+<script src="/js/view-error-detail-item.js"></script>

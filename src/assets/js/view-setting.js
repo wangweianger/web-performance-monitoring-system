@@ -37,7 +37,7 @@ new Vue({
         // 设置项目是否接收数据
         settingIsUse(){
             var elem = document.querySelector('.js-switch');
-            var init = new Switchery(elem,{ color: '#447ED9'});
+            var init = new Switchery(elem,{ color: '#2077ff'});
             elem.onchange = function() {
                 util.ajax({
                     url:config.baseApi+'api/system/isStatisData',
@@ -86,7 +86,7 @@ new Vue({
                         html.checked = this.systemInfo.isStatisiError==0?true:false;
                         break;
                 }
-                var switchery = new Switchery(html,{ color: '#447ED9'});
+                var switchery = new Switchery(html,{ color: '#2077ff'});
                 html.onchange = ()=> {
                     let value = html.checked?0:1
                     switch(index){
