@@ -14,21 +14,27 @@
 
 .header{
     width:100%;
-    height:60px;
-    line-height:60px;
-    border-bottom:solid 1px #ddd;
+    height:40px;
+    line-height:40px;
+    background:#fff;
     overflow:hidden;
     padding:0 20px;
     position:fixed;
     left:0;
     top:0;
-    background:#273547;
-    z-index:100000;
+    z-index:10000;
     .left{
         img{
-            height:50px;
+            height:25px;
             cursor:pointer;
-            margin-top:5px;
+            margin-top:8px;
+            float:left;
+        }
+        span{
+            font-size:16px;
+            color:#000;
+            line-height:40px;
+            float:left;
         }
     }
     .right{
@@ -36,11 +42,13 @@
             display:inline-block;
             height:15px;
             line-height:15px;
-            margin-top:10px;
-            padding:0 20px;
-            border-right:solid 1px #eee;
+            margin-top:5px;
+            padding:0 10px;
             cursor:pointer;
-            color:#fff;
+            color:#999;
+            a{
+                color:#999;
+            }
             &:last-child{
                 border-right:none;
             }
@@ -49,21 +57,19 @@
 }
 
 .side{
-    width:220px;
+    width:180px;
     background:#f9f9f9;
     height:100%;
     position:fixed;
     left:0;
-    top:60px;
+    top:40px;
     z-index:101;
-
     .top{
         height:50px;
         background:#2077ff;
         color:#fff;
         line-height:50px;
         padding-left:30px;
-        border-right:solid 1px #2077ff;
         .iconfont{
             font-size:25px;
             color:#fff;
@@ -72,17 +78,16 @@
         }
     }
     .side-main{
-        border-right:solid 1px #eee;
         li{
             height:50px;
             line-height:50px;
-            font-size:16px;
+            font-size:12px;
             img{
                 display:inline-block;
-                width:18px;
-                height:18px;
+                width:15px;
+                height:15px;
                 float:left;
-                margin:15px 5px 0 0;
+                margin:17px 5px 0 0;
             }
             &.active{
                 a{
@@ -96,7 +101,15 @@
                 padding-left:30px;
                 color:#333;
                 .iconfont{
-                    margin-right:10px;
+                    color:#999;
+                }
+            }
+            &:hover{
+                a{
+                    color:#2077ff; 
+                    .iconfont{
+                        color:#2077ff;
+                    }
                 }
             }
         }
@@ -112,7 +125,7 @@
 }
 
 .container{
-    margin:60px 0 0 220px;
+    margin:40px 0 0 180px;
 }
 .common-padding{
     padding:0 15px;
@@ -121,7 +134,7 @@
 .common-title{
     height:50px;
     line-height:50px;
-    background:#fff;
+    background:#f9f9f9;
     padding:0 10px;
     h1{
         font-size:14px;

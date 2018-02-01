@@ -57,8 +57,8 @@
                 <td>{{item.isStatisiSystem?'否':'是'}}</td>
                 <td>{{item.isStatisiError?'否':'是'}}</td>
                  <td>
-                    <span class="active">设置</span>
-                    <span class="active">删除</span>
+                    <a href="javascript:" @click="goToSeeting(item)">设置</a>
+                    <!-- <span class="active">删除</span> -->
                     <a href="javascript:" @click="getDetail(item)">详情</a>
                 </td>
             </tr>
