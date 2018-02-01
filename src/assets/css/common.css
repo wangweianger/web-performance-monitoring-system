@@ -129,7 +129,8 @@
       margin-right: 8px; }
     .common-title .search .select {
       float: left;
-      position: relative; }
+      position: relative;
+      cursor: pointer; }
       .common-title .search .select .times {
         height: 30px;
         line-height: 30px;
