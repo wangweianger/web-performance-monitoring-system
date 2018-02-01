@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="/css/ajax.css">
 <div class="container ajax" id="ajax" v-cloak>
    <div class="common-title">
-        <h1>AJAX</h1>
+        <h1 class="common-nav"><a href="/home/">首页</a>/AJAX列表</h1>
         <div class="search">
             <a href="/addSystem"><button class="cursor">+添加应用</button></a>
             <span class="reload cursor iconfont">&#xe6ea;</span>
@@ -23,14 +23,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="ajax-topsel">
-        请求方式：
-        <select v-mode="method">
-            <option value="">选择http请求方式</option>
-            <option value="GET">GET</option>
-            <option value="POST">POST</option>
-        </select>
     </div>
     <div class="table-box common_page_style">
         <div v-if="listdata.length">

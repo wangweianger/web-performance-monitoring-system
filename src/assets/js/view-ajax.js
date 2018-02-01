@@ -13,6 +13,11 @@ new Vue({
         toFixed:window.Filter.toFixed,
         toSize:window.Filter.toSize,
     },
+    watch:{
+        'method':function(val){
+            this.getinit()
+        }
+    },
     mounted(){
         util.showtime();
         this.getinit();
