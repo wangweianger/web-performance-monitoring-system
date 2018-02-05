@@ -119,7 +119,7 @@ var reportDataList = [];
     window.jsErrorReport=jsErrorReport;
 })();
 
-let domain      = 'http://127.0.0.1:18080/'
+let domain      = 'http://127.0.0.1:18088/'
 
 // error错误上报
 jsErrorReport({
@@ -273,9 +273,6 @@ function ReportData(){
     haveAjax    = false
     resource = null
 
-
-    console.log(reportDataList)
-
     // return
     // fetch('http://httpbin.org/ip').then(function(response) { return response.json(); }).then(function(data) {
     //   console.log(data);
@@ -318,7 +315,6 @@ function ReportData(){
             })
             reportDataList=[]
         }
-        return
 
         /*---------------------------------统计用户系统信息---------------------------------*/
         createElement(domain,'reportSystem',appId,'img',{

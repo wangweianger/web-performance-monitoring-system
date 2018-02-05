@@ -77,6 +77,8 @@
       margin: 17px 5px 0 0; }
     .side .side-main li.active a {
       color: #2077ff; }
+      .side .side-main li.active a .iconfont {
+        color: #2077ff; }
     .side .side-main li a {
       display: block;
       width: 100%;

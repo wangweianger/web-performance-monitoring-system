@@ -128,7 +128,7 @@ class user {
                 timestamp:timestamp,
                 random:util.randomString()
             }).paySign;
-            let script = `<script id="web_performance_script" data-appId="${token}" src="${SYSTEM.BASEDOMAIN}js/web_get_datas.js"><\/script>`;
+            let script = `<script id="web_performance_script" data-appId="${token}" src="${SYSTEM.ORIGIN}/js/web_get_datas.js"><\/script>`;
 
             // 插入数据
             let data={

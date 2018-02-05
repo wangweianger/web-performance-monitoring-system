@@ -25,26 +25,29 @@
         </div>
     </div>
     <div class="table-box common_page_style mt20">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="w-400">AJAX URL</th>
-                    <th>请求方式</th>
-                    <th>调用量</th>
-                    <th>相应时间</th>
-                    <th>body数据大小</th>
-                    <th>操作</th>
+        <div v-if="listdata.length">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="w-400">AJAX URL</th>
+                        <th>请求方式</th>
+                        <th>调用量</th>
+                        <th>相应时间</th>
+                        <th>body数据大小</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tr v-for="(item,index) in listdata" :key="index">
+                    <td><a href="javascript:" @click="gotodetail(item)">{{item.name}}</a></td>
+                    <td class="tc">{{item.method}}</td>
+                    <td class="tc">{{item.count}}</td>
+                    <td class="tc red">{{item.duration|toFixed}}</td>
+                    <td class="tc">{{item.decodedBodySize|toSize}}</td>
+                    <td class="tc"><a href="javascript:" @click="gotodetail(item)">查看详情</a></td> 
                 </tr>
-            </thead>
-            <tr v-for="(item,index) in listdata" :key="index">
-                <td><a href="javascript:" @click="gotodetail(item)">{{item.name}}</a></td>
-                <td class="tc">{{item.method}}</td>
-                <td class="tc">{{item.count}}</td>
-                <td class="tc red">{{item.duration|toFixed}}</td>
-                <td class="tc">{{item.decodedBodySize|toSize}}</td>
-                <td class="tc"><a href="javascript:" @click="gotodetail(item)">查看详情</a></td> 
-            </tr>
-        </table>
+            </table>
+        </div>
+        <div v-if="!listdata.length" class="loading-block"></div>
     </div>
     <!--  分页 -->
     <div class="tc common_page_style">

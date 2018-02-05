@@ -62,7 +62,7 @@
                 <tr v-for="(item,index) in listdata" :key="index">
                     <td >{{item.name}}</td>
                     <td class="tc">{{item.method}}</td>
-                    <td class="tc red">{{item.duration}}</td>
+                    <td class="tc red">{{item.duration|toFixed}}</td>
                     <td class="tc">{{item.decodedBodySize|toSize}}</td>
                     <td>{{item.querydata}}</td>
                     <td>{{item.createTime|date('/',true)}}</td>

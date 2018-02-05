@@ -166,10 +166,16 @@ gulp.task('css:minify', function() {
 //replace
 gulp.task('replace:config', function() {
     return gulp.src([buildUrl + '/config.js'])
-        .pipe(replace('http://127.0.0.1:18080', 'http://xxx.com'))
+        .pipe(replace('http://127.0.0.1:18088', 'http://pm.seosiwei.com'))
+        .pipe(replace('172.16.50.158', 'localhost'))
         .pipe(replace(/PASSWORD(.+)?123456'/, "PASSWORD:'root'"))
         .pipe(replace('use(KoaLogger())', ""))
         .pipe(gulp.dest(buildUrl));
+});
+gulp.task('replace:webgetdatas', function() {
+    return gulp.src([buildUrl + '/assets/js/web_get_datas.js'])
+        .pipe(replace('http://127.0.0.1:18088', 'http://pm.seosiwei.com'))
+        .pipe(gulp.dest(buildUrl+'/assets/js/'));
 });
 
 // 压缩html
@@ -197,7 +203,7 @@ gulp.task('vue:back', function() {
 
 
 gulp.task('build', gulpSequence(
-    'clean:dist', 'copy-all','babel', 'concat:js','replace:config',['js:minify', 'css:minify'], 
+    'clean:dist', 'copy-all','babel', 'concat:js','replace:config','replace:webgetdatas',['js:minify', 'css:minify'], 
     ['babel:server:gen','babel:server:con','babel:server:routers','babel:server:tool','babel:server:con:back','babel:server:con:front'],
     'vue:back'
 ));

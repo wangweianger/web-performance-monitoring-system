@@ -16,20 +16,6 @@ const checkfn = controllers.common.checkRequestUrl;
 router.get(['/'], async(ctx, next) => {
 	let datas = {
 		title:'HOME首页',
-		imgBase:SYSTEM.BASEIMG,
-		datas:[{
-			name:'zhang san',
-			age:20,
-		},{
-			name:'li si',
-			age:25,
-		},{
-			name:'wang wu',
-			age:22,
-		},{
-			name:'xiao zhang',
-			age:28,
-		}],
 	}
 
 	await ctx.render('system',{

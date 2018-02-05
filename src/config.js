@@ -3,10 +3,10 @@ import path from 'path'
 // 系统配置
 export let SYSTEM = {
 	//允许调用接口的域名，用来检测防盗链
-	ORIGIN: 'http://127.0.0.1:18080',
+	ORIGIN: 'http://127.0.0.1:18088',
 
 	// HTTP服务器端口号
-	PROT: 18080,
+	PROT: 18088,
 	
 	// 分页条数
 	PAGESIZE: 20,
@@ -21,10 +21,6 @@ export let SYSTEM = {
 		USERNAME:'admin',
 		PASSWORD:'123456789'
 	},
-
-	// 统计脚本跟域名
-	BASEDOMAIN:'http://127.0.0.1:18080/'
-
 }
 
 export let DB = {
