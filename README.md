@@ -37,6 +37,11 @@ pm2启动方式：npm run pm2
 
 ```
 
-
-
+### DEMO图片
+![](https://github.com/wangweianger/web-performance-monitoring-system/tree/master/demo/01.png "")
+![](https://github.com/wangweianger/web-performance-monitoring-system/tree/master/demo/02.png "")
+![](https://github.com/wangweianger/web-performance-monitoring-system/tree/master/demo/03.png "")
+![](https://github.com/wangweianger/web-performance-monitoring-system/tree/master/demo/04.png "")
+![](https://github.com/wangweianger/web-performance-monitoring-system/tree/master/demo/05.png "")
+![](https://github.com/wangweianger/web-performance-monitoring-system/tree/master/demo/06.png "")
 
