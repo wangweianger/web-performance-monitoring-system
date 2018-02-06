@@ -43,8 +43,6 @@ class utilfn {
 		let asyncVal = typeof(json.async) == 'boolean' ? json.async : true;
 		This.showLoading();
 
-		console.log(json.timeout || config.ajaxtimeout)
-
 		//是否有请求超时
 		if (!json.notimeout) {
 			var timeout = setTimeout(function() {
@@ -594,6 +592,23 @@ class utilfn {
         	$('.select-time').hide();
         	$('.times_text').text(this.innerHTML);
         })
+	}
+	// 获得查询时间
+	getSearchTime(){
+		let json={
+			beginTime:'',
+			endTime:''
+		}
+		let selecttimes = util.getStorage('local','userselectTime')||0
+		selecttimes = selecttimes*1
+		if(selecttimes){
+			let endTime 	= new Date().getTime()
+			let beginTime 	= endTime-selecttimes
+			json.beginTime 	= new Date(beginTime).format('yyyy/MM/dd hh:mm:ss')
+			json.endTime 	= new Date(endTime).format('yyyy/MM/dd hh:mm:ss')
+		}
+
+		return json
 	}
 
 }

@@ -9,7 +9,7 @@ new Vue({
             totalNum:0,
             name:util.getQueryString('name'),
             pagesItemData:{},
-            isLoadEnd:false,
+            isLoadend:false,
         }
     },
     filters:{
@@ -45,17 +45,22 @@ new Vue({
             })
         },
         getAjaxListForName(){
+            this.isLoadend=false;
+            let times = util.getSearchTime()
+            let beginTime = times.beginTime 
+            let endTime = times.endTime 
+
             util.ajax({
                 url:config.baseApi+'api/slowresources/getSlowResourcesForName',
                 data:{
                     name:this.name,
                     pageNo:this.pageNo,
                     pageSize:this.pageSize,
-                    beginTime:'',
-                    endTime:'',
+                    beginTime:beginTime,
+                    endTime:endTime,
                 },
                 success:data=>{
-                    this.isLoadEnd=true;
+                    this.isLoadend=true;
                     if(!data.data.datalist&&!data.data.datalist.length)return;
                     this.listdata = data.data.datalist;
                     new Page({

@@ -146,7 +146,7 @@
     }
     .search{
         float:right;
-        width:280px;
+        width:222px;
         button{
             float:left;
             background:#2077ff;
@@ -166,6 +166,7 @@
             position:relative;
             cursor:pointer;
             .times{
+                width: 130px;
                 height:30px;
                 line-height:30px;
                 margin-top:10px;
@@ -178,13 +179,14 @@
                 }
             }
             .select-time{
-                width: 620px;
+                width: 660px;
                 display: none;
                 position: absolute;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
                 border: 1px solid #dedede;
                 right: 0;
                 top: 50px;
+                z-index:100000;
                 background: #fff;
                 padding:15px;
                 li {
@@ -201,6 +203,16 @@
                     &:hover {
                         background:#d1e9ff;
                     }
+                    &.active{
+                        background:#d1e9ff;
+                    }
+                }
+                .btn{
+                    float:none;
+                    padding: .8rem;
+                    margin: 0;
+                    border-radius: 3px;
+                    cursor:pointer;
                 }
                 .select_time_active {
                     background: #458ef9;

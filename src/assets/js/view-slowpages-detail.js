@@ -46,6 +46,11 @@ new Vue({
         },
         // 获得page详情
         getinit(){
+            this.isLoadend=false;
+            let times = util.getSearchTime()
+            let beginTime = times.beginTime 
+            let endTime = times.endTime 
+
             util.ajax({
                 url:config.baseApi+'api/slowpages/getSlowPageItem',
                 data:{
@@ -53,10 +58,11 @@ new Vue({
                     pageSize:this.pageSize,
                     url:this.url,
                     callUrl:this.url,
-                    beginTime:'',
-                    endTime:'',
+                    beginTime:beginTime,
+                    endTime:endTime,
                 },
                 success:data => {
+                    this.isLoadend=true;
                     this.listdata = data.data.datalist
                     new Page({
                          parent: $('#copot-page-pages'),

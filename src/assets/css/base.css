@@ -251,8 +251,8 @@ a:hover {
 @font-face {
   font-family: 'iconfont';
   /* project id 554960 */
-  src: url("//at.alicdn.com/t/font_554960_6hoawiwxuy7dgqfr.eot");
-  src: url("//at.alicdn.com/t/font_554960_6hoawiwxuy7dgqfr.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_554960_6hoawiwxuy7dgqfr.woff") format("woff"), url("//at.alicdn.com/t/font_554960_6hoawiwxuy7dgqfr.ttf") format("truetype"), url("//at.alicdn.com/t/font_554960_6hoawiwxuy7dgqfr.svg#iconfont") format("svg"); }
+  src: url("//at.alicdn.com/t/font_554960_ucm304ru2ryq4cxr.eot");
+  src: url("//at.alicdn.com/t/font_554960_ucm304ru2ryq4cxr.eot?#iefix") format("embedded-opentype"), url("//at.alicdn.com/t/font_554960_ucm304ru2ryq4cxr.woff") format("woff"), url("//at.alicdn.com/t/font_554960_ucm304ru2ryq4cxr.ttf") format("truetype"), url("//at.alicdn.com/t/font_554960_ucm304ru2ryq4cxr.svg#iconfont") format("svg"); }
 
 .iconfont {
   font-family: "iconfont";
@@ -377,7 +377,7 @@ a:hover {
     padding-left: 10px; }
   .common-title .search {
     float: right;
-    width: 280px; }
+    width: 222px; }
     .common-title .search button {
       float: left;
       background: #2077ff;
@@ -395,6 +395,7 @@ a:hover {
       position: relative;
       cursor: pointer; }
       .common-title .search .select .times {
+        width: 130px;
         height: 30px;
         line-height: 30px;
         margin-top: 10px;
@@ -405,13 +406,14 @@ a:hover {
           color: #999;
           margin: 0 5px; }
       .common-title .search .select .select-time {
-        width: 620px;
+        width: 660px;
         display: none;
         position: absolute;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
         border: 1px solid #dedede;
         right: 0;
         top: 50px;
+        z-index: 100000;
         background: #fff;
         padding: 15px; }
         .common-title .search .select .select-time li {
@@ -427,6 +429,14 @@ a:hover {
           border-radius: 5px; }
           .common-title .search .select .select-time li:hover {
             background: #d1e9ff; }
+          .common-title .search .select .select-time li.active {
+            background: #d1e9ff; }
+        .common-title .search .select .select-time .btn {
+          float: none;
+          padding: .8rem;
+          margin: 0;
+          border-radius: 3px;
+          cursor: pointer; }
         .common-title .search .select .select-time .select_time_active {
           background: #458ef9;
           color: #fff; }

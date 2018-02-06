@@ -9,6 +9,7 @@ new Vue({
             pageSize:config.pageSize,
             totalNum:0,
             table:0,
+            isLoadend:false
         }
     },
     filters:{
@@ -33,20 +34,25 @@ new Vue({
         },  
     },  
     mounted(){
-        util.showtime();
         this.getinit();
     },
     methods:{
         getinit(){
+            this.isLoadend=false;
+            let times = util.getSearchTime()
+            let beginTime = times.beginTime 
+            let endTime = times.endTime 
+
             util.ajax({
                 url:config.baseApi+'api/error/getErrorList',
                 data:{
                     pageNo:this.pageNo,
                     pageSize:this.pageSize,
-                    beginTime:'',
-                    endTime:'',
+                    beginTime:beginTime,
+                    endTime:endTime,
                 },
                 success:data => {
+                    this.isLoadend=true;
                     if(!data.data.datalist&&!data.data.datalist.length)return;
                     this.listdata = data.data.datalist;
                     this.datalist = data.data.datalist;

@@ -8,17 +8,21 @@ new Vue({
             totalNum:0,
             resourceUrl:util.getQueryString('resourceUrl'),
             category:util.getQueryString('category'),
+            isLoadend:false
         }
     },
     filters:{
         date:window.Filter.date,
     },
     mounted(){
-        util.showtime();
         this.getinit();
     },
     methods:{
         getinit(){
+            this.isLoadend=false;
+            let times = util.getSearchTime()
+            let beginTime = times.beginTime 
+            let endTime = times.endTime 
             util.ajax({
                 url:config.baseApi+'api/error/getErrorListDetail',
                 data:{
@@ -26,10 +30,11 @@ new Vue({
                     resourceUrl:this.resourceUrl,
                     pageNo:this.pageNo,
                     pageSize:this.pageSize,
-                    beginTime:'',
-                    endTime:'',
+                    beginTime:beginTime,
+                    endTime:endTime,
                 },
                 success:data => {
+                    this.isLoadend=true;
                     if(!data.data.datalist&&!data.data.datalist.length)return;
                     this.listdata = data.data.datalist;
                     new Page({

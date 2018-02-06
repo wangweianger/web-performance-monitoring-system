@@ -6,20 +6,7 @@
 <div class="container ajax mb150" id="pagesDetail" v-cloak>
    <div class="common-title">
         <h1 class="common-nav"><a href="/home/">首页</a>/<a href="/pages/">列表</a>/<a href="/pages/detail/">页面性能</a></h1>
-        <div class="search">
-            <span class="reload cursor iconfont">&#xe6ea;</span>
-            <div class="select">
-                <span class="times"><span class="iconfont">&#xe675;</span>最近<span class="times_text">30分钟</span><span class="iconfont">&#xe698;</span></span>
-                <div class="select-time">
-                    <li class="select_time_active">30分钟</li>
-                    <li>1小时</li>
-                    <li>6小时</li>
-                    <li>12小时</li>
-                    <li>1天</li>
-                    <li>3天</li>
-                </div>
-            </div>
-        </div>
+        <commonsearch :done="getinit"></commonsearch>
     </div>
     <!-- 页面平均耗时说明 -->
     <div class="block-time">
@@ -107,12 +94,15 @@
                     </tr>
                 </table>
                 <!--  分页 -->
-                <div class="tc common_page_style">
-                    <div id="copot-page-pages" class="copot-page"></div>
-                </div>
+               
             </div>
-            <div v-show="!listdata.length&&!isLoadEnd" class="loading-block"></div>
-            <div v-show="!listdata.length&&isLoadEnd" class="common-no-data">暂无数据!</div>
+            <div v-if="!isLoadend" class="loading-block"></div>
+            <!--  分页 -->
+            <div class="tc common_page_style" v-show="isLoadend&&listdata.length">
+                <div id="copot-page-pages" class="copot-page"></div>
+            </div>
+            <!-- 暂无数据 -->
+            <div class="tc" v-if="!listdata.length">暂无数据!</div>
         <!-- </div> -->
         <div id="charts-pages" v-show="isShowCharts" class="charts-pages"></div>
     </div>
