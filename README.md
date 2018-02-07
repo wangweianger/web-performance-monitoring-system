@@ -23,7 +23,8 @@
 
 ```
 
-
+### 项目总结
+http://blog.seosiwei.com/detail/19
 
 ##运行方式
 ```js
