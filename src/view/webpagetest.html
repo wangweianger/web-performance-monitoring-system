@@ -98,7 +98,7 @@
                                         <span :style="{width:item.waitwidth+'px',left:item.lefts+'px'}" class="spans"></span>
                                         <label :style="{width:item.timewidth+'px',left:item.lefts+'px'}" class="labels">
                                         </label>
-                                        <i class='fonts' :style="{left:item.lefts+item.timewidth+'px'}">{{item.timings.wait+item.timings.time}}ms</i>
+                                        <i class='fonts' :style="{left:item.lefts+10+'px'}">{{item.timings.wait+item.timings.time}}ms</i>
                                         <div :style="{width:item.lefts+item.timewidth+50+'px',left:item.boxleft+'px'}" class="sourec-list">
                                             <div class="source-absolute" :style="{bottom:item.boxtop+'px'}">
                                                 <p class="source-abso-tit">{{item.requestStartTime}}ms</p>
@@ -145,7 +145,7 @@
                 <div class="sources-botfont">
                     <span>共{{allData.length}}个资源</span>
                     <span>资源共{{bodySizeSize|toSize}}</span>
-                    <label>总耗时：{{pageTotalTime|toSize(true)}}</label>
+                    <label>总耗时：{{pageTotalTime|toFixed(true)}}</label>
                 </div>
                 <li ></li>
             </div> 
