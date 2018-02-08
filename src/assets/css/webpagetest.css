@@ -204,7 +204,10 @@
   display: block;
   font-size: 14px;
   line-height: 30px;
-  overflow: hidden; }
+  overflow: hidden;
+  background: #ccc;
+  padding: 0 10px;
+  font-weight: bold; }
   .sources-botfont span {
     float: left;
     margin-right: 50px; }

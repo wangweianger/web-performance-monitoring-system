@@ -72,8 +72,6 @@ class user {
 
             const title = await page.property('title');
 
-            console.log(JSON.stringify(resources))
-
             await instance.exit();   
 
             var entries = [];

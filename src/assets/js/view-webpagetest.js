@@ -77,6 +77,12 @@ new Vue({
                     screenHeight:this.screenHeight,
                 },
                 success:data=>{
+                    this.pageTotalTime=0
+                    this.pageTotalsize=0
+                    this.responseTotal=0
+                    this.bodySizeSize=0
+                    this.listdata={}
+
                     this.allData= [];
                     this.XHRData= [];
                     this.CSSData= [];
@@ -92,7 +98,12 @@ new Vue({
                     let totalTime = lastReqleft+lastReqright
                     let W1 = lastReqleft/totalTime*this.divwidth;
                     let W2 = lastReqright/totalTime*this.divwidth;
-
+                    this.pageTotalTime = data.data.pages.onLoad
+                    if(data.data.entries&&data.data.entries.length){
+                        let lastres = data.data.entries[data.data.entries.length-1]
+                        this.responseTotal = lastres.requestStartTime+lastres.timings.time+lastres.timings.wait
+                    }
+                    
                     data.data.entries.forEach((i,v) => {
                         i.shows = false;
                         i.parster = '';
@@ -101,8 +112,8 @@ new Vue({
                         i.lefts = i.requestStartTime/lastReqleft*W1;
                         i.boxleft = i.requestStartTime/lastReqleft*W1 > this.divwidth-150 ? this.divwidth-200:i.requestStartTime/lastReqleft*W1;
                         i.boxtop = i.requestStartTime/lastReqleft*W1 > this.divwidth-150 ? '30':'-110';
-                        this.pageTotalTime = this.pageTotalTime+i.timings.time;
-                        this.responseTotal = this.responseTotal+i.timings.wait;
+                        // this.pageTotalTime = this.pageTotalTime+i.timings.time;
+                        // this.responseTotal = this.responseTotal+i.timings.wait;
                         this.bodySizeSize = this.bodySizeSize+i.response.bodySize;
                         
                         let mimeType = i.response.content.mimeType;
