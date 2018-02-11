@@ -30,10 +30,10 @@ http://blog.seosiwei.com/detail/19
 
 项目上传之后，比较受大家的关注，有些朋友不知道如何在本地正确的安装，让项目跑起来,鉴于此我在这里详细的说明项目安装步骤，希望对你有帮助。
 ### 一：安装环境
-node.js v8.0(推荐)
-本项目需要node.js支持async await的语法因此node需要7.3版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
-nvm github官网：https://github.com/creationix/nvm    有详细的安装教程
-linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs开发环境](http://blog.seosiwei.com/detail/3)
+* node.js v8.0(推荐)
+* 本项目需要node.js支持async await的语法因此node需要7.3版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
+* nvm github官网：https://github.com/creationix/nvm    有详细的安装教程
+* linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs开发环境](http://blog.seosiwei.com/detail/3)
 
 ### 二：项目数据库为mysql，你需要在本地安装mysql,版本需要v5.6以上
 * 备注：安装mysql时会给你默认账户、密码，有提示，自己记录下后期项目配置需要
@@ -68,6 +68,9 @@ linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs�
 
 希望对前端性能监控有兴趣的有帮助，同时也希望大家有任何建议请给我反馈，同时我也会不断的更新优化迭代，有兴趣的请持续关注。
 
+## 项目中有频繁的用到我封装的另一个库：node-transform-mysql
+如果你对其api语法不了解可以关注：https://github.com/wangweianger/node-transform-mysql 项目，其中有完善的api文档说明
+
 ## 运行方式
 ```js
 开发环境：npm run dev
@@ -79,8 +82,6 @@ linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs�
 pm2启动方式：npm run pm2
 
 ```
-
-
 
 ### DEMO图片
 ![](https://github.com/wangweianger/web-performance-monitoring-system/blob/master/demo/01.png "")
