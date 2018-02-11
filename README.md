@@ -57,7 +57,6 @@ http://blog.seosiwei.com/detail/19
 * 2.src/config.js 中的 七牛云根路径配置和用户邮箱配置暂时未用上，可以不管理，后期项目开发邮件预警的时候会用上
 * 3.项目打包时配置 也就是gulpfile.js 会有config.js的配置替换，如果需要在线上运行，需要去留意
 * 4.如果需要在linux系统上跑起来请参考：[个人博客node.js，mysql 项目阿里云ECS部署完整流程介绍](http://blog.seosiwei.com/detail/6)
-* 5.关于package.json的运行命令说明， dev 是开发模式，build是线上生产模式，server需要先运行bulid命令之后再运行，pm2是使用pm2来管理我们的
 
 ### 关于package.json的运行命令说明 
 * 1.dev 是开发模式，开发运行
