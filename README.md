@@ -26,6 +26,45 @@
 ### 项目总结
 http://blog.seosiwei.com/detail/19
 
+### 项目详细安装说明
+项目上传之后，比较受大家的关注，有些朋友不知道如何在本地正确的安装，让项目跑起来,鉴于此我在这里详细的说明项目安装步骤，希望对你有帮助。
+# 一：安装环境
+node.js v8.0(推荐)
+本项目需要node.js支持async await的语法因此node需要7.3版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
+nvm github官网：https://github.com/creationix/nvm    有详细的安装教程
+linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs开发环境](http://blog.seosiwei.com/detail/3)
+
+# 二：项目数据库为mysql，你需要在本地安装mysql,版本需要v5.6以上
+（备注：安装mysql时会给你默认账户、密码，有提示，自己记录下后期项目配置需要）
+官网下载地址：https://www.mysql.com/downloads/   推荐大家直接百度搜索 mysql下载 关键词下载百度软件中心的mysql
+linux系统的童鞋安装请参考：[阿里云ECS在linux系统下手动安装MySQL5.6](http://blog.seosiwei.com/detail/1)
+安装完mysql之后新建web-performance数据库，默认字符集选择：utf8mb4,默认排序规则选择：utf8mb4_bin,然后导入项目中的web-performance.sql文件
+
+# 三：安装项目依赖
+cnpm install 
+因为项目使用了phantomjs 在安装依赖的时候会去国外下载资源，推荐有vpm的开vpm,没有vpm的就使用淘宝镜像源，或者使用cnpm
+
+# 四：安装完成后配置
+做完以上步骤之后你需要修改下项目的配置文件，即：src/config.js 中的 DB 配置，
+HOST配置填写为 localhost 或者你本地ip地址
+USER 和 PASSWORD 请填写你本地的mysql账户和密码，安装mysql时会给你默认账户、密码，有提示。
+
+如果你已经做完以上4步，请运行 npm run dev,项目应该会正常的跑起来；
+
+# 其他说明：
+1.项目数据库中有一个默认用户账号为：zane 密码：123456
+2.src/config.js 中的 七牛云根路径配置和用户邮箱配置暂时未用上，可以不管理，后期项目开发邮件预警的时候会用上
+3.项目打包时配置 也就是gulpfile.js 会有config.js的配置替换，如果需要在线上运行，需要去留意
+4.如果需要在linux系统上跑起来请参考：[个人博客node.js，mysql 项目阿里云ECS部署完整流程介绍](http://blog.seosiwei.com/detail/6)
+5.关于package.json的运行命令说明， dev 是开发模式，build是线上生产模式，server需要先运行bulid命令之后再运行，pm2是使用pm2来管理我们的
+
+# 关于package.json的运行命令说明 
+1.dev 是开发模式，开发运行
+2.build是线上生产模式,打包时运行
+3.server是开启一个node服务，需要先bulid之后再运行
+4.pm2是使用pm2来守护我们的node.js进程以及记录日志，需要本地安装pm2，linux用户需要当前角色有写入目录日志的权限
+5.test-build此命令是直接本地打包直接发布到服务端，服务端需要有相应的接受脚本，此命令大家用不上
+
 ##运行方式
 ```js
 开发环境：npm run dev
@@ -37,6 +76,8 @@ http://blog.seosiwei.com/detail/19
 pm2启动方式：npm run pm2
 
 ```
+
+
 
 ### DEMO图片
 ![](https://github.com/wangweianger/web-performance-monitoring-system/blob/master/demo/01.png "")
