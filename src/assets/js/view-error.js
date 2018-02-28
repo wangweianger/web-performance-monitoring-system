@@ -24,7 +24,7 @@ new Vue({
         },
         resorucelist:function(){  
             return this.listdata.filter(function(item){  
-                return item.category=='resoruce'
+                return item.category=='resource'
             })
         },
         jslist:function(){  
