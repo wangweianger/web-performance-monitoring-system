@@ -1,4 +1,4 @@
-#web-performance-monitoring-system 前端自动发布系统
+#web-performance-monitoring-system 前端性能监控系统
 
 
 ### 项目采用 koa2+gulp+mysql 搭建的一套后台前端集成模板
