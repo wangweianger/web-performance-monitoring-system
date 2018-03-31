@@ -31,7 +31,7 @@ http://blog.seosiwei.com/detail/19
 项目上传之后，比较受大家的关注，有些朋友不知道如何在本地正确的安装，让项目跑起来,鉴于此我在这里详细的说明项目安装步骤，希望对你有帮助。
 ### 一：安装环境
 * node.js v8.0(推荐)
-* 本项目需要node.js支持async await的语法因此node需要7.3版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
+* 本项目需要node.js支持async await的语法因此node需要7.6版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
 * nvm github官网：https://github.com/creationix/nvm    有详细的安装教程
 * linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs开发环境](http://blog.seosiwei.com/detail/3)
 
