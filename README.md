@@ -34,7 +34,7 @@ http://blog.seosiwei.com/detail/19
 * nvm github官网：https://github.com/creationix/nvm    有详细的安装教程
 * linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs开发环境](http://blog.seosiwei.com/detail/3)
 
-### 二：项目数据库为mysql，你需要在本地安装mysql,版本需要v5.6以上
+### 二：项目数据库为mysql，你需要在本地安装mysql,版本需要v5.6以上 
 * 备注：安装mysql时会给你默认账户、密码，有提示，自己记录下后期项目配置需要
 * 官网下载地址：https://www.mysql.com/downloads/   推荐大家直接百度搜索 mysql下载 关键词下载百度软件中心的mysql
 * linux系统的童鞋安装请参考：[阿里云ECS在linux系统下手动安装MySQL5.6](http://blog.seosiwei.com/detail/1)
@@ -78,7 +78,6 @@ http://blog.seosiwei.com/detail/19
 启动项目：npm run server
 
 pm2启动方式：npm run pm2
-
 ```
 
 ### DEMO图片
