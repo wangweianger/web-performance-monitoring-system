@@ -8,6 +8,9 @@ import render from 'koa-ejs'
 import cookie from 'koa-cookie'
 import session from 'koa-session'
 import koa2Common from 'koa2-common'
+import enforceHttps from 'koa-sslify'
+import http from 'http'
+import https from 'https'
 import {
     SYSTEM
 } from './config'
@@ -17,7 +20,7 @@ import {
 } from './routes'
 
 const app = new Koa()
-const env = process.env.NODE_ENV || 'development'
+const env = process.env.BABEL_ENV || 'development'
 
 // 打印日志
 app.on('error', (err, ctx) => {
@@ -32,6 +35,17 @@ render(app, {
     debug: SYSTEM.DEBUG
 });
  
+// 生产环境启用https
+if(env == 'production'){
+    // Force HTTPS on all page 
+    app.use(enforceHttps())
+
+    let options = {
+      key: fs.readFileSync(path.resolve(__dirname, './assets/cert/214586773670023.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, './assets/cert/214586773670023.pem'))
+    }
+}
+
 app
     .use(cookie())
     .use(session(app))
@@ -63,7 +77,11 @@ app
         })
     })
 
-app.listen(SYSTEM.PROT);
+// app.listen(SYSTEM.PROT);
+
+if(env == 'development') http.createServer(app.callback()).listen(SYSTEM.PROT);
+if(env == 'production')  https.createServer(options, app.callback()).listen(SYSTEM.PROT);
+
 
 console.log(`服务启动了：路径为：127.0.0.1:${SYSTEM.PROT}`)
 

@@ -1,12 +1,18 @@
 import path from 'path'
- 
+let PROT = 18088;
+
+// ORIGIN参数匹配是否是https
+const env = process.env.BABEL_ENV || 'development'
+let ORIGIN = `http://127.0.0.1:${PROT}`
+if(env == 'production') ORIGIN = `https://127.0.0.1:${PROT}`
+
 // 系统配置
 export let SYSTEM = {
 	//允许调用接口的域名，用来检测防盗链
-	ORIGIN: 'http://127.0.0.1:18088',
+	ORIGIN: ORIGIN,
 
 	// HTTP服务器端口号
-	PROT: 18088,
+	PROT: PROT,
 	
 	// 分页条数
 	PAGESIZE: 20,
@@ -22,6 +28,9 @@ export let SYSTEM = {
 		PASSWORD:'123456789'
 	},
 }
+
+
+
 
 export let DB = {
 	// 服务器地址
