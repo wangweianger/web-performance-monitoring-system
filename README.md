@@ -22,6 +22,32 @@
 提供了七牛云上传JDK
 ```
 
+### 新增https部署方式
+https秘钥部署方式参考：[云服务器HTTPS实践，node.js + nginx https实践](https://blog.seosiwei.com/detail/29)
+
+```
+
+如果项目不需要https部署，package.json中需要做如下操作
+build命令 ：IS_HTTPS=FALSE
+server命令：IS_HTTPS=FALSE
+
+```
+
+
+### 使用pm2启动项目方式(推荐第二或第三种方式启动)
+```
+1、 直接启动app.js
+pm2 start -i 2 --name web_performance app.js
+
+2、 使用npm server命令 
+pm2 start -i 2 --name web_performance npm -- run server
+
+3、 使用npm pm2 命令
+npm run pm2
+
+```
+
+
 ### 项目总结
 http://blog.seosiwei.com/detail/19
 
@@ -78,32 +104,6 @@ http://blog.seosiwei.com/detail/19
 启动项目：npm run server
 
 pm2启动方式：npm run pm2
-```
-
-
-### 新增https部署方式
-https秘钥部署方式参考：[云服务器HTTPS实践，node.js + nginx https实践](https://blog.seosiwei.com/detail/29)
-
-```
-
-如果项目不需要https部署，package.json中需要做如下操作
-build命令 ：IS_HTTPS=FALSE
-server命令：IS_HTTPS=FALSE
-
-```
-
-
-### 使用pm2启动项目方式(推荐第二或第三种方式启动)
-```
-1、 直接启动app.js
-pm2 start -i 2 --name web_performance app.js
-
-2、 使用npm server命令 
-pm2 start -i 2 --name web_performance npm -- run server
-
-3、 使用npm pm2 命令
-npm run pm2
-
 ```
 
 ### DEMO图片
