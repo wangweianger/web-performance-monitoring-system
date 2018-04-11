@@ -37,13 +37,14 @@ render(app, {
 });
  
 // 生产环境启用https
+let options = null;
 if(env == 'production'){
     // Force HTTPS on all page 
     app.use(enforceHttps())
 
-    let options = {
-      key: fs.readFileSync(path.resolve(__dirname, './assets/cert/214586773670023.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, './assets/cert/214586773670023.pem'))
+    options = {
+      key: fs.readFileSync(path.resolve(__dirname, './assets/cert/214545337340023.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, './assets/cert/214545337340023.pem'))
     }
 }
 

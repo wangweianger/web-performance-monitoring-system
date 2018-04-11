@@ -13,6 +13,7 @@ const clean = require('gulp-clean')
 const browserSync = require("browser-sync").create();
 
 let buildUrl = './dist/build'
+const env = process.env.BABEL_ENV || 'production'
 
 /*---------------------------------------------dev------------------------------------------------------------------*/
 gulp.task('nodemon', function() {
@@ -164,9 +165,12 @@ gulp.task('css:minify', function() {
 });
 
 //replace
+let originurl = 'http://pm.seosiwei.com'
+if(env=='production') originurl = 'https://pm.seosiwei.com'
+
 gulp.task('replace:config', function() {
     return gulp.src([buildUrl + '/config.js'])
-        .pipe(replace('http://127.0.0.1:18088', 'http://pm.seosiwei.com'))
+        .pipe(replace('http://127.0.0.1:18088', originurl))
         .pipe(replace('172.16.50.158', 'localhost'))
         .pipe(replace(/PASSWORD(.+)?123456'/, "PASSWORD:'root'"))
         .pipe(replace('use(KoaLogger())', ""))
@@ -174,7 +178,7 @@ gulp.task('replace:config', function() {
 });
 gulp.task('replace:webgetdatas', function() {
     return gulp.src([buildUrl + '/assets/js/web_get_datas.js'])
-        .pipe(replace('http://127.0.0.1:18088', 'http://pm.seosiwei.com'))
+        .pipe(replace('http://127.0.0.1:18088', originurl))
         .pipe(gulp.dest(buildUrl+'/assets/js/'));
 });
 
