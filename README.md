@@ -25,17 +25,15 @@
 ### 新增https部署方式
 https秘钥部署方式参考：[云服务器HTTPS实践，node.js + nginx https实践](https://blog.seosiwei.com/detail/29)
 
-```
-
+```js
 如果项目不需要https部署，package.json中需要做如下操作
 build命令 ：IS_HTTPS=FALSE
 server命令：IS_HTTPS=FALSE
-
 ```
 
 
 ### 使用pm2启动项目方式(推荐第二或第三种方式启动)
-```
+```js
 1、 直接启动app.js
 pm2 start -i 2 --name web_performance app.js
 
