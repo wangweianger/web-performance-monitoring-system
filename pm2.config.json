@@ -3,10 +3,12 @@
     "name"        : "node api",
     "script"      : "./dist/app.js",
     "env": {
-      "NODE_ENV": "development"
+      "NODE_ENV": "development",
+      "IS_HTTPS": "FALSE"
     },
     "env_production" : {
-       "NODE_ENV": "production"
+       "NODE_ENV": "production",
+       "IS_HTTPS": "TRUE"
     },
     "out_file": "./logs/out.log", 
     "error_file": "./logs/error.log", 
