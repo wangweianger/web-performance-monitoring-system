@@ -17,7 +17,7 @@ export let SYSTEM = {
 	PROT: PROT,
 	
 	// 分页条数
-	PAGESIZE: 20,
+	PAGESIZE: 50,
 
 	DEBUG: false,
 

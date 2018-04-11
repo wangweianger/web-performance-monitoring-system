@@ -22,6 +22,6 @@ window.config={
  	containerShowTime:10, 
 
  	//pagesize 分页数量
- 	pageSize:20,
+ 	pageSize:50,
 
 }

@@ -63,6 +63,7 @@ class pages {
                                 count(url) as count
                                 `).table('web_pages')
                             .group('url')
+                            .order('count desc')
                             .page(pageNo,pageSize)
                             .where(data)
                             .select()
