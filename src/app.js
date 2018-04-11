@@ -4,6 +4,7 @@ import serve from 'koa-static'
 import KoaLogger from 'koa-logger'
 import cors from 'koa-cors'
 import path from 'path'
+import fs from 'fs'
 import render from 'koa-ejs'
 import cookie from 'koa-cookie'
 import session from 'koa-session'
@@ -20,7 +21,7 @@ import {
 } from './routes'
 
 const app = new Koa()
-const env = process.env.BABEL_ENV || 'development'
+const env = process.env.BABEL_ENV || 'production'
 
 // 打印日志
 app.on('error', (err, ctx) => {
