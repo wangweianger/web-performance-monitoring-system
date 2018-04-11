@@ -160,6 +160,7 @@ class pages {
             // 请求列表数据
             let sqlstr = sql.field(`name,duration,decodedBodySize,createTime,callUrl,querydata`).table('web_slowresources')
                 .page(pageNo,pageSize)
+                .order('createTime desc')
                 .where(data)
                 .select()
 
