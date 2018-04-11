@@ -111,4 +111,4 @@ pm2启动方式：npm run pm2
 ![](https://github.com/wangweianger/web-performance-monitoring-system/blob/master/demo/04.png "")
 ![](https://github.com/wangweianger/web-performance-monitoring-system/blob/master/demo/05.png "")
 ![](https://github.com/wangweianger/web-performance-monitoring-system/blob/master/demo/06.png "")
-
+![](https://github.com/wangweianger/web-performance-monitoring-system/blob/master/demo/07.png "")
