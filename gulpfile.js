@@ -170,7 +170,7 @@ if(env=='production') originurl = 'https://pm.seosiwei.com'
 
 gulp.task('replace:config', function() {
     return gulp.src([buildUrl + '/config.js'])
-        .pipe(replace('http://127.0.0.1:18088', originurl))
+        .pipe(replace(/ORIGIN(.+)?ORIGIN/, `'ORIGIN':'${originurl}'`))
         .pipe(replace('172.16.50.158', 'localhost'))
         .pipe(replace(/PASSWORD(.+)?123456'/, "PASSWORD:'root'"))
         .pipe(replace('use(KoaLogger())', ""))
