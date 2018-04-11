@@ -83,9 +83,12 @@ pm2启动方式：npm run pm2
 
 ### 新增https部署方式
 https秘钥部署方式参考：[云服务器HTTPS实践，node.js + nginx https实践](https://blog.seosiwei.com/detail/29)
+
 ```
-如果项目不需要https部署，搜索项目的所有
-const env = process.env.BABEL_ENV || 'production'  代码 把 'production'更改为'development'
+
+如果项目不需要https部署
+在项目的package.json 的build命令中 开启：IS_HTTPS=FALSE 即可
+
 ```
 
 ### DEMO图片
