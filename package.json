@@ -17,7 +17,7 @@
   "keywords": [
     "koa2",
     "restful",
-    "zane" 
+    "zane"
   ],
   "author": "zane",
   "license": "ISC",
@@ -79,6 +79,7 @@
   "dependencies": {
     "address": "^1.0.3",
     "externalip": "^1.0.2",
+    "greenlock-express": "^2.0.12",
     "install": "^0.10.2",
     "npm": "^5.6.0",
     "phantom": "^4.0.12",

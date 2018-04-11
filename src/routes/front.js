@@ -180,6 +180,12 @@ router.get(['/error/detail/item'], async(ctx, next) => {
 	}); 
 });
 
+/*-------------------------------------其他相关处理-----------------------------------------------*/
+router.get(['/.well-known/pki-validation/fileauth.txt'], async(ctx, next) => {
+	let string = fs.readFileSync(path.resolve(__dirname, '../assets/other/fileauth.txt')).toString()
+	ctx.body=string
+})
+
 
 module.exports = router
 
