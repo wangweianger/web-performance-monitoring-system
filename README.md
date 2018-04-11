@@ -6,21 +6,20 @@
 
 >  * 实时统计访问页面真实性能分析
 >  * 实时统计页面AJAX性能分析
->  * 实时统计访问页面脚本错误分析
->  * 实时统计页面所有资源加载性能分析
->  * 实时统计慢加载资源追踪
+>  * 实时统计访问页面脚本错误分析 
+>  * 实时统计页面所有资源加载性能分析 
+>  * 实时统计慢加载资源追踪 
 >  * 设置各项阀值，邮件通知，紧急修改维护
 >  * 模拟单个http请求，并给出性能指标，可做接口测试
 >  * 检查线上网页性能，给出详细性能指标
 
 ### 项目说明
 ```html
-项目使用babel编译
+项目使用babel编译  
 项目通过gulp-nodemon 实时编译刷新node服务
 提供了mysql的封装函数 和案例 （我自己开发使用时做的）
 提供了邮件发送 nodemailer 配置
 提供了七牛云上传JDK
-
 ```
 
 ### 项目总结
@@ -31,11 +30,11 @@ http://blog.seosiwei.com/detail/19
 项目上传之后，比较受大家的关注，有些朋友不知道如何在本地正确的安装，让项目跑起来,鉴于此我在这里详细的说明项目安装步骤，希望对你有帮助。
 ### 一：安装环境
 * node.js v8.0(推荐)
-* 本项目需要node.js支持async await的语法因此node需要7.3版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
+* 本项目需要node.js支持async await的语法因此node需要7.6版本以上，建议使用node.js 8.0版本，推荐大家使用nvm安装node.js
 * nvm github官网：https://github.com/creationix/nvm    有详细的安装教程
 * linux系统的童鞋安装请参考：[LINUX系统安装nvm 快速搭建Nodejs开发环境](http://blog.seosiwei.com/detail/3)
 
-### 二：项目数据库为mysql，你需要在本地安装mysql,版本需要v5.6以上
+### 二：项目数据库为mysql，你需要在本地安装mysql,版本需要v5.6以上 
 * 备注：安装mysql时会给你默认账户、密码，有提示，自己记录下后期项目配置需要
 * 官网下载地址：https://www.mysql.com/downloads/   推荐大家直接百度搜索 mysql下载 关键词下载百度软件中心的mysql
 * linux系统的童鞋安装请参考：[阿里云ECS在linux系统下手动安装MySQL5.6](http://blog.seosiwei.com/detail/1)
@@ -63,7 +62,7 @@ http://blog.seosiwei.com/detail/19
 * 2.build是线上生产模式,打包时运行
 * 3.server是开启一个node服务，需要先bulid之后再运行
 * 4.pm2是使用pm2来守护我们的node.js进程以及记录日志，需要本地安装pm2，linux用户需要当前角色有写入目录日志的权限
-* 5.test-build此命令是直接本地打包直接发布到服务端，服务端需要有相应的接受脚本，此命令大家用不上
+* 5.test-build此命令是直接本地打包直接发布到服务端，服务端需要有相应的接受脚本，此命令大家用不上 
 
 希望对前端性能监控有兴趣的有帮助，同时也希望大家有任何建议请给我反馈，同时我也会不断的更新优化迭代，有兴趣的请持续关注。
 
@@ -79,7 +78,6 @@ http://blog.seosiwei.com/detail/19
 启动项目：npm run server
 
 pm2启动方式：npm run pm2
-
 ```
 
 ### DEMO图片
