@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env BABEL_ENV=development gulp",
-    "build": "cross-env BABEL_ENV=production gulp build",
+    "dev": "cross-env BABEL_ENV=development IS_HTTPS=FALSE gulp",
+    "build": "cross-env BABEL_ENV=production IS_HTTPS=TRUE gulp build",
     "server": "cross-env BABEL_ENV=production node dist/app.js",
     "pm2": "pm2 start pm2.config.json",
     "test-build": "npm run build && node ./build/http.push.tar.gz.js"

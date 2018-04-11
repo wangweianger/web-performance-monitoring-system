@@ -13,7 +13,8 @@ const clean = require('gulp-clean')
 const browserSync = require("browser-sync").create();
 
 let buildUrl = './dist/build'
-const env = process.env.BABEL_ENV || 'production'
+
+const IS_HTTPS = process.env.IS_HTTPS || 'FALSE'
 
 /*---------------------------------------------dev------------------------------------------------------------------*/
 gulp.task('nodemon', function() {
@@ -166,7 +167,7 @@ gulp.task('css:minify', function() {
 
 //replace
 let originurl = 'http://pm.seosiwei.com'
-if(env=='production') originurl = 'https://pm.seosiwei.com'
+if(IS_HTTPS=='TRUE') originurl = 'https://pm.seosiwei.com'
 
 gulp.task('replace:config', function() {
     return gulp.src([buildUrl + '/config.js'])

@@ -21,7 +21,8 @@ import {
 } from './routes'
 
 const app = new Koa()
-const env = process.env.BABEL_ENV || 'production'
+const env = process.env.BABEL_ENV || 'development'
+const IS_HTTPS = process.env.IS_HTTPS || 'FALSE'
 
 // 打印日志
 app.on('error', (err, ctx) => {
@@ -38,7 +39,7 @@ render(app, {
  
 // 生产环境启用https
 let options = null;
-if(env == 'production'){
+if(IS_HTTPS == 'TRUE'){
     // Force HTTPS on all page 
     app.use(enforceHttps())
 
@@ -81,8 +82,8 @@ app
 
 // app.listen(SYSTEM.PROT);
 
-if(env == 'development') http.createServer(app.callback()).listen(SYSTEM.PROT);
-if(env == 'production')  https.createServer(options, app.callback()).listen(SYSTEM.PROT);
+if(IS_HTTPS == 'FALSE') http.createServer(app.callback()).listen(SYSTEM.PROT);
+if(IS_HTTPS == 'TRUE')  https.createServer(options, app.callback()).listen(SYSTEM.PROT);
 
 
 console.log(`服务启动了：路径为：127.0.0.1:${SYSTEM.PROT}`)
