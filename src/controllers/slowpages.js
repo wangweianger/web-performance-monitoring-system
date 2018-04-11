@@ -63,6 +63,7 @@ class pages {
                                 count(url) as count
                                 `).table('web_slowpages')
                             .group('url')
+                            .order('count desc')
                             .page(pageNo,pageSize)
                             .where(data)
                             .select()
@@ -118,6 +119,7 @@ class pages {
             let sqlstr = sql.field(`id,url,loadTime,domTime,resourceTime,whiteTime,analysisDomTime,readyTime,createTime`)
                 .table('web_slowpages')
                 .page(pageNo,pageSize)
+                .order('createTime desc')
                 .where(data)
                 .select()
 

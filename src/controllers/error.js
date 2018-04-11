@@ -35,6 +35,7 @@ class ajax {
             let sqlstr = sql.field(`resourceUrl,msg,category,count(resourceUrl) as count`)
                 .table('web_error')
                 .group('resourceUrl,category,msg')
+                .order('count desc')
                 .page(pageNo,pageSize)
                 .where(data)
                 .select()
@@ -100,6 +101,7 @@ class ajax {
             }
             let sqlstr = sql.field(field)
                 .table('web_error')
+                .order('createTime desc')
                 .page(pageNo,pageSize)
                 .where(data)
                 .select()

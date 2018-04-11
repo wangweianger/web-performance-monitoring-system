@@ -54,6 +54,7 @@ class ajax {
                     count(name) as count
                     `).table('web_ajax')
                 .group('name,method')
+                .order('count desc')
                 .page(pageNo,pageSize)
                 .where(data)
                 .select()
@@ -165,6 +166,7 @@ class ajax {
             let sqlstr = sql
                 .table('web_ajax')
                 .page(pageNo,pageSize)
+                .order('createTime desc')
                 .where(data)
                 .select() 
 

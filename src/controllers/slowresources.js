@@ -55,6 +55,7 @@ class pages {
                     count(name) as count
                     `).table('web_slowresources')
                 .group('name,method')
+                .order('count desc')
                 .page(pageNo,pageSize)
                 .where(data)
                 .select()
@@ -110,6 +111,7 @@ class pages {
             // 请求列表数据
             let sqlstr = sql.field(`name,duration,decodedBodySize,createTime,callUrl`).table('web_slowresources')
                 .page(pageNo,pageSize)
+                .order('createTime desc')
                 .where(data)
                 .select()
 
