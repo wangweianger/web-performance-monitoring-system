@@ -1,18 +1,15 @@
 {
   "apps" : [{
-    "name"        : "node api",
-    "script"      : "./dist/app.js",
+    "name"        : "pm2-name",
+    "script"      : "app.js",
     "env": {
-      "NODE_ENV": "development",
-      "IS_HTTPS": "FALSE"
-    },
-    "env_production" : {
-       "NODE_ENV": "production",
-       "IS_HTTPS": "TRUE"
+      "NODE_ENV": "production",
+      "BABEL_ENV": "BABEL_ENV",
+      "IS_HTTPS": "TRUE"
     },
     "out_file": "./logs/out.log", 
     "error_file": "./logs/error.log", 
-    "instances":1,
+    "instances":2,
     "autorestart": true, 
   }]
 }

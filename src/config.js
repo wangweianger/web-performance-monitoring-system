@@ -2,11 +2,9 @@ import path from 'path'
 let PROT = 18088;
 
 // ORIGIN参数匹配是否是https
-const env = process.env.BABEL_ENV || 'production'
+const IS_HTTPS = process.env.IS_HTTPS || 'FALSE'
 let ORIGIN = `http://127.0.0.1:${PROT}`
-if(env == 'production') ORIGIN = `https://127.0.0.1:${PROT}`
-
-console.log(ORIGIN)
+if(IS_HTTPS == 'TRUE') ORIGIN = `https://127.0.0.1:${PROT}`
 
 // 系统配置
 export let SYSTEM = {
