@@ -31,9 +31,6 @@ export let SYSTEM = {
 	},
 }
 
-
-
-
 export let DB = {
 	// 服务器地址
 	HOST: '172.16.50.158',

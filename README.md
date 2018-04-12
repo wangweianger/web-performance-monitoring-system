@@ -31,7 +31,6 @@ build命令 ：IS_HTTPS=FALSE
 server命令：IS_HTTPS=FALSE
 ```
 
-
 ### 使用pm2启动项目方式(推荐第二或第三种方式启动)
 ```js
 1、 直接启动app.js
@@ -44,7 +43,6 @@ pm2 start -i 2 --name web_performance npm -- run server
 npm run pm2
 
 ```
-
 
 ### 项目总结
 http://blog.seosiwei.com/detail/19
