@@ -47,6 +47,8 @@ npm run pm2
 ### 项目总结
 http://blog.seosiwei.com/detail/19
 
+### 页面性能、资源、错误、ajax，fetch请求上报插件performance-report：https://github.com/wangweianger/web-performance-report
+
 # 项目详细安装说明
 
 项目上传之后，比较受大家的关注，有些朋友不知道如何在本地正确的安装，让项目跑起来,鉴于此我在这里详细的说明项目安装步骤，希望对你有帮助。
