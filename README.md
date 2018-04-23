@@ -15,14 +15,14 @@
 
 ### 项目说明
 ```html
-项目使用babel编译  
+项目使用babel编译   
 项目通过gulp-nodemon 实时编译刷新node服务
 提供了mysql的封装函数 和案例 （我自己开发使用时做的）
 提供了邮件发送 nodemailer 配置
 提供了七牛云上传JDK
 ```
 
-### 新增https部署方式
+### 新增https部署方式 
 https秘钥部署方式参考：[云服务器HTTPS实践，node.js + nginx https实践](https://blog.seosiwei.com/detail/29)
 
 ```js
