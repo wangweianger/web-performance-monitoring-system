@@ -97,12 +97,12 @@ http://blog.seosiwei.com/detail/19
 * 如果你的web服务为nginx，请加上如下配置，用以获取用户的真实ip 
 ```js
 location / {
-	    #获取用户的真实ip
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        #代理的服务 
-        proxy_pass    http://127.0.0.1:18088/;
+    #获取用户的真实ip
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #代理的服务 
+    proxy_pass    http://127.0.0.1:18088/;
 }
 ```
 
