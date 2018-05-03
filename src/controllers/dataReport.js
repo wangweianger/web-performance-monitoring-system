@@ -48,17 +48,15 @@ class data {
             // 用户IP标识
             let userSystemInfo = {}
             if(cookies && cookies.IP){}else{
-                const publicIp = require('public-ip');
                 function getUserIpMsg(){
                     return new Promise(function(resolve, reject) {
-                        publicIp.v4().then(ip => {
-                            userSystemInfo.ip = ip;
-                            axios.get(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`).then(function (response) {
-                                resolve(response.data)
-                            }).catch(function (error) {
-                                console.log(error)
-                                resolve(null)
-                            });
+                        let ip = ctx.get("X-Real-IP") || ctx.get("X-Forwarded-For") || ctx.ip;
+                        userSystemInfo.ip = ip;
+                        axios.get(`http://ip.taobao.com/service/getIpInfo.php?ip=${ip}`).then(function (response) {
+                            resolve(response.data)
+                        }).catch(function (error) {
+                            console.log(error)
+                            resolve(null)
                         });
                     })
                 }
