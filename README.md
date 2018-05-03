@@ -93,6 +93,19 @@ http://blog.seosiwei.com/detail/19
 ## 项目中有频繁的用到我封装的另一个库：node-transform-mysql
 如果你对其api语法不了解可以关注：https://github.com/wangweianger/node-transform-mysql 项目，其中有完善的api文档说明
 
+## 配置nginx反向代理
+* 如果你的web服务为nginx，请加上如下配置，用以获取用户的真实ip
+```js
+location / {
+	    #获取用户的真实ip
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        #代理的服务 
+        proxy_pass    http://127.0.0.1:18088/;
+}
+```
+
 ## 运行方式
 ```js
 开发环境：npm run dev
