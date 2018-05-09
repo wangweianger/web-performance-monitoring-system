@@ -90,8 +90,8 @@ http://blog.seosiwei.com/detail/19
 
 希望对前端性能监控有兴趣的有帮助，同时也希望大家有任何建议请给我反馈，同时我也会不断的更新优化迭代，有兴趣的请持续关注。
 
-## 项目中有频繁的用到我封装的另一个库：node-transform-mysql
-如果你对其api语法不了解可以关注：https://github.com/wangweianger/node-transform-mysql 项目，其中有完善的api文档说明
+## 项目中有频繁的用到我封装的另一个库：mysqls
+如果你对其api语法不了解可以关注：https://github.com/wangweianger/mysqls 项目，其中有完善的api文档说明
 
 ## 配置nginx反向代理
 * 如果你的web服务为nginx，请加上如下配置，用以获取用户的真实ip 
