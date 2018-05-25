@@ -47,7 +47,8 @@ npm run pm2
 ### 项目总结
 http://blog.seosiwei.com/detail/19
 
-### 页面性能、资源、错误、ajax，fetch请求上报插件performance-report：https://github.com/wangweianger/web-performance-report
+### 页面性能、资源、错误、ajax，fetch请求上报SDK performance-report：
+https://github.com/wangweianger/web-performance-report
 
 # 项目详细安装说明
 
