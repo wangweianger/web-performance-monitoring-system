@@ -50,7 +50,7 @@ http://blog.seosiwei.com/detail/19
 ### 页面性能、资源、错误、ajax，fetch请求上报插件performance-report：
 https://github.com/wangweianger/web-performance-report
 
-### 新的性能监控系统 性能更强，代码更强壮，架构更清晰，支持高并发（开发中）
+### 新版本性能监控系统 性能更强，代码更强壮，架构更清晰，支持高并发（开发中）
 https://github.com/wangweianger/egg-mongoose-performance-system
 
 # 项目详细安装说明
