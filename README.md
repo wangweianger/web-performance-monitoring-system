@@ -50,6 +50,9 @@ http://blog.seosiwei.com/detail/19
 ### 页面性能、资源、错误、ajax，fetch请求上报SDK performance-report：
 https://github.com/wangweianger/web-performance-report
 
+### 新的性能监控系统 性能更强，代码更强壮，架构更清晰，支持高并发（开发中）
+https://github.com/wangweianger/egg-mongoose-performance-system
+
 # 项目详细安装说明
 
 项目上传之后，比较受大家的关注，有些朋友不知道如何在本地正确的安装，让项目跑起来,鉴于此我在这里详细的说明项目安装步骤，希望对你有帮助。
