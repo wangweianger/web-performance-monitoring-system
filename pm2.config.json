@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name"        : "pm2-name",
+    "name"        : "pm2-performance",
     "script"      : "app.js",
     "env": {
       "NODE_ENV": "production",
@@ -10,6 +10,6 @@
     "out_file": "./logs/out.log", 
     "error_file": "./logs/error.log", 
     "instances":2,
-    "autorestart": true, 
+    "autorestart": true
   }]
 }
