@@ -31,7 +31,7 @@ export let SYSTEM = {
 
 export let DB = {
 	// 服务器地址
-	HOST: '172.16.50.158',
+	HOST: 'localhost',
 
 	// 数据库端口号     
 	PROT: 3306,
@@ -46,7 +46,16 @@ export let DB = {
 	DATABASE: 'web-performance',
 
 	// 默认"api_"
-	PREFIX: 'web_'
+	PREFIX: 'web_',
+
+	// 是否等待链接
+	WAITFORCONNECTIONS: true,
+
+	// 连接池数量
+	POOLLIMIT: 20,
+
+	// 排队限制数量
+	QUEUELIMIT: 5,
 }
 
 export let NODEMAILER = {

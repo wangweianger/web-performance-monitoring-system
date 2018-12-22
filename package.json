@@ -60,7 +60,7 @@
     "log-util": "^1.2.0",
     "md5": "^2.2.1",
     "moment": "^2.18.1",
-    "mysql2": "^1.2.0",
+    "mysql2": "^1.6.4",
     "node-transform-mysql": "0.0.3",
     "nodemailer": "^4.0.1",
     "public-ip": "^2.4.0",
