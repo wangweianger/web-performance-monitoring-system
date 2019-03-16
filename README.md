@@ -44,10 +44,10 @@ npm run pm2
 
 ```
 
-### 项目总结
+### 开发项目总结及其思考
 http://blog.seosiwei.com/detail/19
 
-### 页面性能、资源、错误、ajax，fetch请求上报插件performance-report：
+### 页面性能、资源、错误、ajax，fetch请求上报插件web-report-sdk：
 https://github.com/wangweianger/web-report-sdk
 
 ### 新版本性能监控系统 性能更强，代码更健全，架构更清晰，支持高并发
